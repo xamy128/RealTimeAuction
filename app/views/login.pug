@@ -1,0 +1,40 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    style
+      include ../../public/stylesheets/style.css
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    
+  body
+    #app
+      // TODO
+      // <link rel="html" href="./modalPartial.html">
+      // <partial name="{{partialId}}"></partial>
+      #loginController.container.bg-page
+        h3.heading-desc.text-center Welcome to Real Time Auction
+        #loginModal.bg-model(role='application')
+          .modal-application.modal-sm.bg-model.text-center
+            .modal-content.bg-modal-body
+              .modal-body.bg-modal-body
+                .row.text-center
+                  form.form-signin.mg-btm
+                    .social-box.btn-group-vertical
+                      .row.mg-btm
+                        .col-md-12.text-center
+                          button.btn.btn-primary.btn-lg.btn-block(v-on:click="submitFacebook")
+                            i.icon-facebook
+                            | Login with Facebook
+                      .row.mg-btm
+                        .col-md-12.text-center
+                          button.btn.btn-primary.btn-lg.btn-block(v-on:click= "submitGoogle")
+                            i.icon-google
+                            | Login with Google
+                    span.clearfix
+    
+    script(src= 'https://code.jquery.com/jquery-3.2.1.min.js')
+    script(src= 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://unpkg.com/vue')
+    script(src="/socket.io/socket.io.js")
+    script(type='module' src= '../controller/loginController.js')
