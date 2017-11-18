@@ -21,7 +21,6 @@
     "passport-facebook": "^2.1.1",
     "pug": "^2.0.0-rc.4",
     "serve-favicon": "~2.4.5",
-    "socket.io": "^2.0.4",
-    "vue-socket.io": "^2.1.1-a"
+    "socket.io": "^2.0.4"
   }
 }

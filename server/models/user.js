@@ -3,29 +3,32 @@ var mongoose = require('mongoose');
 let userSchema = mongoose.Schema({
     local: {
         username: String,
-        password: String
-    },
-    facebook: {
-        userid: String,
-        userRole: String,
+        password: String,
         firstName: String,
         lastName: String,
-        userImage: String,
-        email: String,
-        phone: String,
-        password: String,
-        isDeleted: Boolean
-},
-    google: {
-        userRole: String,
-        firstName: String,
-        lastName: String,
-        userImage: String,
-        email: String,
-        phone: String,
-        password: String,
-        isDeleted: Boolean
-}
+        email: String
+    }
+//     facebook: {
+//         userid: String,
+//         userRole: String,
+//         firstName: String,
+//         lastName: String,
+//         userImage: String,
+//         email: String,
+//         phone: String,
+//         password: String,
+//         isDeleted: Boolean
+// },
+//     google: {
+//         userRole: String,
+//         firstName: String,
+//         lastName: String,
+//         userImage: String,
+//         email: String,
+//         phone: String,
+//         password: String,
+//         isDeleted: Boolean
+// }
 });
 
 module.exports = mongoose.model("user", userSchema);

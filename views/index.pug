@@ -1,0 +1,62 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome
+
+  .container
+  .row.centered-form
+    .col-xs-12.col-sm-8.col-md-4.col-sm-offset-2.col-md-offset-4
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title
+            | Please sign up 
+            p (It's free!)
+        .panel-body
+          form(role='form', action='signup', method='POST')
+            .row
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#first_name.form-control.input-sm(type='text', name='first_name', placeholder='First Name')
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#last_name.form-control.input-sm(type='text', name='last_name', placeholder='Last Name')
+            .row
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#email.form-control.input-sm(type='email', name='email', placeholder='Email Address')
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                    #radioBtn.btn-group
+                      a.btn.btn-primary.btn-sm.active(data-toggle='user_role', data-title='Seller') Seller
+                      a.btn.btn-primary.btn-sm.notActive(data-toggle='user_role', data-title='Buyer') Buyer
+            .row
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#password.form-control.input-sm(type='password', name='password', placeholder='Password')
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#password_confirmation.form-control.input-sm(type='password', name='password_confirmation', placeholder='Confirm Password')
+            input.btn.btn-info.btn-block(type='submit', value='Register', action='signup')
+
+
+  //- .container  
+
+  //-   form.form-signin(ng-show="showHide()", action="/", method="get")
+  //-     h2.form-signin-heading Please sign in
+  //-     div.form-group
+  //-       label(for="firstName") First name 
+  //-       input.input-block-level(type="text", name="firstName", placeholder="First name")
+  //-     div.form-group
+  //-       label(for="lastName") Last name  
+  //-       input.input-block-level(type="text", name="lastName", placeholder="Last Name")
+  //-     div.form-group
+  //-       label(for="email") E-mail  
+  //-       input.input-block-level(type="email", name="email", placeholder="Email")
+  //-     button.btn.btn-large.btn-primary(type="submit") Submit
+  //-   button.btn.btn-primary(type="submit", onClick="showHide()") Next
+  //-   script.
+  //-     function showHide(){
+  //-       return false;
+  //-     };
+
