@@ -11,18 +11,18 @@
 //         },
 
 //         SaveFacebookUserData: (user) => {
-//         //     mongoose.connect(dbConnection.url);
-//         //     user.save((err) => {
-//         //        if(err)
-//         //            throw err;
-//         //    });
+//             mongoose.connect(dbConnection.url);
+//             user.save((err) => {
+//                if(err)
+//                    throw err;
+//            });
 //         },
 //         SaveGoogleUserData: (user) => {
-//             // mongoose.connect(dbConnection.url);
-//             // user.save((err) => {
-//             //     if(err)
-//             //         throw err;
-//             // });
+//             mongoose.connect(dbConnection.url);
+//             user.save((err) => {
+//                 if(err)
+//                     throw err;
+//             });
 //         },
     
 //     };

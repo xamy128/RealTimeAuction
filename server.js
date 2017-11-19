@@ -4,6 +4,7 @@ let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
+let mongoose = require('mongoose');
 
 let index = require('./routes/index');
 let users = require('./routes/users');
@@ -11,6 +12,9 @@ let signup = require('./routes/signup');
 let modify = require('./routes/modify');
 let del = require('./routes/delete');
 let wrong = require('./routes/wrong');
+
+let dbConfig = require('./config/db');
+mongoose.connect(dbConfig.url);
 
 let app = express();
 

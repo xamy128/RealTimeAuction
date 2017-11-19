@@ -16,15 +16,15 @@ block content
             .row
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
-                  input#first_name.form-control.input-sm(type='text', name='first_name', value=firstName)
+                  input#first_name.form-control.input-sm(type='text', name='first_name', value=firstName, required='true')
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
-                  input#last_name.form-control.input-sm(type='text', name='last_name', value=lastName)
+                  input#last_name.form-control.input-sm(type='text', name='last_name', value=lastName, required='true')
             .row
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
-                  input#email.form-control.input-sm(type='email', name='email', value=email)
+                  input#email.form-control.input-sm(type='email', name='email', value=email, disabled='')
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
-                    input#user_role.form-control.input-sm(type='text', name='user_role', value=userRole)
+                    input#user_role.form-control.input-sm(type='text', name='user_role', value=userRole, disabled='')
             input.btn.btn-info.btn-block(type='submit', value='Save', formaction='save')
