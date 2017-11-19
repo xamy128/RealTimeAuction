@@ -1,15 +1,17 @@
 extends layout
 
 block content
-  h1= title
-  h3= msg
+  h1.text-center= title
+  h1.text-center
+    span.fa.fa-group
+  h3.text-center= msg
 
   .container
   .row.centered-form
     .col-xs-12.col-sm-8.col-md-4.col-sm-offset-2.col-md-offset-4
       .panel.panel-default
         .panel-heading
-          h3.panel-title
+          h3.text-center.panel-title
             | Please sign up 
             p (It's free!)
         .panel-body
