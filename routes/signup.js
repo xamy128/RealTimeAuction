@@ -26,7 +26,7 @@ router.post('/', function(req, res, next) {
             });
         });
     } else{
-        res.render(path.join(__dirname,'./../views/index.pug'));
+        res.render(path.join(__dirname,'./../views/register.pug'));
     }
     
 });
