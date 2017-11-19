@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
-let connnection = mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds249355.mlab.com:49355/ashishtestapp');
+let mongo = mongoose.connect('mongodb://localhost/test');
+//'mongodb://<dbuser>:<dbpassword>@ds249355.mlab.com:49355/ashishtestapp');
 
-module.export = connnection;
+module.exports = mongo.connection;
+
+
