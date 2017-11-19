@@ -23,12 +23,13 @@ router.post('/', function(req, res, next) {
     if((req.body.first_name && req.body.last_name && req.body.email && req.body.password && req.body.password_confirmation) &&(req.body.password === req.body.password_confirmation)){
         
         let newUser = new user();
-        newUser.local.userName = req.body.email;
-        newUser.local.firstName = req.body.first_name;
-        newUser.local.lastName = req.body.last_name;
-        newUser.local.email = req.body.email;
-        newUser.local.password = req.body.password;
-        newUser.local.isDeleted = false;
+        newUser.userName = req.body.email;
+        newUser.firstName = req.body.first_name;
+        newUser.lastName = req.body.last_name;
+        newUser.email = req.body.email;
+        newUser.password = req.body.password;
+        newUser.userRole = req.body.user_role;
+        newUser.isDeleted = false;
 
         user.findOne({'local.email': req.body.email}, (err,docs) => {
             if(err){

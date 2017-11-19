@@ -29,10 +29,10 @@ block content
                 .form-group
                   label(for="email")
                     small E-mail
-                  input#email.form-control.input-sm(type='email', name='email', value=email, disabled='')
+                  input#email.form-control.input-sm(type='email', name='email', value=email, readonly='readonly')
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
                   label(for="user_role")
                     small User Role
-                    input#user_role.form-control.input-sm(type='text', name='user_role', value=userRole, disabled='')
-            input.btn.btn-info.btn-block(type='submit', value='Save', formaction='save')
+                    input#user_role.form-control.input-sm(type='text', name='user_role', value=userRole, readonly='readonly')
+            input.btn.btn-info.btn-block(type='submit', value='Modify', formaction='modify')

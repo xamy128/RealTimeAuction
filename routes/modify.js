@@ -1,3 +1,4 @@
+
 let express = require('express');
 let bodyParser = require('body-parser');
 let router = express.Router();
@@ -6,17 +7,25 @@ let user = require('./../server/models/user');
 
 /* POST users listing. */
 router.post('/', function(req, res, next) {
-    console.log(req.body.email);
-    user.findOne({'local.email': req.body.email}, (err,docs) => {
+    user.findOne({'email': req.body.email}, (err,docs) => {
         if(err){
             throw err;
         }if(docs){
-            res.render(path.join(__dirname,'./../views/editUser.pug'), { 
-                firstName: docs.local.first_name,
-                lastName: docs.local.last_name,
-                email: docs.local.email,
-                userRole: docs.local.user_role,
-            });
+            docs.firstName = req.body.first_name;
+            docs.lastName = req.body.last_name;
+            docs.save((err, updatedDocs) => {
+                if(err)
+                    throw err;
+                if(updatedDocs){
+                    res.render(path.join(__dirname,'./../views/userProfile.pug'), { 
+                        firstName: docs.firstName,
+                        lastName: docs.lastName,
+                        email: docs.email,
+                        userRole: docs.userRole,
+                    });
+                }else
+                    res.redirect('/*');
+            })            
         }else{
             res.redirect('/*');
         }
