@@ -4,29 +4,48 @@ let router = express.Router();
 let path = require('path');
 let user = require('./../server/models/user');
 
+
 /* POST users listing. */
 router.post('/', function(req, res, next) {
-    if(req.body.first_name && req.body.last_name && req.body.email && req.body.password && req.body.password_confirmation){
+    let saveUser = function(newUser){
+        newUser.save((err) => {
+            if(err)
+                throw err;
+            else
+            res.render(path.join(__dirname,'./../views/userProfile.pug'), { 
+                firstName: req.body.first_name,
+                lastName: req.body.last_name,
+                email: req.body.email ,
+                userRole: req.body.user_role,
+            });
+        });
+    }
+    if((req.body.first_name && req.body.last_name && req.body.email && req.body.password && req.body.password_confirmation) &&(req.body.password === req.body.password_confirmation)){
+        
         let newUser = new user();
         newUser.local.userName = req.body.email;
         newUser.local.firstName = req.body.first_name;
         newUser.local.lastName = req.body.last_name;
         newUser.local.email = req.body.email;
         newUser.local.password = req.body.password;
-    
-        newUser.save((err) => {
-            if(err)
+        newUser.local.isDeleted = false;
+
+        user.findOne({'local.email': req.body.email}, (err,docs) => {
+            if(err){
                 throw err;
-            else
-            res.render(path.join(__dirname,'./../views/userProfile.pug'), { 
-                firstName: req.body.first_name || 'Ashish',
-                lastName: req.body.last_name || 'Kaul',
-                email: req.body.email || 'a@a.com',
-                userRole: req.body.user_role || 'Batman',
-            });
-        });
+            }if(docs){
+                if(docs.local.email === req.body.email){
+                    res.redirect('/?msg=Profile already exists');
+                }else{
+                    saveUser(newUser);
+                }
+            }else{
+                saveUser(newUser);
+            }
+                
+        })        
     } else{
-        res.render(path.join(__dirname,'./../views/register.pug'));
+        res.redirect('/?msg=Password confirmation does not match');
     }
     
 });

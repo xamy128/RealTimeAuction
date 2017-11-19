@@ -16,16 +16,24 @@ block content
             .row
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
+                  label(for="first_name")
+                    small First Name
                   input#first_name.form-control.input-sm(type='text', name='first_name', disabled='', value=firstName)
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
+                  label(for="last_Name")
+                    small Last Name
                   input#last_name.form-control.input-sm(type='text', name='last_name', disabled='', value=lastName)
             .row
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
+                  label(for="email")
+                      small E-mail
                   input#email.form-control.input-sm(type='email', name='email', disabled='', value=email)
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
+                  label(for="user_Role")
+                    small User Role
                     input#user_role.form-control.input-sm(type='text', name='user_role', disabled='', value=userRole)
             input.btn.btn-info.btn-block(type='submit', value='Modify', formaction='modify')
             input.btn.btn-info.btn-block(type='submit', value='Delete', formaction='delete')

@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  p Welcome
+  h3= msg
 
   .container
   .row.centered-form
@@ -27,9 +27,10 @@ block content
                   input#email.form-control.input-sm(type='email', name='email', placeholder='Email Address', required='true')
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
-                    #radioBtn.btn-group
-                      a.btn.btn-primary.btn-sm.active(data-toggle='user_role', data-title='Seller') Seller
-                      a.btn.btn-primary.btn-sm.notActive(data-toggle='user_role', data-title='Buyer') Buyer
+                  #radioBtn.btn-group
+                    a.btn.btn-primary.btn-sm.active(type="radioBtn", data-toggle='user_role', data-title='Seller') Seller
+                    a.btn.btn-primary.btn-sm.notActive(type="radioBtn", data-toggle='user_role', data-title='Buyer') Buyer
+                  input#user_role(type='hidden', name='user_role', value='Seller')
             .row
               .col-xs-6.col-sm-6.col-md-6
                 .form-group
@@ -39,24 +40,12 @@ block content
                   input#password_confirmation.form-control.input-sm(type='password', name='password_confirmation', placeholder='Confirm Password')
             input.btn.btn-info.btn-block(type='submit', value='Register', action='signup')
 
-
-  //- .container  
-
-  //-   form.form-signin(ng-show="showHide()", action="/", method="get")
-  //-     h2.form-signin-heading Please sign in
-  //-     div.form-group
-  //-       label(for="firstName") First name 
-  //-       input.input-block-level(type="text", name="firstName", placeholder="First name")
-  //-     div.form-group
-  //-       label(for="lastName") Last name  
-  //-       input.input-block-level(type="text", name="lastName", placeholder="Last Name")
-  //-     div.form-group
-  //-       label(for="email") E-mail  
-  //-       input.input-block-level(type="email", name="email", placeholder="Email")
-  //-     button.btn.btn-large.btn-primary(type="submit") Submit
-  //-   button.btn.btn-primary(type="submit", onClick="showHide()") Next
-  //-   script.
-  //-     function showHide(){
-  //-       return false;
-  //-     };
-
+  script.
+    $('#radioBtn a').on('click', function(){
+    var sel = $(this).data('title');
+    var tog = $(this).data('toggle');
+    $('#user_role').prop('value',sel);
+    $('#'+tog).prop('value', sel);
+    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+    })
