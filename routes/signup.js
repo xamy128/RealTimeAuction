@@ -31,17 +31,18 @@ router.post('/', function(req, res, next) {
         newUser.userRole = req.body.user_role;
         newUser.isDeleted = false;
 
-        user.findOne({'local.email': req.body.email}, (err,docs) => {
+        user.findOne({'email': req.body.email}, (err,docs) => {
             if(err){
                 throw err;
             }if(docs){
-                if(docs.local.email === req.body.email){
+                console.log(docs.email);
+                if(docs.email === req.body.email){
                     res.redirect('/?msg=Profile already exists');
                 }else{
                     saveUser(newUser);
                 }
             }else{
-                saveUser(newUser);
+                res.redirect('/?msg=SORRY :( We are having some trouble!');
             }
                 
         })        
