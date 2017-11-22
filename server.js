@@ -13,7 +13,6 @@ let modify = require('./routes/modify');
 let del = require('./routes/delete');
 let logout = require('./routes/logout');
 let wrong = require('./routes/wrong');
-let history = require('./routes/history')
 let dbConfig = require('./config/db');
 mongoose.connect(dbConfig.url);
 
@@ -38,7 +37,6 @@ app.use('/signup', signup);
 app.use('/modify', modify);
 app.use('/delete', del);
 app.use('/logout', logout);
-app.user('/history', history);
 app.use('/*', wrong);
 
 // catch 404 and forward to error handler

@@ -33,15 +33,14 @@ router.post('/', function(req, res, next) {
 
         console.log(newUser);
 
-        user.findOne({'email': req.body.email}, (err,docs) => {
-            console.log(docs);
+        user.findOne({'email': req.body.email, 'isDeleted': false}, (err,docs) => {
             if(err){
                 throw err;
             }if(docs){
-                if(docs.email === req.body.email && docs.isDeleted === false){
+                if(docs.email === req.body.email){
                      res.redirect('/?msg=Profile already exists');
                 }else{
-                    //saveUser(newUser);
+                    saveUser(newUser);
                 }
             }else{
                 saveUser(newUser);
