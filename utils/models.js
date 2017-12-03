@@ -22,3 +22,4 @@ let collections={
     product: "product",
     bid: "bid"
 }
+module.export = collections;

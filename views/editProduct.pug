@@ -1,0 +1,81 @@
+extends layout
+
+block content
+    form(method='POST' action='/products/insert' enctype="multipart/form-data" )
+        //this div for left side elements
+        h1 Create Product
+        div(id="div_pro" , class="div_main")
+            div(id="div_left_pro" , class="div_left")
+                div(style="margin-top:10px")
+                    label(for="name") Product Name
+                    input(id='name', type='text', name='name', value=pro.name)
+                br
+                div(style="margin-top:10px")
+                    label(for="desc", style="margin-top:0px") Description
+                    textarea(id='desc' , name='description', style="width:60%;height:35px;", value=pro.description)
+                br
+                div(style="margin-top:10px;position:left")
+                    label(for="amount" ) Start Amount
+                    input(id='amount', type='text', name='amount', value=pro.minPrice)
+                    label(for="amount", style="margin-left:10px" ) €
+                br
+                div(style="margin-top:10px")
+                    label(style="float:left") Date From:
+                    div(class='input-group date' , id='startDate' , style="width:30%;float:left")
+                        input(type='text' class="form-control" , name='bidStartDate', value=pro.bidStartDate, id="bidStartDate")
+                        span(class="input-group-addon")
+                            span(class="glyphicon glyphicon-calendar")
+
+                    label(for="endDate" ,style="float:left; margin-left:35px;width:50px") to
+                    div(class='input-group date' , id='endDate' , style="width:30%;float:left")
+                        input(type='text' class="form-control" , name='bidEndDate', value=pro.bidEndDate, id="bidEndDate")
+                        span(class="input-group-addon")
+                            span(class="glyphicon glyphicon-calendar")
+                br
+                div(id="div_buttons" class="div_buttons")
+                    button(id='btn_save' type='submit' class="btn btn-success") Save
+                    button(id='btn_cancel' class="btn btn-danger") Cancel
+
+            div(id="div_right_pro" class="div_right", style="float:left")
+                div(style="width:300px;height:190px")
+                    img( id="img_pro" , width="300px" , height="300px" src="/images/product.png", class="pro_image" )
+                br
+                div
+                    input(type="file", id="img_file",  name="product" , accept="image/*")
+                br
+
+        script.
+
+                    function readURL(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                $('#img_pro').attr('src', e.target.result);
+                            }
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+
+                    $("#img_file").change(function () {
+                        readURL(this);
+                    });
+
+                    $("#startDate").datetimepicker({
+                        format: 'DD/MM/YYYY HH:mm',
+                        stepping: 15, //will change increments to 15m, default is 1m
+                        minDate: new Date(),
+
+                    });
+                    $("#endDate").datetimepicker({
+                        format: 'DD/MM/YYYY HH:mm',
+                        stepping: 15, //will change increments to 15m, default is 1m
+                        minDate: new Date(),
+
+                    });
+                    tinymce.init({
+                        selector: '#desc',
+
+                    });
+                    $('desc').val()
+
