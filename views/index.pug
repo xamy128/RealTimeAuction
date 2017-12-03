@@ -1,5 +1,40 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
+      a.navbar-brand= "Realtime Auction"
+  .container
+    .row.centered
+      .col-xs-12
+        .jumbotron
+          h3= "Future Products"
+          i.fa.fa-plus-square-o.expand-btn.fa-2x
+          ul
+            each p in future
+              li=p.ProductName
+                img(src=p.ProductImage)
+    .row.centered
+      .col-xs-12
+        .jumbotron
+          h3= "Current Products"
+          i.fa.fa-plus-square-o.expand-btn.fa-2x
+          ul
+            each p in current
+              li=p.ProductName
+                img(src=p.ProductImage)
+    .row.centered
+      .col-xs-12
+        .jumbotron
+          h3= "Past Products"
+          i.fa.fa-plus-square-o.expand-btn.fa-2x
+          ul
+            each p in past
+              li=p.ProductName
+                img(src=p.ProductImage)
+
+  script.
+    $('.expand-btn').on('click', function(){
+        $(this).toggleClass('fa-plus-square-o');
+        $(this).toggleClass('fa-minus-square-o');
+      $(this).next("ul").toggle();
+    });
