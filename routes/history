@@ -1,0 +1,43 @@
+let express = require('express');
+let bodyParser = require('body-parser');
+let router = express.Router();
+let path = require('path');
+let user = require('./../server/models/user');
+
+
+
+/* POST users listing. */
+router.get('/', function(req, res, next) {
+    let userID = '';
+    let userRole = '';
+    res.render(path.join(__dirname,'./../views/history.pug'))
+     //   user.findOne({'email' : req.body.email}, function(err, docs){
+     //   if(err)
+       //     throw err
+     /*   if(docs){
+            userID = docs._id;
+            userRole = docs.userRole;
+        }
+    });
+
+    if(userRole === 'Supplier'){
+        product.findAll({'supplierId' : userID}, function(err, docs){
+            if(err)
+                throw err
+            if(docs){
+                //
+            }
+        })
+    }else {
+        product.findAll({'bidderid' : userID}, function(err, docs){
+            if(err)
+                throw err
+            if(docs){
+                // //
+            }
+        })*/
+    //}
+
+
+});
+module.exports = router;
