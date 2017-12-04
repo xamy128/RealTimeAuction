@@ -1,15 +1,53 @@
 var express = require('express');
-var path = require('path');
-//var app = express();
 var router = express.Router();
+var renderer = require('vue-server-renderer').createRenderer();
+var fs = require('fs');
 
+var productController = require('../controllers/productController')
+var Product = require('../models/product');
+
+
+//var layout = fs.readFileSync('../views/hh.html','utf8');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  //res.render('index', { title: 'Express' });
-  // console.log('I am here!');
-  // console.log(path.join(__dirname, '../views'));
-  res.sendFile(path.join(__dirname, '../views/page.html'));
-  //res.sendFile( 'page.html');
+    let pro = productController.product.getAll();
+    pro.exec(function(err, pro) {
+        if (err)
+            return error
+        else
+
+            res.render('index',{"pro":pro})
+    });
+
 });
- //app.use('/', router);
+
+// delete product
+router.post('/delete', function(req, res, next) {
+    productController.product.deleteProduct(req.body._id);
+    let pro = productController.product.getAll();
+    pro.exec(function(err, pro) {
+        if (err)
+            return error
+        else
+
+            res.render('index',{"pro":pro})
+
+    });
+
+});
+
+
+//get one product
+router.get('/get', function (req, res, next) {
+    let pro = productController.product.getProduct(req);
+    pro.exec(function(err, pro) {
+        if (err)
+            return error;
+        else
+            res.render('index',{"pro":pro})
+    });
+
+});
+
+
 module.exports = router;

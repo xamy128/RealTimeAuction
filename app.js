@@ -4,15 +4,33 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var db = require('./config/db');
+var vue = require('vue');
+var multer = require('multer')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var productRoute = require('./routes/products');
 
 var app = express();
 
+//setting storage
+
+/*const storage = multer.diskStorage({
+   destination: './public/images/',
+    filename: function (req,file,cb) {
+        cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname)); //error, name of file,
+    }
+});
+
+const upload = multer({
+    storage:storage
+}).single('product');
+*/
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,6 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/products', productRoute);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,8 +60,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  //res.render('error');
-  res.sendFile(__dirname + '/views/error.html')
+  res.render('error');
 });
 
 module.exports = app;
