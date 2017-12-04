@@ -3,11 +3,11 @@ const connection = require('../config/db.js');
 const products = require('./products');
 const router = express.Router();
 
-const CallAll = function (cb) {
-    products.Future((futureProductList) => {
-        products.Current((currentProductList) => {
-            products.Past((pastProductList) => {
-                cb(futureProductList, currentProductList, pastProductList);
+const callAll = function (cb) {
+    products.future((FutureProductList) => {
+        products.current((CurrentProductList) => {
+            products.past((PastProductList) => {
+                cb(FutureProductList, CurrentProductList, PastProductList);
             });
         });
     });
@@ -15,11 +15,10 @@ const CallAll = function (cb) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
-    CallAll((futureProductList, currentProductList, pastProductList) => res.render('index', {
-        future: futureProductList,
-        current: currentProductList,
-        past: pastProductList
+    callAll((FutureProductList, CurrentProductList, PastProductList) => res.render('index', {
+        Future: FutureProductList,
+        Current: CurrentProductList,
+        Past: PastProductList
     }));
 });
 

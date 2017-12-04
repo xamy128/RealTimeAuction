@@ -1,11 +1,11 @@
 var express = require('express');
 const productsModel = require('../config/productsModel.js');
 const router = express.Router();
-const productLimit = 20;
+const productLimit = 3;
 
 class Products {
 
-    static All(cb) {
+    static all(cb) {
         productsModel.find({},
             function (err, productList) {
                 if (err) return console.error(err);
@@ -14,12 +14,12 @@ class Products {
             });
     }
 
-    static Future(cb) {
+    static future(cb) {
         productsModel.find({
             BidStartDate: {$gt: new Date()}
         })
             .sort({'BidStartDate': 1})
-            .limit(productlimit)
+            .limit(productLimit)
             .exec((err, productList) => {
                 if (err) return console.error(err);
                 //console.log(user.toString());
@@ -27,12 +27,12 @@ class Products {
             });
     }
 
-    static Past(cb) {
+    static past(cb) {
         productsModel.find({
             BidEndDate: {$lte: new Date()}
         })
             .sort({'BidEndDate': -1})
-            .limit(productlimit)
+            .limit(productLimit)
             .exec((err, productList) => {
                 if (err) return console.error(err);
                 //console.log(user.toString());
@@ -40,13 +40,13 @@ class Products {
             });
     }
 
-    static Current(cb) {
+    static current(cb) {
         productsModel.find({
             BidEndDate: {$gt: new Date()},
             BidStartDate: {$lte: new Date()}
         })
             .sort({'BidEndDate': 1})
-            .limit(productlimit)
+            .limit(productLimit)
             .exec((err, productList) => {
                 if (err) return console.error(err);
                 //console.log(user.toString());
