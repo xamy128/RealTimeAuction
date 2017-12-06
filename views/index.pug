@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  form
+    h1= title
+    p Welcome to #{title}
+    a(href="/products") here
+    input(type="hidden", name="item_id" , value="0", id="hiddenId" )
+    ul(id="myid")
+      each pre,i in pro
+        li
+            #{pre.minPrice}
+            #{pre.id}
+            a(remethod='GET' action='/delete') DELETE
+
+            button(formaction = "/products/get", id='btn_edit' ) EDIT
+            input(type="hidden", name="pro_id" , value=pre.id , id="proIds" )
+
+    script.
+            $("#myid li").click(function () {
+                var id = $(this).prevAll().length;
+                document.getElementById("hiddenId").value = id;
+            });
