@@ -304,3 +304,17 @@ a {
   margin-bottom: 17px;
 }
 
+.bordered {border:1px solid black}
+
+.card {
+  height:220px;
+  overflow:auto
+}
+
+.card img {
+  height:150px
+}
+
+.bottom {
+  vertical-align:bottom
+}

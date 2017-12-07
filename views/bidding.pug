@@ -4,17 +4,21 @@ block content
     .container
         .row
             .col-lg-12.col-sm-6
-                .card.hovercard
-                    .cardheader
-                    .avatar
-                        img(alt='nama', src='http://lorempixel.com/100/100/people/9/')
-                    .info
-                        .title
-                           h1= product.name
-                            h4=product.description
-                        col-lg-3.col-sm-6
-                            .input-group
-                                span.input-group-addon $
-                                span.input-group-addon 0.00
-                                input.form-control(type='text', aria-label='Amount (to the nearest dollar)')
-                            button.btn.btn-primary(type='submit') BID
+                .container
+                    .row
+                        .col-md-8
+                            .col-md-12.card.bordered
+                                .col-md-12.text-center
+                                    h4=product.name
+                                .col-md-4.float-left
+                                    img(src='https://s0.2mdn.net/5164901/1-SciFiOrange_300x250.jpg')
+                                .col-md-8
+                                    h2=product.description
+                                    .row.bottom
+                                        .col-md-6.left
+                                            span.input-group-addon Euro
+                                            span.input-group-addon 0.00
+                                            input.form-control(type='text', aria-label='Amount (to the nearest dollar)')
+                                        .col-md-6.right
+                                            button.btn.btn-success BID
+
