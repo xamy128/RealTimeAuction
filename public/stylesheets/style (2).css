@@ -1,0 +1,62 @@
+body {
+  background-color: #f4511e;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.centered-form{
+  margin-top: 60px;
+}
+
+.centered-form .panel{
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+.bg-dark {
+  background-color: #343a40!important;
+}
+.expand-btn{
+  position: absolute;
+  top:10px;
+  right: 10px;
+}
+.product-box ul{
+  display: none;
+}
+.product-box h3{
+  margin-top: 10px;
+}
+.product-box{
+  position: relative;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+.product-box img {
+  width: 150px;
+  height: 150px;
+}
+.product-box p{
+  padding-top: 10px;
+  margin-bottom: 0px;
+  font-size: 12px;
+}
+
+#login-icon i{
+  color: white;
+  position: absolute;
+  top:4px;
+  right: 10px;
+}

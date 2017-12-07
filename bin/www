@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-var app = require('../server');
-var debug = require('debug')('module-ashish:server');
+var app = require('../app');
+var debug = require('debug')('pm102-real-time-auction:server');
 var http = require('http');
 
 /**
