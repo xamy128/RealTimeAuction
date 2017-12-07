@@ -4,9 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var db = require('./config/db');
+var vue = require('vue');
+var multer = require('multer')
 var index = require('./routes/index');
 var users = require('./routes/users');
-//var products = require('./routes/products');
+var products = require('./routes/products');
 var Login = require('./routes/Login');
 
 
@@ -27,7 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', index);
-//app.use('/products', products);							 
+//app.use('/products', products);
+app.use('/products', productRoute);						 
 app.use('/users', users);
 app.use('/Login', Login);
 
