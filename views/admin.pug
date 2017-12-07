@@ -3,4 +3,20 @@ extends layout
 block content
     h1= title
     p Welcome to #{title}
+    form(action="admin/product/", method="post")
+        label(for="team_name") Enter Product name:
+        input#product_name(type="text", name="name_field", value="name")
+        input(type="submit", value="search")
+    br
+    br
+    form(action="/team_name_url/", method="post")
+        label(for="team_name") Enter Bidder name:
+        input#team_name(type="text", name="name_field", value=" ")
+        input(type="submit", value="search")
+    br
+    br
+    form(action="/team_name_url/", method="post")
+            label(for="team_name") Enter Supplier name:
+            input#team_name(type="text", name="name_field", value="name")
+            input(type="submit", value="search")
     a(href= "admin/products") Products

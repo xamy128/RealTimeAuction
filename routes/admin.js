@@ -16,8 +16,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var Schema = mongoose.Schema;
 
 var ProductSchema = new Schema({
- //   SName: String,
-   // SAge: String
     SupplierId : String,
     UserId : String,
     ProductId : String,
@@ -31,6 +29,21 @@ var ProductSchema = new Schema({
     IsDeleted : String,
     IsBidCompleted : String,
     MaxBidAmount : String
+    // name: String,
+    // description:String,
+    // image: String,
+    // minPrice: Number,
+    // userId: Number,
+    // bidderId: Number,
+    // isActive: Boolean,
+    // isDeleted: Boolean,
+    // isBidComplete: Boolean,
+    // maxBidAmount: Number,
+    // bidStartDate: String,
+    // bidEndDate: String,
+    // createdDate: Date,
+    // modifiedDate: Date,
+    // __v : Number
 
 });
 
@@ -40,19 +53,19 @@ var ProductModel = mongoose.model('ProductModel', ProductSchema);
 
 // Create an instance of model SomeModel
 var Product1Model = new ProductModel({
-    SupplierId : '001',
-    UserId : 'user1',
-    ProductId : 'product1',
-    ProductName : 'shoe',
-    ProductDescription : 'it is a sports shoe',
-    ProductImage : '',
-    ProductMinPrice : '10euro',
-    BidStartDate : '20-11-2017',
-    BidEndDate : '23-11-2017',
-    IsActive : '',
-    IsDeleted : '',
-    IsBidCompleted : 'No',
-    MaxBidAmount : ''
+    // SupplierId : '001',
+    // UserId : 'user1',
+    // ProductId : 'product1',
+    // ProductName : 'shoe',
+    // ProductDescription : 'it is a sports shoe',
+    // ProductImage : '',
+    // ProductMinPrice : '10euro',
+    // BidStartDate : '20-11-2017',
+    // BidEndDate : '23-11-2017',
+    // IsActive : '',
+    // IsDeleted : '',
+    // IsBidCompleted : 'No',
+    // MaxBidAmount : ''
 });
 
 // // Save the new model instance, passing a callback
@@ -67,7 +80,7 @@ var Product1Model = new ProductModel({
 var products = mongoose.model('ProductModel', ProductSchema);
 
 router.get('/', function(req, res, next) {
-    res.render('admin', { title: 'admin page' });
+    res.render('admin', { title: 'Real Time Auction' });
 });
 
 
@@ -80,6 +93,7 @@ router.get('/products', function(req, res, next) {
             console.log('Error while getting products from DB');
         } else {
             console.log('Products are exist');
+            console.log('rows ', rows);
             //2: Pass data to products view (products.pug)
             res.render('products', { title: 'Product page', data: rows });
         };
@@ -91,7 +105,7 @@ router.get('/products', function(req, res, next) {
 router.get('/product', function(req, res, next) {
     //Todo:
     //1: Get id from request
-    var id = req.query.id;
+    var id = req.document.getElementById('product_name').value;;
     console.log("Product Id: ", id);
 
     //2: Get product details from db by using id
@@ -115,11 +129,11 @@ router.get('/DeleteProduct', function(req, res, next) {
     console.log("Product Id: ", id);
 
     //2: Delete product details from db by using id
-    products.remove({_id: id}, function(err, row){
+    products.update({_id: id}, {IsDeleted:"true"}, function(err, row){
         if (err) {
-            console.log('Error while getting a product from DB');
+            console.log('Error while deleting a product from DB');
         } else {
-            console.log('Product is exist');
+            console.log('Product is deleted');
 
             //3: Pass product to view (product.pug)
             products.find({}).exec(function(err, rows) {
