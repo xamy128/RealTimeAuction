@@ -33,24 +33,20 @@ var users = mongoose.model('users', UserSchema);
 var user1 = new users({
     UserName : "admin@auction.com",
     Password: "123",
-    userRole:"Admin",
-    firstName:"",
-    LastName:""
+    userRole:"admin",
+    firstName:"a",
+    LastName:"b"
 });
- user1.save(function (err) {
-     if (err) {
-       console.log("Error while inserting user: ", err);
-     }
-     else
-     {
-         console.log("User saved")
-     }
-     // saved!
- });
-
-
-
-
+//user1.save(function (err) {
+//  if (err) {
+//  console.log("Error while inserting user: ", err);
+//}
+//else
+//{
+//  console.log("User saved")
+//}
+// saved!
+//});
 
 
 
@@ -64,33 +60,41 @@ router.post('/Login', function(req, res, next) {
     //1: Get data from form objects
     var userName = req.body.userName;
     var password = req.body.password;
-
-    console.log('User Name: ',userName);
+    console.log('User Name: ', userName);
     console.log('password: ', password);
     //2: Check if the user exist
-    users.findOne({UserName: userName, Password:password}).exec(function(err, user) {
+    users.findOne({UserName: userName, Password: password}).exec(function (err, user) {
         if (err) {
             console.log('Error while getting a user from DB');
         } else {
             console.log('no error');
-            //console.log('user ', user);
-            if(user){
-                // console.log('user ', user);
-                res.render('index', { title: 'Welcome '+ user.UserName });
+            console.log(user);
+        }
+        //console.log('user ', user);
+        if (user) {
+            if (user.userRole === 'admin') {
+                console.log('admin');
+                res.render('index', {title: 'Welcome ' + user.UserName});
             }
             else {
-                console.log('user does not exist Please Sign Up');
-                res.render('signup');
+                console.log('not admin');
+                res.render('product');
             }
-
-
         }
+
+        //res.render('index', { title: 'Welcome '+ user.UserName });
+        else {
+            console.log('user does not exist Please Sign Up');
+            res.render('signup');
+        }
+
+
     });
-
-    router.post('/SignUp', function(req, res, next) {
-        res.render('index', { title: 'please Sign Up ' });
-    });
-
-
 });
+router.post('/SignUp', function(req, res, next) {
+    res.render('index', { title: 'please Sign Up ' });
+});
+
+
+
 module.exports = router;
