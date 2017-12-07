@@ -15,6 +15,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // Define schema
 var Schema = mongoose.Schema;
 
+//Product
 var ProductSchema = new Schema({
     SupplierId : String,
     UserId : String,
@@ -29,22 +30,17 @@ var ProductSchema = new Schema({
     IsDeleted : String,
     IsBidCompleted : String,
     MaxBidAmount : String
-    // name: String,
-    // description:String,
-    // image: String,
-    // minPrice: Number,
-    // userId: Number,
-    // bidderId: Number,
-    // isActive: Boolean,
-    // isDeleted: Boolean,
-    // isBidComplete: Boolean,
-    // maxBidAmount: Number,
-    // bidStartDate: String,
-    // bidEndDate: String,
-    // createdDate: Date,
-    // modifiedDate: Date,
-    // __v : Number
+});
 
+//User
+var UserSchema = new Schema({
+        username: String,
+        password: String,
+        firstName: String,
+        lastName: String,
+        email: String,
+        userRole: String,
+        isDeleted: Boolean
 });
 
 // Compile model from schema
@@ -68,55 +64,72 @@ var Product1Model = new ProductModel({
     // MaxBidAmount : ''
 });
 
-// // Save the new model instance, passing a callback
-// Product1Model.save(function (err) {
-//     if (err) return handleError(err);
-//     // saved!
-// });
+var UserModel = mongoose.model('UserModel', ProductSchema);
+
+
+// Create an instance of model SomeModel
+var UserModel = new UserModel({
+    username: 'Simil',
+    password: '',
+    firstName: 'Simil',
+    lastName: 'Susan',
+    email: '',
+    userRole: '',
+    isDeleted: false
+});
+
+
+
+// // Save the new model instance, passing a callback UserModel.save(function (err) {
+     if (err) return handleError(err);
+      //saved!
+ });
 
 
 
 
 var products = mongoose.model('ProductModel', ProductSchema);
 
+var user = mongoose.model('UserModel', UserSchema);
+
 router.get('/', function(req, res, next) {
     res.render('admin', { title: 'Real Time Auction' });
 });
 
 
-router.get('/products', function(req, res, next) {
-    //TODO
-    //1: get data from db
-
-    products.find({}).exec(function(err, rows) {
-        if (err) {
-            console.log('Error while getting products from DB');
-        } else {
-            console.log('Products are exist');
-            console.log('rows ', rows);
-            //2: Pass data to products view (products.pug)
-            res.render('products', { title: 'Product page', data: rows });
-        };
-    });
-});
 
 
 
-router.get('/product', function(req, res, next) {
+router.post('/product', function(req, res, next) {
     //Todo:
     //1: Get id from request
-    var id = req.document.getElementById('product_name').value;;
-    console.log("Product Id: ", id);
+    var name = req.body.productName;
+    console.log("Product name: ", name);
 
     //2: Get product details from db by using id
-    products.findOne({_id: id}).exec(function(err, product) {
+    products.findOne({ProductName: name} ).exec(function(err, product) {
         if (err) {
             console.log('Error while getting a product from DB');
         } else {
-            console.log('Product is exist');
+            console.log('Product fetched:', product)
+            //3: Check if the product exists
+            if (!product){
+                console.log('Product is not there');
+                res.render('popup', {title: 'Product does not exist'});
+            }
+            else{
+                //4: Check if product is already removed
+                if ( product.IsDeleted === 'true'  ){
+                    console.log('Product is already deleted');
+                    res.render('popup', {title: 'Product does not exist'});
+                }
+                else{
+                    console.log('Product is exists');
+                    //4: Pass product to view (product.pug)
+                    res.render('product', { title: product.ProductName + ' page', data: product });
+                }
 
-            //3: Pass product to view (product.pug)
-            res.render('product', { title: product.ProductName + ' page', data: product });
+            }
         };
     });
 
@@ -129,22 +142,21 @@ router.get('/DeleteProduct', function(req, res, next) {
     console.log("Product Id: ", id);
 
     //2: Delete product details from db by using id
-    products.update({_id: id}, {IsDeleted:"true"}, function(err, row){
+    products.update({_id: id}, {IsDeleted:'true'}, function(err, row){
         if (err) {
             console.log('Error while deleting a product from DB');
         } else {
             console.log('Product is deleted');
 
             //3: Pass product to view (product.pug)
-            products.find({}).exec(function(err, rows) {
-                if (err) {
-                    console.log('Error while getting products from DB');
-                } else {
-                    console.log('Products are exist');
-                    //2: Pass data to products view (products.pug)
-                    res.render('products', { title: 'Product page', data: rows });
-                };
-            });
+            // products.find({}).exec(function(err, rows) {
+            //     if (err) {
+            //         console.log('Error while getting products from DB');
+            //     } else {
+            //         console.log('Products are exist');
+            //         //2: Pass data to products view (products.pug)
+                    res.render('admin', { title: 'Real Time Auction' });
+            //});
         };}
     )
 });

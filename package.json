@@ -17,6 +17,7 @@
     "pug": "^2.0.0-rc.4",
     "serve-favicon": "~2.4.5",
     "vue": "^2.5.3",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "window-popup": "^1.1.0"
   }
 }
