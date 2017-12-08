@@ -1,0 +1,51 @@
+html
+  head
+  body
+    div
+      .container(style='height: 100%;')
+        .panel.history-tab.upcoming
+          .panel-heading
+            h3 Upcoming
+          .panel-body
+            ul
+              li.bid-item.panel
+                .row
+                  .item-data.col-md-8
+                    p
+                      b Product name:
+                      |  Laptop
+                    p
+                      b Product ID:
+                      |  210210212
+                    p
+                      b Product bid:
+                      |  300$
+                  .item-picture
+                    img(src='product.png', height='80')
+                  span  13:48 
+                  p  Hi I want to sell the product
+                  p  Can I know the specifications 
+                  div
+                    textarea#comment
+                  | 								 Comments:
+                  br
+                  form#form
+                    input#message
+                    input(type='submit')
+                  script(src='http://code.jquery.com/jquery-latest.min.js')
+                  script(src='/socket.io/socket.io.js')
+                  script.
+                    jQuery (function($) {
+                    let socket = io.connect();
+                    let $messageForm = $('#form');
+                    let $messageBox = $('#message');
+                    let $chat = $('#comment');
+                    $messageForm.submit (function (e) {
+                    e.preventDefault ();
+                    socket.emit ('send message', $messageBox.val());
+                    $messageBox.val('');
+                    });
+                    socket.on ('new message', function(data) {
+                    $chat.append (data + "&#13;");
+                    });
+                    });
