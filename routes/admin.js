@@ -27,7 +27,7 @@ var ProductSchema = new Schema({
     BidStartDate : String,
     BidEndDate : String,
     IsActive : String,
-    IsDeleted : String,
+    IsDeleted : Boolean,
     IsBidCompleted : String,
     MaxBidAmount : String
 });
@@ -59,12 +59,12 @@ var Product1Model = new ProductModel({
     // BidStartDate : '20-11-2017',
     // BidEndDate : '23-11-2017',
     // IsActive : '',
-    // IsDeleted : '',
+    // IsDeleted : false,
     // IsBidCompleted : 'No',
     // MaxBidAmount : ''
 });
 
-var UserModel = mongoose.model('UserModel', ProductSchema);
+var UserModel = mongoose.model('UserModel', UserSchema);
 
 
 // Create an instance of model SomeModel
@@ -80,7 +80,8 @@ var UserModel = new UserModel({
 
 
 
-// // Save the new model instance, passing a callback UserModel.save(function (err) {
+// // Save the new model instance, passing a callback
+UserModel.save(function (err) {
      if (err) return handleError(err);
       //saved!
  });
@@ -90,7 +91,9 @@ var UserModel = new UserModel({
 
 var products = mongoose.model('ProductModel', ProductSchema);
 
-var user = mongoose.model('UserModel', UserSchema);
+var users = mongoose.model('UserModel', UserSchema);
+
+//var user = mongoose.model('UserModel', UserSchema);
 
 router.get('/', function(req, res, next) {
     res.render('admin', { title: 'Real Time Auction' });
@@ -102,7 +105,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/product', function(req, res, next) {
     //Todo:
-    //1: Get id from request
+    //1: Get productname from request
     var name = req.body.productName;
     console.log("Product name: ", name);
 
@@ -119,7 +122,7 @@ router.post('/product', function(req, res, next) {
             }
             else{
                 //4: Check if product is already removed
-                if ( product.IsDeleted === 'true'  ){
+                if ( product.IsDeleted === true  ){
                     console.log('Product is already deleted');
                     res.render('popup', {title: 'Product does not exist'});
                 }
@@ -142,26 +145,52 @@ router.get('/DeleteProduct', function(req, res, next) {
     console.log("Product Id: ", id);
 
     //2: Delete product details from db by using id
-    products.update({_id: id}, {IsDeleted:'true'}, function(err, row){
+    products.update({_id: id}, {IsDeleted:true}, function(err, row){
         if (err) {
             console.log('Error while deleting a product from DB');
         } else {
             console.log('Product is deleted');
-
-            //3: Pass product to view (product.pug)
-            // products.find({}).exec(function(err, rows) {
-            //     if (err) {
-            //         console.log('Error while getting products from DB');
-            //     } else {
-            //         console.log('Products are exist');
-            //         //2: Pass data to products view (products.pug)
-                    res.render('admin', { title: 'Real Time Auction' });
+            //3: Return to main page
+            res.render('admin', { title: 'Real Time Auction' });
             //});
         };}
     )
 });
 
+router.get('/user', function(req, res, next) {
+    //Todo:
+    //1: Get username from request
+    var userName = req.body.userName;
+    console.log("Product name: ", userName);
 
+    //2: Get product details from db by using id
+    products.findOne({UserName: userName} ).exec(function(err, user) {
+        if (err) {
+            console.log('Error while getting a user from DB');
+        } else {
+            console.log('User fetched:', user)
+            //3: Check if the product exists
+            if (!user) {
+                console.log('User is not there');
+                res.render('popup', {title: 'User does not exist'});
+            }
+            else {
+                //4: Check if product is already removed
+                if (user.IsDeleted === true) {
+                    console.log('User is already deleted');
+                    res.render('popup', {title: 'User does not exist'});
+                }
+                else {
+                    console.log('User is exists');
+                    //4: Pass product to view (product.pug)
+                    res.render('user', {title: user.UserName + ' page', data: user});
+                }
+
+            }
+        }
+        ;
+    });
+});
 module.exports = router;
 
 
