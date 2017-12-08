@@ -2,7 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var router = express.Router();
 var url = 'mongodb://admin:admin@ds249005.mlab.com:49005/pm102realtimeauction';
-url  = 'mongodb://localhost:27017/RealtimeAuction';
+//url  = 'mongodb://localhost:27017/RealtimeAuction';
 const db = mongoose.connect(url, {
     server: {
         socketOptions: {
