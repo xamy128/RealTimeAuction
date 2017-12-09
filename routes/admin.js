@@ -69,22 +69,22 @@ var UserModel = mongoose.model('UserModel', UserSchema);
 
 // Create an instance of model SomeModel
 var UserModel = new UserModel({
-    username: 'Simil',
-    password: '',
-    firstName: 'Simil',
-    lastName: 'Susan',
-    email: '',
-    userRole: '',
-    isDeleted: false
+    // username: 'Simil',
+    // password: '',
+    // firstName: 'Simil',
+    // lastName: 'Susan',
+    // email: '',
+    // userRole: '',
+    // isDeleted: false
 });
 
 
 
 // // Save the new model instance, passing a callback
-UserModel.save(function (err) {
-     if (err) return handleError(err);
-      //saved!
- });
+// UserModel.save(function (err) {
+//      if (err) return handleError(err);
+//       //saved!
+//  });
 
 
 
@@ -93,7 +93,7 @@ var products = mongoose.model('ProductModel', ProductSchema);
 
 var users = mongoose.model('UserModel', UserSchema);
 
-//var user = mongoose.model('UserModel', UserSchema);
+
 
 router.get('/', function(req, res, next) {
     res.render('admin', { title: 'Real Time Auction' });
@@ -143,13 +143,12 @@ router.get('/DeleteProduct', function(req, res, next) {
     //1: Get id from request
     var id = req.query.id;
     console.log("Product Id: ", id);
-
     //2: Delete product details from db by using id
     products.update({_id: id}, {IsDeleted:true}, function(err, row){
         if (err) {
             console.log('Error while deleting a product from DB');
         } else {
-            console.log('Product is deleted');
+            console.log('Product is deleted:');
             //3: Return to main page
             res.render('admin', { title: 'Real Time Auction' });
             //});
@@ -157,18 +156,19 @@ router.get('/DeleteProduct', function(req, res, next) {
     )
 });
 
-router.get('/user', function(req, res, next) {
+router.post('/user', function(req, res, next) {
     //Todo:
     //1: Get username from request
     var userName = req.body.userName;
     console.log("Product name: ", userName);
 
     //2: Get product details from db by using id
-    products.findOne({UserName: userName} ).exec(function(err, user) {
+    console.log('User fetched:', users);
+    users.findOne({username: userName} ).exec(function(err, user) {
         if (err) {
             console.log('Error while getting a user from DB');
         } else {
-            console.log('User fetched:', user)
+            console.log('User fetched:', user);
             //3: Check if the product exists
             if (!user) {
                 console.log('User is not there');
@@ -176,20 +176,37 @@ router.get('/user', function(req, res, next) {
             }
             else {
                 //4: Check if product is already removed
-                if (user.IsDeleted === true) {
+                if (user.isDeleted === true) {
                     console.log('User is already deleted');
                     res.render('popup', {title: 'User does not exist'});
                 }
                 else {
                     console.log('User is exists');
                     //4: Pass product to view (product.pug)
-                    res.render('user', {title: user.UserName + ' page', data: user});
+                    res.render('user', {title: user.username + ' page', data: user});
                 }
 
             }
-        }
-        ;
+        };
     });
+});
+
+router.get('/DeleteUser', function(req, res, next) {
+    //Todo:
+    //1: Get id from request
+    var id = req.query.id;
+    console.log("User Id: ", id);
+    //2: Delete product details from db by using id
+    users.update({_id: id}, {isDeleted:true}, function(err, row){
+        if (err) {
+            console.log('Error while deleting a user from DB');
+        } else {
+            console.log('User is deleted');
+            //3: Return to main page
+            res.render('admin', { title: 'Real Time Auction' });
+            //});
+        };}
+    )
 });
 module.exports = router;
 

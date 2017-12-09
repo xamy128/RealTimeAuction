@@ -1,8 +1,9 @@
+extends layout
 block content
 
-    h1 #{data.ProductName}
-    div #{data.ProductDescription}
-        div #{data.ProductMinPrice}
+    h1 #{data.firstName}
+    div #{data.lastName}
+        div #{data.userRole}
 
             br
             br
@@ -14,4 +15,7 @@ block content
             br
 
     a(href= "EditUser?id="+data._id)  Edit
+    br
+    br
+    br
     a(href= "/admin") back
