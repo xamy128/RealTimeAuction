@@ -84,17 +84,12 @@ router.post('/Login', function(req, res, next) {
 
         //res.render('index', { title: 'Welcome '+ user.UserName });
         else {
-            console.log('user does not exist Please Sign Up');
             res.render('signup');
         }
 
-
     });
 });
-router.post('/SignUp', function(req, res, next) {
-    res.render('index', { title: 'please Sign Up ' });
-});
-
-
 
 module.exports = router;
+
+// Update the button's color
