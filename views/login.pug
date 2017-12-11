@@ -8,10 +8,13 @@ block content
                 form(method='POST' action='Login')
                     div.form-group
                         label(for='userName') User Name
-                        input.form-control(type='text' id='userName' placeholder='user Name' name='userName')
+                        input.form-control(type='text' id='userName' placeholder='user Name' name='userName' required='true')
                     div.form-group
                         label(for='password') Password
-                        input.form-control(type='password' id='password' placeholder='password' name='password')
+                        input.form-control(type='password' id='password' placeholder='password' name='password' required='true')
                     button.btn.btn-primary(type='submit') Log in
-
+                        form(method='POST' action='signup')
+                            element(onclick='myScript')
                     button.btn.btn-primary(type='submit') Sign Up
+
+
