@@ -103,7 +103,7 @@ router.get('/', function(req, res, next) {
 
 
 
-router.post('/product', function(req, res, next) {
+router.post('/searchProduct', function(req, res, next) {
     //Todo:
     //1: Get productname from request
     var name = req.body.productName;
@@ -124,12 +124,12 @@ router.post('/product', function(req, res, next) {
                 //4: Check if product is already removed
                 if ( product.IsDeleted === true  ){
                     console.log('Product is already deleted');
-                    res.render('popup', {title: 'Product does not exist'});
+                    res.render('popup', {title: 'Product is already deleted'});
                 }
                 else{
                     console.log('Product is exists');
-                    //4: Pass product to view (product.pug)
-                    res.render('product', { title: product.ProductName + ' page', data: product });
+                    //4: Pass product to view (searchProduct.pug)
+                    res.render('searchProduct', { title: product.ProductName + ' page', data: product });
                 }
 
             }
@@ -178,11 +178,11 @@ router.post('/user', function(req, res, next) {
                 //4: Check if product is already removed
                 if (user.isDeleted === true) {
                     console.log('User is already deleted');
-                    res.render('popup', {title: 'User does not exist'});
+                    res.render('popup', {title: 'User is already deleted'});
                 }
                 else {
                     console.log('User is exists');
-                    //4: Pass product to view (product.pug)
+                    //4: Pass product to view (user.pug)
                     res.render('user', {title: user.username + ' page', data: user});
                 }
 
