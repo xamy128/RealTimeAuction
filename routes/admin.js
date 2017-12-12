@@ -27,20 +27,20 @@ var ProductSchema = new Schema({
     BidStartDate : String,
     BidEndDate : String,
     IsActive : String,
-    IsDeleted : String,
+    IsDeleted : Boolean,
     IsBidCompleted : String,
     MaxBidAmount : String
 });
 
 //User
 var UserSchema = new Schema({
-        username: String,
-        password: String,
-        firstName: String,
-        lastName: String,
-        email: String,
-        userRole: String,
-        isDeleted: Boolean
+    username: String,
+    password: String,
+    firstName: String,
+    lastName: String,
+    email: String,
+    userRole: String,
+    isDeleted: Boolean
 });
 
 // Compile model from schema
@@ -59,38 +59,41 @@ var Product1Model = new ProductModel({
     // BidStartDate : '20-11-2017',
     // BidEndDate : '23-11-2017',
     // IsActive : '',
-    // IsDeleted : '',
+    // IsDeleted : false,
     // IsBidCompleted : 'No',
     // MaxBidAmount : ''
 });
 
-var UserModel = mongoose.model('UserModel', ProductSchema);
+var UserModel = mongoose.model('UserModel', UserSchema);
 
 
 // Create an instance of model SomeModel
 var UserModel = new UserModel({
-    username: 'Simil',
-    password: '',
-    firstName: 'Simil',
-    lastName: 'Susan',
-    email: '',
-    userRole: '',
-    isDeleted: false
+    // username: 'Simil',
+    // password: '',
+    // firstName: 'Simil',
+    // lastName: 'Susan',
+    // email: '',
+    // userRole: '',
+    // isDeleted: false
 });
 
 
 
-// // Save the new model instance, passing a callback UserModel.save(function (err) {
-     if (err) return handleError(err);
-      //saved!
- });
+// // Save the new model instance, passing a callback
+// UserModel.save(function (err) {
+//      if (err) return handleError(err);
+//       //saved!
+//  });
 
 
 
 
 var products = mongoose.model('ProductModel', ProductSchema);
 
-var user = mongoose.model('UserModel', UserSchema);
+var users = mongoose.model('UserModel', UserSchema);
+
+
 
 router.get('/', function(req, res, next) {
     res.render('admin', { title: 'Real Time Auction' });
@@ -100,9 +103,9 @@ router.get('/', function(req, res, next) {
 
 
 
-router.post('/product', function(req, res, next) {
+router.post('/searchProduct', function(req, res, next) {
     //Todo:
-    //1: Get id from request
+    //1: Get productname from request
     var name = req.body.productName;
     console.log("Product name: ", name);
 
@@ -119,14 +122,14 @@ router.post('/product', function(req, res, next) {
             }
             else{
                 //4: Check if product is already removed
-                if ( product.IsDeleted === 'true'  ){
+                if ( product.IsDeleted === true  ){
                     console.log('Product is already deleted');
-                    res.render('popup', {title: 'Product does not exist'});
+                    res.render('popup', {title: 'Product is already deleted'});
                 }
                 else{
                     console.log('Product is exists');
-                    //4: Pass product to view (product.pug)
-                    res.render('product', { title: product.ProductName + ' page', data: product });
+                    //4: Pass product to view (searchProduct.pug)
+                    res.render('searchProduct', { title: product.ProductName + ' page', data: product });
                 }
 
             }
@@ -140,28 +143,71 @@ router.get('/DeleteProduct', function(req, res, next) {
     //1: Get id from request
     var id = req.query.id;
     console.log("Product Id: ", id);
-
     //2: Delete product details from db by using id
-    products.update({_id: id}, {IsDeleted:'true'}, function(err, row){
+    products.update({_id: id}, {IsDeleted:true}, function(err, row){
         if (err) {
             console.log('Error while deleting a product from DB');
         } else {
-            console.log('Product is deleted');
-
-            //3: Pass product to view (product.pug)
-            // products.find({}).exec(function(err, rows) {
-            //     if (err) {
-            //         console.log('Error while getting products from DB');
-            //     } else {
-            //         console.log('Products are exist');
-            //         //2: Pass data to products view (products.pug)
-                    res.render('admin', { title: 'Real Time Auction' });
+            console.log('Product is deleted:');
+            //3: Return to main page
+            res.render('admin', { title: 'Real Time Auction' });
             //});
         };}
     )
 });
 
+router.post('/user', function(req, res, next) {
+    //Todo:
+    //1: Get username from request
+    var userName = req.body.userName;
+    console.log("Product name: ", userName);
 
+    //2: Get product details from db by using id
+    console.log('User fetched:', users);
+    users.findOne({username: userName} ).exec(function(err, user) {
+        if (err) {
+            console.log('Error while getting a user from DB');
+        } else {
+            console.log('User fetched:', user);
+            //3: Check if the product exists
+            if (!user) {
+                console.log('User is not there');
+                res.render('popup', {title: 'User does not exist'});
+            }
+            else {
+                //4: Check if product is already removed
+                if (user.isDeleted === true) {
+                    console.log('User is already deleted');
+                    res.render('popup', {title: 'User is already deleted'});
+                }
+                else {
+                    console.log('User is exists');
+                    //4: Pass product to view (user.pug)
+                    res.render('user', {title: user.username + ' page', data: user});
+                }
+
+            }
+        };
+    });
+});
+
+router.get('/DeleteUser', function(req, res, next) {
+    //Todo:
+    //1: Get id from request
+    var id = req.query.id;
+    console.log("User Id: ", id);
+    //2: Delete product details from db by using id
+    users.update({_id: id}, {isDeleted:true}, function(err, row){
+        if (err) {
+            console.log('Error while deleting a user from DB');
+        } else {
+            console.log('User is deleted');
+            //3: Return to main page
+            res.render('admin', { title: 'Real Time Auction' });
+            //});
+        };}
+    )
+});
 module.exports = router;
 
 

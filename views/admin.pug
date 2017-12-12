@@ -3,7 +3,7 @@ extends layout
 block content
     h1= title
     p Welcome to #{title}
-    form(action="/admin/product", method="post")
+    form(action="/admin/searchProduct", method="post")
         label(for="team_name") Enter Product name:
         input#product_name(type="text", name="productName", value=" ")
         input(type="submit", value="search")
