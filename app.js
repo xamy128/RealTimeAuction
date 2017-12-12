@@ -7,10 +7,10 @@ var bodyParser = require('body-parser');
 var db = require('./config/db');
 var vue = require('vue');
 var multer = require('multer')
-var index = require('./routes/index');
+var ind = require('./routes/ind');
 var users = require('./routes/users');
 var products = require('./routes/products');
-var Login = require('./routes/Login');
+var index = require('./routes/index');
 
 
 var app = express();
@@ -29,11 +29,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use('/', index);
+//app.use('/', index);
 //app.use('/products', products);
 app.use('/products', productRoute);						 
 app.use('/users', users);
-app.use('/Login', Login);
+app.use('/index', index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
