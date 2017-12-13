@@ -4,9 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var index = require('./routes/index');
+var ind = require('./routes/ind');
 var users = require('./routes/users');
-var Login = require('./routes/Login');
+var index = require('./routes/index');
 var productR = require('./routes/product');
 var biddingroute = require('./routes/bidding');
 
@@ -27,9 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use('/', index);
+//app.use('/', index);
 app.use('/users', users);
-app.use('/Login', Login);
+app.use('/index', index);
 app.use('/product', productR);
 app.use('/bidding', biddingroute);
 
