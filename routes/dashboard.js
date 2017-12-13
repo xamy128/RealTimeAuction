@@ -1,7 +1,7 @@
 const express = require('express');
 const productsModel = require('../config/productsModel.js');
 const router = express.Router();
-const productLimit = 3;
+const productLimit = 30;
 
 class Products {
 
@@ -16,7 +16,8 @@ class Products {
 
     static future(cb) {
         productsModel.find({
-            BidStartDate: {$gt: new Date()}
+            BidStartDate: {$gt: new Date()},
+            IsDeleted: {$ne: true}
         })
             .sort({'BidStartDate': 1})
             .limit(productLimit)
@@ -29,7 +30,8 @@ class Products {
 
     static past(cb) {
         productsModel.find({
-            BidEndDate: {$lte: new Date()}
+            BidEndDate: {$lte: new Date()},
+            IsDeleted: {$ne: true}
         })
             .sort({'BidEndDate': -1})
             .limit(productLimit)
@@ -43,7 +45,8 @@ class Products {
     static current(cb) {
         productsModel.find({
             BidEndDate: {$gt: new Date()},
-            BidStartDate: {$lte: new Date()}
+            BidStartDate: {$lte: new Date()},
+            IsDeleted: {$ne: true}
         })
             .sort({'BidEndDate': 1})
             .limit(productLimit)
