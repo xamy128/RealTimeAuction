@@ -75,10 +75,18 @@ const callAll = function (cb) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    let isloggedin= true; //todo check user
+    let isSupplier= true; //todo check user
+    if (!isloggedin){
+        res.redirect('/');
+        res.end();
+    }
+
     callAll((FutureProductList, CurrentProductList, PastProductList) => res.render('dashboard', {
         Future: FutureProductList,
         Current: CurrentProductList,
         Past: PastProductList,
+        IsSupplier: isSupplier,
     }));
 });
 
