@@ -59,8 +59,25 @@ a {
   position: absolute;
   top:4px;
   right: 10px;
+  cursor: pointer;
 }
 
 .new-prd-btn {
   margin-top: 30px;
+}
+
+#menu {
+  height: 80px;
+  width: 150px;
+  background-color: white;
+  position: absolute;
+  right: 9px;
+  top: 60px;
+  border-radius: 6px;
+  padding: 10px;
+  list-style: none;
+  display: none;
+}
+#menu li {
+  padding: 5px;
 }

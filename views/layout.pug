@@ -7,4 +7,21 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
   body
+    nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
+      a.navbar-brand= "Realtime Auction"
+      #login-icon
+        i.fa.fa-user-circle-o.fa-3x
+      ul#menu
+        if IsSupplier
+          li
+            a="My Products"
+        else
+          li
+            a="My Bidds"
+        li
+          a="Edit Profile"
     block content
+    script.
+      $('#login-icon').on('click', function () {
+          $('#menu').toggle();
+      });
