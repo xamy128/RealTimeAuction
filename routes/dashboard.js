@@ -1,7 +1,11 @@
-var express = require('express');
+/**
+ * @file fetch product to show in dashboard
+ * @author F. Rahmati
+ */
+const express = require('express');
 const productsModel = require('../config/productsModel.js');
 const router = express.Router();
-const productLimit = 3;
+const productLimit = 30;
 
 class Products {
 
@@ -16,7 +20,8 @@ class Products {
 
     static future(cb) {
         productsModel.find({
-            BidStartDate: {$gt: new Date()}
+            BidStartDate: {$gt: new Date()},
+            IsDeleted: {$ne: true}
         })
             .sort({'BidStartDate': 1})
             .limit(productLimit)
@@ -29,7 +34,8 @@ class Products {
 
     static past(cb) {
         productsModel.find({
-            BidEndDate: {$lte: new Date()}
+            BidEndDate: {$lte: new Date()},
+            IsDeleted: {$ne: true}
         })
             .sort({'BidEndDate': -1})
             .limit(productLimit)
@@ -43,7 +49,8 @@ class Products {
     static current(cb) {
         productsModel.find({
             BidEndDate: {$gt: new Date()},
-            BidStartDate: {$lte: new Date()}
+            BidStartDate: {$lte: new Date()},
+            IsDeleted: {$ne: true}
         })
             .sort({'BidEndDate': 1})
             .limit(productLimit)
@@ -55,4 +62,24 @@ class Products {
     }
 }
 
-module.exports = Products;
+
+const callAll = function (cb) {
+    Products.future((FutureProductList) => {
+        Products.current((CurrentProductList) => {
+            Products.past((PastProductList) => {
+                cb(FutureProductList, CurrentProductList, PastProductList);
+            });
+        });
+    });
+};
+
+/* GET home page. */
+router.get('/', function (req, res, next) {
+    callAll((FutureProductList, CurrentProductList, PastProductList) => res.render('dashboard', {
+        Future: FutureProductList,
+        Current: CurrentProductList,
+        Past: PastProductList,
+    }));
+});
+
+module.exports = router;
