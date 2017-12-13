@@ -1,9 +1,14 @@
+/**
+ * @file connect to db and create product model
+ * @author F. Rahmati
+ */
+
 const mongoose = require('mongoose');
 var connection = require('./db.js');
 
 var productSchema = mongoose.Schema({
     SupplierId : String,
-    UserId : String,
+    BidderId : String,
     ProductId : String,
     ProductName : String,
     ProductDescription : String,

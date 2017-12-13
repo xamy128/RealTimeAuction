@@ -1,3 +1,7 @@
+/**
+ * @file fetch product to show in dashboard
+ * @author F. Rahmati
+ */
 const express = require('express');
 const productsModel = require('../config/productsModel.js');
 const router = express.Router();
