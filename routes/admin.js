@@ -1,3 +1,4 @@
+let path = require('path');
 var express = require('express');
 var mongoose = require('mongoose');
 var router = express.Router();
@@ -156,7 +157,7 @@ router.get('/DeleteProduct', function(req, res, next) {
     )
 });
 
-router.post('/user', function(req, res, next) {
+router.post('/userProfile', function(req, res, next) {
     //Todo:
     //1: Get username from request
     var userName = req.body.userName;
@@ -182,8 +183,13 @@ router.post('/user', function(req, res, next) {
                 }
                 else {
                     console.log('User is exists');
-                    //4: Pass product to view (user.pug)
-                    res.render('user', {title: user.username + ' page', data: user});
+                    //4: Pass product to view (userProfile.pug)
+                    res.render(path.join(__dirname,'./../views/userProfile.pug'), {
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email ,
+                        userRole: user.userRole,
+                    });
                 }
 
             }
@@ -191,13 +197,13 @@ router.post('/user', function(req, res, next) {
     });
 });
 
-router.get('/DeleteUser', function(req, res, next) {
+router.post('/delete', function(req, res, next) {
     //Todo:
     //1: Get id from request
-    var id = req.query.id;
-    console.log("User Id: ", id);
+    var email = req.body.email;
+    console.log("User email: ", email);
     //2: Delete product details from db by using id
-    users.update({_id: id}, {isDeleted:true}, function(err, row){
+    users.update({email: email}, {isDeleted:true}, function(err, row){
         if (err) {
             console.log('Error while deleting a user from DB');
         } else {
