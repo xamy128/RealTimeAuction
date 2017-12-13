@@ -6,10 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var db = require('./config/db');
 var vue = require('vue');
-var multer = require('multer')
+var multer = require('multer');
 var ind = require('./routes/ind');
 var users = require('./routes/users');
-var products = require('./routes/products');
+var dashboard = require('./routes/dashboard');
 var index = require('./routes/index');
 
 
@@ -29,8 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-//app.use('/', index);
-//app.use('/products', products);
+app.use('/dashboard', dashboard);
 app.use('/products', productRoute);						 
 app.use('/users', users);
 app.use('/index', index);

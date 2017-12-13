@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var connection = require('../config/db.js');
+var connection = require('./db.js');
 
 var productSchema = mongoose.Schema({
     SupplierId : String,
