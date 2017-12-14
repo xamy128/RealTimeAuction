@@ -5,13 +5,13 @@ block content
         .row
             .col-md-6.col-md-offset-3
                 h1.display-4.m-b-2 Log In
-                form(method='POST' action='Login')
+                form(method='POST' action='index')
                     div.form-group
                         label(for='userName') User Name
-                        input.form-control(type='text' id='userName' placeholder='user Name' name='userName' required='true')
+                        input.form-control(type='text' id='userName' placeholder='user Name' name='userName')
                     div.form-group
                         label(for='password') Password
-                        input.form-control(type='password' id='password' placeholder='password' name='password' required='true')
+                        input.form-control(type='password' id='password' placeholder='password' name='password')
                     button.btn.btn-primary(type='submit') Log in
-                    form(action='')
-                    input(type='button', value='Sign Up', onclick="register.pug';") //Route to Ashish's page
+                    button.btn.btn-primary(type='submit') SignUp
+

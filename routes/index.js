@@ -31,19 +31,19 @@ var users = mongoose.model('users', UserSchema);
 
 // Create an instance of model SomeModel
 var user1 = new users({
-    UserName : "bidder@auction.com",
-    Password: "bid",
-    userRole:"bidder",
-    firstName:"bid1",
-    LastName:"bid2"
+    UserName : "admin@auction.com",
+    Password: "admin",
+    userRole:"admin",
+    firstName:"admin",
+    LastName:"A"
 });
 //user1.save(function (err) {
-// if (err) {
-// console.log("Error while inserting user: ", err);
+//if (err) {
+//console.log("Error while inserting user: ", err);
 //}
 //else
 //{
-//  console.log("User saved")
+//console.log("User saved")
 //}
 // saved!
 //});
@@ -55,7 +55,7 @@ router.get('/', function(req, res, next) {
     res.render('index');
 });
 
-router.post('/Login', function(req, res, next) {
+router.post('/index', function(req, res, next) {
     //TODO:
     //1: Get data from form objects
     var userName = req.body.userName;
@@ -78,14 +78,13 @@ router.post('/Login', function(req, res, next) {
             }
             else {
                 console.log('not admin');
-                res.render('index(2)'); // route to Roya's Page
+                res.render('dashboard'); // route to Roya's Page
             }
         }
 
         //res.render('index', { title: 'Welcome '+ user.UserName });
         else {
-            alert('user does not exist Please Sign Up');
-            //res.render('register'); // // route to Ashish's Page
+            res.render('signup',{title: 'Do not have an account ? Please Sign up for Free '});
         }
 
 
