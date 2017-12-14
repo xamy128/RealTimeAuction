@@ -15,8 +15,14 @@ block content
           ul.row.list-unstyled
             each p in Future
               li.col-md-3
-                img(src=p.ProductImage)
-                p=p.ProductName
+                a(href="/productPage?pid=" + p.id)
+                  img(src=p.ProductImage)
+                a(href="/productPage?pid=" + p.id)
+                  p=p.ProductName
+                //p Start date is:  #{p.BidStartDate}
+                //p End date is: #{p.BidEndDate}
+                p=p.ProductDescription
+
     .row.centered
       .col-xs-12
         .jumbotron.product-box
@@ -25,8 +31,13 @@ block content
           ul.row.list-unstyled
             each p in Current
               li.col-md-3
-                img(src=p.ProductImage)
-                p=p.ProductName
+                a(href="/productPage?pid=" + p.id)
+                  img(src=p.ProductImage)
+                a(href="/productPage?pid=" + p.id)
+                  p=p.ProductName
+                //p Start date is:  #{p.BidStartDate}
+                //p End date is: #{p.BidEndDate}
+                p=p.ProductDescription
     .row.centered
       .col-xs-12
         .jumbotron.product-box
@@ -35,8 +46,13 @@ block content
           ul.row.list-unstyled
             each p in Past
               li.col-md-3
-                img(src=p.ProductImage)
-                p=p.ProductName
+                a(href="/productPage?pid=" + p.id)
+                  img(src=p.ProductImage)
+                a(href="/productPage?pid=" + p.id)
+                  p=p.ProductName
+                //p Start date is:  #{p.BidStartDate}
+                //p End date is: #{p.BidEndDate}
+                p=p.ProductDescription
 
   script.
     $('.expand-btn').on('click', function(){
