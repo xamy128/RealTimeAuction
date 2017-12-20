@@ -100,6 +100,20 @@ router.get('/', function(req, res, next) {
     res.render('admin', { title: 'Real Time Auction' });
 });
 
+router.get('/GoToDetails', function(req, res, next) {
+    var id  = req.query.id;
+    console.log('Product id ', id);
+    products.findOne({_id: id} ).exec(function(err, product) {
+        if (err) {
+            console.log('Error while getting a product from DB');
+        } else {
+
+            res.render('searchProduct', { title:product.ProductName + ' page', data: product });
+        }
+    });
+
+});
+
 
 
 
@@ -119,18 +133,22 @@ router.post('/searchProduct', function(req, res, next) {
             //3: Check if the product exists
             if (!product){
                 console.log('Product is not there');
-                res.render('popup', {title: 'Product does not exist'});
+               // res.render('popup', {title: 'Product does not exist'});
+                res.send({result: "f", message : "Product does not exist"});
+
             }
             else{
                 //4: Check if product is already removed
                 if ( product.IsDeleted === true  ){
                     console.log('Product is already deleted');
-                    res.render('popup', {title: 'Product is already deleted'});
+                    //res.render('popup', {title: 'Product is already deleted'});
+                    res.send({result: "f", message : "Product is already deleted"});
                 }
                 else{
                     console.log('Product is exists');
                     //4: Pass product to view (searchProduct.pug)
-                    res.render('searchProduct', { title: product.ProductName + ' page', data: product });
+                    //res.render('searchProduct', { title: product.ProductName + ' page', data: product });
+                    res.send({result: "t", message : "Product is exist", ProductName: product.ProductName, Id: product._id });
                 }
 
             }
@@ -174,12 +192,14 @@ router.post('/userProfile', function(req, res, next) {
             if (!user) {
                 console.log('User is not there');
                 res.render('popup', {title: 'User does not exist'});
+                //res.send({result: "f", message : "User does not exist"});
             }
             else {
                 //4: Check if product is already removed
                 if (user.isDeleted === true) {
                     console.log('User is already deleted');
                     res.render('popup', {title: 'User is already deleted'});
+                    //res.send({result: "f", message : 'User is already deleted'});
                 }
                 else {
                     console.log('User is exists');
@@ -197,13 +217,13 @@ router.post('/userProfile', function(req, res, next) {
     });
 });
 
-router.post('/delete', function(req, res, next) {
+router.post('/DeleteUser', function(req, res, next) {
     //Todo:
     //1: Get id from request
     var email = req.body.email;
     console.log("User email: ", email);
     //2: Delete product details from db by using id
-    users.update({email: email}, {isDeleted:true}, function(err, row){
+    users.update({email: req.body.email}, {isDeleted:true}, function(err, row){
         if (err) {
             console.log('Error while deleting a user from DB');
         } else {

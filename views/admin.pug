@@ -3,19 +3,28 @@ extends layout
 block content
     h1= title
     p Welcome to #{title}
-    form(action="/admin/searchProduct", method="post")
-        label(for="team_name") Enter Product name:
-        input#product_name(type="text", name="productName", value=" ")
-        input(type="submit", value="search")
-    br
-    br
-    form(action="/admin/userProfile", method="post")
-        label(for="team_name") Enter Bidder First name:
-        input#team_name(type="text", name="userName", value=" ")
-        input(type="submit", value="search")
-    br
-    br
-    form(action="/admin/userProfile", method="post")
-            label(for="team_name") Enter Supplier First name:
-            input#team_name(type="text", name="userName", value=" ")
-            input(type="submit", value="search")
+    .container
+        center
+            .row
+                .col
+                    |
+                .col
+                    form#searchProduct(action='/admin/searchProduct', method='post')
+                        label(for='team_name') Product name
+                        input#product_name(type='text', name='productName', value=' ')
+                        input(type='submit', value='search')
+                        #result
+                    br
+                    br
+                    form#searchUser(action='/admin/userProfile', method='post')
+                        label(for='team_name') Bidder First name
+                        input#team_name(type='text', name='userName', value=' ')
+                        input(type='submit', value='search')
+                    br
+                    br
+                    form(action='/admin/userProfile', method='post')
+                        label(for='team_name') Supplier First name
+                        input#team_name(type='text', name='userName', value=' ')
+                        input(type='submit', value='search')
+                .col
+                    |

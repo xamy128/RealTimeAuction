@@ -13,30 +13,29 @@ block content
                     h3.text-center.panel-title
                         | Welcome #{firstName}
                         div(style='text-align:center')
-                            //a.text-center.btn.btn-danger.btn-sm(href='/logout') Logout #not required for admin login
+                            a.text-center.btn.btn-danger.btn-sm(href='/logout') Logout
                 .panel-body
-                    form(role='form', method='POST')
+                    form(role='form', action= 'save', method='POST')
                         .row
                             .col-xs-6.col-sm-6.col-md-6
                                 .form-group
                                     label(for="first_name")
                                         small First Name
-                                    input#first_name.form-control.input-sm(type='text', name='first_name', readonly='readonly', value=firstName)
+                                    input#first_name.form-control.input-sm(type='text', name='first_name', value=firstName, required='true')
                             .col-xs-6.col-sm-6.col-md-6
                                 .form-group
-                                    label(for="last_Name")
+                                    label(for="last_name")
                                         small Last Name
-                                    input#last_name.form-control.input-sm(type='text', name='last_name', readonly='readonly', value=lastName)
+                                    input#last_name.form-control.input-sm(type='text', name='last_name', value=lastName, required='true')
                         .row
                             .col-xs-6.col-sm-6.col-md-6
                                 .form-group
                                     label(for="email")
                                         small E-mail
-                                    input#email.form-control.input-sm(type='email', name='email', readonly='readonly', value=email)
+                                    input#email.form-control.input-sm(type='email', name='email', value=email, readonly='readonly')
                             .col-xs-6.col-sm-6.col-md-6
                                 .form-group
-                                    label(for="user_Role")
+                                    label(for="user_role")
                                         small User Role
-                                        input#user_role.form-control.input-sm(type='text', name='user_role', readonly='readonly', value=userRole)
-                        input.btn.btn-info.btn-block(type='submit', value='Edit', formaction='/../users')
-                        input.btn.btn-info.btn-block(type='submit', value='Delete', formaction='DeleteUser')
+                                        input#user_role.form-control.input-sm(type='text', name='user_role', value=userRole, readonly='readonly')
+                        input.btn.btn-info.btn-block(type='submit', value='Save', formaction='modify')
