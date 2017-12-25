@@ -4,14 +4,11 @@ var user = require('./../server/models/user');
 var path = require('path');
 var bodyParser = require('body-parser');
 var service =require('./../config/db');
-//var session = require('client-sessions')
 
 
 
-/* GET home page. */
-var sess;
 router.get('/', function(req, res, next) {
-    res.render('index');
+res.render('index');
 });
 
 router.post('/index', function(req, res, next) {
@@ -30,32 +27,33 @@ router.post('/index', function(req, res, next) {
             console.log(user);
         }
         //console.log('user ', user);
-        if (!user){
-            console.log('User is not there');
-            res.render('popup', {title: 'User does not exist'});
-        }
         if (user) {
             if (user.userRole === 'admin') {
                 console.log('admin');
-                res.render('admin');
+                req.session.userId = user._id;
+                res.render('admin', {title: 'Welcome admin'});
             }
-
-
             else {
+                req.session.userId = user._id;
+                console.log(req.session);
                 console.log('not admin');
                 res.render('dashboard');
-
             }
-
         }
 
         //res.render('index', { title: 'Welcome '+ user.UserName });
         else {
+            console.log('user does not exist Please Sign Up');
             res.render('signup');
         }
 
+
     });
 });
+router.post('/SignUp', function(req, res, next) {
+    res.render('index', { title: 'please Sign Up ' });
+});
+
+
 
 module.exports = router;
-
