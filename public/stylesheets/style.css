@@ -31,8 +31,8 @@ position: relative;
 }
 
 .div_main {
-  margin-top: 20px;
-width: 100%;
+  margin-top: 15px;
+  width: 100%;
 }
 
 .div_left {
@@ -54,6 +54,7 @@ a {
 
 .div_buttons {
   margin-top: 30px;
+  margin-bottom: 40px;
 }
 
 #btn_save {

@@ -4,7 +4,7 @@ block content
         form(method='POST' action='/products/insert' enctype="multipart/form-data" )
             //this div for left side elements
             h1 Create Product
-            div(id="div_pro" , class="div_main")
+            div(id="div_pro", class="div_main")
                 div(id="div_left_pro" , class="div_left")
                     div(style="margin-top:10px")
                         label(for="name") Product Name
@@ -26,7 +26,7 @@ block content
                             span(class="input-group-addon")
                                 span(class="glyphicon glyphicon-calendar")
 
-                        label(for="endDate" ,style="float:left; margin-left:35px;width:50px") to
+                        label(for="endDate", style="float:left; margin-left:35px;width:50px") to
                         div(class='input-group date' , id='endDate' , style="width:30%;float:left")
                             input(type='text' class="form-control" , name='bidEndDate')
                             span(class="input-group-addon")
@@ -72,6 +72,6 @@ block content
                             });
                         tinymce.init({
                             selector: '#desc',
-
+                            height: 250
                         });
 
