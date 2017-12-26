@@ -35,13 +35,15 @@ router.post('/index', function(req, res, next) {
         if (user) {
             if (user.userRole === 'admin') {
                 console.log(req.session);
+                console.log('sessionId:',req.sessionID);
                 console.log('admin');
-                req.session.userId = user._id;
+                req.session.userId  = user._id;
                 res.render('admin', {title: 'Welcome admin'});
             }
             else {
                 req.session.userId = user._id;
                 console.log(req.session);
+                console.log('sessionId:',req.sessionID);
                 console.log('not admin');
                 res.render('dashboard');
             }
@@ -54,7 +56,17 @@ router.post('/index', function(req, res, next) {
 router.post('/signup', function(req, res, next) {
     res.render('signup', { title: 'please Sign Up Its free' });
 });
-
-
+router.get('/logout', function(req, res, next) {
+    if (req.session) {
+        // delete session object
+        req.session.destroy(function(err) {
+            if(err) {
+                return next(err);
+            } else {
+                return res.redirect('/');
+            }
+        });
+    }
+});
 
 module.exports = router;

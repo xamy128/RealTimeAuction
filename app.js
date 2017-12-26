@@ -26,11 +26,11 @@ var sessionOptions = {
 
         url:"mongodb://admin:admin@ds249005.mlab.com:49005/pm102realtimeauction",
 
-        //other advanced options
 
     })
 
 };
+
 
 
 app.use(session(sessionOptions));
