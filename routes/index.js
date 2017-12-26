@@ -7,7 +7,6 @@ var productController = require('../controllers/productController')
 var Product = require('../models/product');
 
 
-//var layout = fs.readFileSync('../views/hh.html','utf8');
 /* GET home page. */
 router.get('/', function(req, res, next) {
     let pro = productController.product.getAll();

@@ -83,7 +83,7 @@ router.post('/update', function (req, res, next) {
         doc.name = req.body.name;
         doc.description = req.body.description;
         doc.image = req.body.image;
-        doc.minPrice = req.body.minPrice;
+        doc.minPrice = req.body.min_price;
         //doc.userId = userId;
         //doc.bidderId = bidderId;
         //doc.isActive = isActive;
@@ -93,8 +93,11 @@ router.post('/update', function (req, res, next) {
         doc.bidStartDate = req.body.bidStartDate;
         doc.bidEndDate = req.body.bidEndDate;
         doc.modifiedDate = Date.now();
-        doc.save();
-        return true;
+        doc.save(function (err, updatedTank) {
+            if (err)
+                return handleError(err);
+        });
+        res.redirect("/");
     });
 });
 

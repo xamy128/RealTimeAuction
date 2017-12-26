@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    form(method='POST' action='/products/update')
+    form
         //this div for left side elements
         h1 Edit Product
         input(type="hidden", name="pro_id" , value=pro._id, id="proId" )
@@ -12,12 +12,12 @@ block content
                     input(id='name', type='text', name='name', value=pro.name)
                 br
                 div(style="margin-top:10px")
-                    label(for="desc", style="margin-top:0px") Description
+                    label(style="margin-top:0px") Description
                     textarea(id='desc' , name='description', style="width:60%;height:35px;") #{pro.description}
                 br
                 div(style="margin-top:10px;position:left")
                     label(for="amount" ) Start Amount
-                    input(id='amount', type='text', name='amount', value=pro.minPrice)
+                    input(id='amount', type='text', name='min_price', value=pro.minPrice)
                     label(for="amount", style="margin-left:10px" ) €
                 br
                 div(style="margin-top:10px")
@@ -27,15 +27,15 @@ block content
                         span(class="input-group-addon")
                             span(class="glyphicon glyphicon-calendar")
 
-                    label(for="endDate", style="float:left; margin-left:35px;width:50px") to
+                    label(style="float:left; margin-left:35px;width:50px") to
                     div(class='input-group date' , id='endDate' , style="width:30%;float:left")
                         input(type='text' class="form-control" , name='bidEndDate', value=pro.bidEndDate, id="bidEndDate")
                         span(class="input-group-addon")
                             span(class="glyphicon glyphicon-calendar")
                 br
                 div(id="div_buttons" class="div_buttons")
-                    button(id='btn_save' type='submit' class="btn btn-success") Save
-                    button(id='btn_cancel' class="btn btn-danger") Cancel
+                    button(id='btn_save' type='submit' class="btn btn-success" formmethod='POST' formaction='/products/update') Save
+                    button(id='btn_cancel' class="btn btn-danger" type="button" onclick="window.location.href='/'") Cancel
 
             div(id="div_right_pro" class="div_right", style="float:left")
                 div(style="width:300px;height:190px")
