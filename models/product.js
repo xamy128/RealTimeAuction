@@ -13,7 +13,7 @@ let Product = new Schema({
     minPrice: {type : Number, default : 0, required: true},
     userId: {type : Number, default : 0, required: true},
     bidderId: {type : Number, default : 0, required: true},
-    isActive: {type : Boolean, default : false},
+    isActive: {type : Boolean, default : true},
     isDeleted: {type : Boolean, default : false},
     isBidComplete: {type : Boolean, default : false},
     maxBidAmount: {type : Number, default : 0, required: true},

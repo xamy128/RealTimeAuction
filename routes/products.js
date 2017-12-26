@@ -73,7 +73,7 @@ router.post('/insert', upload.any(),function (req,res,next) {
 });
 
 // edit product
-router.post('/update', function (req, res, next) {
+router.post('/update', upload.any(),function (req, res, next) {
     let id = req.body.pro_id;
     Product.findById(id, function(err, doc) {
         if (err) {
@@ -82,7 +82,7 @@ router.post('/update', function (req, res, next) {
         }
         doc.name = req.body.name;
         doc.description = req.body.description;
-        doc.image = req.body.image;
+        doc.image = req.files[0].filename;
         doc.minPrice = req.body.min_price;
         //doc.userId = userId;
         //doc.bidderId = bidderId;

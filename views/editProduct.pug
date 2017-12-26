@@ -28,13 +28,13 @@ block content
                             span(class="glyphicon glyphicon-calendar")
 
                     label(style="float:left; margin-left:35px;width:50px") to
-                    div(class='input-group date' , id='endDate' , style="width:30%;float:left")
-                        input(type='text' class="form-control" , name='bidEndDate', value=pro.bidEndDate, id="bidEndDate")
+                    div(class='input-group date' , id='endDate', style="width:30%;float:left")
+                        input(type='text' class="form-control", name='bidEndDate', value=pro.bidEndDate, id="bidEndDate")
                         span(class="input-group-addon")
                             span(class="glyphicon glyphicon-calendar")
                 br
                 div(id="div_buttons" class="div_buttons")
-                    button(id='btn_save' type='submit' class="btn btn-success" formmethod='POST' formaction='/products/update') Save
+                    button(id='btn_save' type='submit' class="btn btn-success" formmethod='POST' formaction='/products/update' formenctype="multipart/form-data") Save
                     button(id='btn_cancel' class="btn btn-danger" type="button" onclick="window.location.href='/'") Cancel
 
             div(id="div_right_pro" class="div_right", style="float:left")
