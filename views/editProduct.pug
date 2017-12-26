@@ -9,7 +9,7 @@ block content
             div(id="div_left_pro" , class="div_left")
                 div(style="margin-top:10px")
                     label(for="name") Product Name
-                    input(id='name', type='text', name='name', value=pro.name)
+                    input(id='name', type='text', name='name', value=pro.name required="true" pattern="^[a-zA-Z0-9]+$")
                 br
                 div(style="margin-top:10px")
                     label(style="margin-top:0px") Description
@@ -17,7 +17,7 @@ block content
                 br
                 div(style="margin-top:10px;position:left")
                     label(for="amount" ) Start Amount
-                    input(id='amount', type='text', name='min_price', value=pro.minPrice)
+                    input(id='amount', type='text', name='min_price', value=pro.minPrice required="true" pattern="^^[1-9][0-9]*$")
                     label(for="amount", style="margin-left:10px" ) €
                 br
                 div(style="margin-top:10px")

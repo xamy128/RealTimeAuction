@@ -52,14 +52,14 @@ router.get('/', function (req,res,next) {
 
 //insert single product
 router.post('/insert', upload.any(),function (req,res,next) {
-//    let result = productController.product.insert(req);
-//if(result=="Success")
-  //  res.redirect("/")
-    ff =req.files[0].filename;
+    let imageName = "../images/product.png";
+
+    if(req.files.length!==0)
+    imageName =req.files[0].filename;
     product = new Product({
         name: req.body.name,
         description: req.body.description,
-        image: req.files[0].filename,
+        image: imageName,
         bidStartDate: req.body.bidStartDate,
         bidEndDate: req.body.bidEndDate,
         minPrice: req.body.amount
@@ -82,6 +82,7 @@ router.post('/update', upload.any(),function (req, res, next) {
         }
         doc.name = req.body.name;
         doc.description = req.body.description;
+        if(req.file.length !== 0)
         doc.image = req.files[0].filename;
         doc.minPrice = req.body.min_price;
         //doc.userId = userId;

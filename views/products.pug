@@ -8,7 +8,7 @@ block content
                 div(id="div_left_pro" , class="div_left")
                     div(style="margin-top:10px")
                         label(for="name") Product Name
-                        input(id='name', type='text', name='name')
+                        input(id='name', type='text', name='name' required="true" pattern="^[a-zA-Z0-9]+$")
                     br
                     div(style="margin-top:10px")
                         label(style="margin-top:0px") Description
@@ -16,19 +16,19 @@ block content
                     br
                     div(style="margin-top:10px;position:left")
                         label(for="amount" ) Start Amount
-                        input(id='amount', type='text', name='amount')
+                        input(id='amount', type='number', name='amount' required="true" pattern="^^[1-9][0-9]*$")
                         label(for="amount", style="margin-left:10px" ) €
                     br
                     div(style="margin-top:10px")
                         label(style="float:left") Date From:
                         div(class='input-group date' , id='startDate' , style="width:30%;float:left")
-                            input(type='text' class="form-control" , name='bidStartDate')
+                            input(type='text' class="form-control" , name='bidStartDate', required="true")
                             span(class="input-group-addon")
                                 span(class="glyphicon glyphicon-calendar")
 
                         label(style="float:left; margin-left:35px;width:50px") to
                         div(class='input-group date' , id='endDate' , style="width:30%;float:left")
-                            input(type='text' class="form-control" , name='bidEndDate')
+                            input(type='text' class="form-control" , name='bidEndDate', required="true")
                             span(class="input-group-addon")
                                 span(class="glyphicon glyphicon-calendar")
                     br
