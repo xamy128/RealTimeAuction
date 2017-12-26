@@ -1,7 +1,7 @@
 extends layout
 
 block content
-        form(method='POST' action='/products/insert' enctype="multipart/form-data" )
+        form
             //this div for left side elements
             h1 Create Product
             div(id="div_pro", class="div_main")
@@ -11,7 +11,7 @@ block content
                         input(id='name', type='text', name='name')
                     br
                     div(style="margin-top:10px")
-                        label(for="desc", style="margin-top:0px") Description
+                        label(style="margin-top:0px") Description
                         textarea(id='desc' , name='description', style="width:60%;height:35px;")
                     br
                     div(style="margin-top:10px;position:left")
@@ -26,14 +26,14 @@ block content
                             span(class="input-group-addon")
                                 span(class="glyphicon glyphicon-calendar")
 
-                        label(for="endDate", style="float:left; margin-left:35px;width:50px") to
+                        label(style="float:left; margin-left:35px;width:50px") to
                         div(class='input-group date' , id='endDate' , style="width:30%;float:left")
                             input(type='text' class="form-control" , name='bidEndDate')
                             span(class="input-group-addon")
                                 span(class="glyphicon glyphicon-calendar")
                     br
                     div(id="div_buttons" class="div_buttons")
-                        button(id='btn_save' type='submit' class="btn btn-success") Save
+                        button(id='btn_save' type='submit' class="btn btn-success" formmethod='POST' formaction='/products/insert' formenctype="multipart/form-data" ) Save
                         button(id='btn_cancel' class="btn btn-danger") Cancel
 
                 div(id="div_right_pro" class="div_right", style="float:left")

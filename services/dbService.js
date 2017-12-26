@@ -44,29 +44,7 @@ let err = e;
 
     //edit product
     updateProduct: function updateProduct(req) {
-        let id = req.quer;
 
-        Product.findById(id, function(err, doc) {
-            if (err) {
-                console.error('error, no entry found');
-                return false;
-            }
-            doc.name = req.body.name;
-            doc.description = req.body.description;
-            doc.image = req.body.image;
-            doc.minPrice = req.body.minPrice;
-            //doc.userId = userId;
-            //doc.bidderId = bidderId;
-            //doc.isActive = isActive;
-            //doc.isDeleted = isDeleted;
-            //doc.isBidComplete = isBidComplete;
-            //doc.maxBidAmount = maxBidAmount;
-            doc.bidStartDate = req.body.bidStartDate;
-            doc.bidEndDate = req.body.bidEndDate;
-            doc.modifiedDate = Date.now();
-            doc.save();
-            return true;
-        })
     },
 
     //delete product

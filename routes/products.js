@@ -38,7 +38,7 @@ router.get('/get', function (req, res, next) {
            let product= pro._doc;
            //let kk = pro.bidStartDate;
             let bitmap ='/uploads/'+product.image;
-product.image = bitmap;
+            product.image = bitmap;
             res.render('editProduct',{"pro":product})
         }
         });
@@ -74,7 +74,28 @@ router.post('/insert', upload.any(),function (req,res,next) {
 
 // edit product
 router.post('/update', function (req, res, next) {
-productController.product.updateProduct(req);
+    let id = req.body.pro_id;
+    Product.findById(id, function(err, doc) {
+        if (err) {
+            console.error('error, no entry found');
+            return false;
+        }
+        doc.name = req.body.name;
+        doc.description = req.body.description;
+        doc.image = req.body.image;
+        doc.minPrice = req.body.minPrice;
+        //doc.userId = userId;
+        //doc.bidderId = bidderId;
+        //doc.isActive = isActive;
+        //doc.isDeleted = isDeleted;
+        //doc.isBidComplete = isBidComplete;
+        //doc.maxBidAmount = maxBidAmount;
+        doc.bidStartDate = req.body.bidStartDate;
+        doc.bidEndDate = req.body.bidEndDate;
+        doc.modifiedDate = Date.now();
+        doc.save();
+        return true;
+    });
 });
 
 // delete product

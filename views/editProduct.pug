@@ -1,9 +1,10 @@
 extends layout
 
 block content
-    form(method='POST' action='/products/insert' enctype="multipart/form-data" )
+    form(method='POST' action='/products/update')
         //this div for left side elements
-        h1 Create Product
+        h1 Edit Product
+        input(type="hidden", name="pro_id" , value=pro._id, id="proId" )
         div(id="div_pro" , class="div_main")
             div(id="div_left_pro" , class="div_left")
                 div(style="margin-top:10px")
@@ -77,5 +78,3 @@ block content
                         selector: '#desc',
                         height: 250
                         });
-
-
