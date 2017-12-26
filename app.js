@@ -8,7 +8,6 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-
 var app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));

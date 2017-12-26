@@ -27,8 +27,14 @@ router.post('/index', function(req, res, next) {
             console.log(user);
         }
         //console.log('user ', user);
+
+        if(!user)
+        {
+            res.render('index', {title: 'Invalid user please try again'});
+        }
         if (user) {
             if (user.userRole === 'admin') {
+                console.log(req.session);
                 console.log('admin');
                 req.session.userId = user._id;
                 res.render('admin', {title: 'Welcome admin'});
@@ -42,16 +48,11 @@ router.post('/index', function(req, res, next) {
         }
 
         //res.render('index', { title: 'Welcome '+ user.UserName });
-        else {
-            console.log('user does not exist Please Sign Up');
-            res.render('signup');
-        }
-
 
     });
 });
-router.post('/SignUp', function(req, res, next) {
-    res.render('index', { title: 'please Sign Up ' });
+router.post('/signup', function(req, res, next) {
+    res.render('signup', { title: 'please Sign Up Its free' });
 });
 
 
