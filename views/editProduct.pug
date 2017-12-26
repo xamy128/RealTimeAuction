@@ -17,7 +17,7 @@ block content
                 br
                 div(style="margin-top:10px;position:left")
                     label(for="amount" ) Start Amount
-                    input(id='amount', type='text', name='min_price', value=pro.minPrice required="true" pattern="^^[1-9][0-9]*$")
+                    input(id='amount', type='number', name='min_price', value=pro.minPrice required="true" pattern="^^[1-9][0-9]*$")
                     label(for="amount", style="margin-left:10px" ) €
                 br
                 div(style="margin-top:10px")
@@ -47,34 +47,34 @@ block content
 
         script.
 
-                    function readURL(input) {
-                        if (input.files && input.files[0]) {
-                            var reader = new FileReader();
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                            reader.onload = function (e) {
-                                $('#img_pro').attr('src', e.target.result);
-                            }
-                            reader.readAsDataURL(input.files[0]);
-                        }
+                    reader.onload = function (e) {
+                        $('#img_pro').attr('src', e.target.result);
                     }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
 
-                    $("#img_file").change(function () {
-                        readURL(this);
-                    });
+            $("#img_file").change(function () {
+                readURL(this);
+            });
 
-                    $("#startDate").datetimepicker({
-                        format: 'DD/MM/YYYY HH:mm',
-                        stepping: 15, //will change increments to 15m, default is 1m
-                        minDate: new Date(),
-                        useCurrent: false, //this is important as the functions sets the default date value to the current value
-                    });
-                    $("#endDate").datetimepicker({
-                        format: 'DD/MM/YYYY HH:mm',
-                        stepping: 15, //will change increments to 15m, default is 1m
-                        minDate: new Date(),
-                        useCurrent: false, //this is important as the functions sets the default date value to the current value
-                    });
-                    tinymce.init({
-                        selector: '#desc',
-                        height: 250
-                        });
+            $("#startDate").datetimepicker({
+                format: 'DD/MM/YYYY HH:mm',
+                stepping: 15, //will change increments to 15m, default is 1m
+                minDate: new Date(),
+                useCurrent: false, //this is important as the functions sets the default date value to the current value
+            });
+            $("#endDate").datetimepicker({
+                format: 'DD/MM/YYYY HH:mm',
+                stepping: 15, //will change increments to 15m, default is 1m
+                minDate: new Date(),
+                useCurrent: false, //this is important as the functions sets the default date value to the current value
+            });
+            tinymce.init({
+                selector: '#desc',
+                height: 250
+            });

@@ -1,9 +1,15 @@
+/**
+ * @file product router: for all get and post requests related to products
+ * @author Ammarah Shakeel
+ */
+
 var express = require('express');
 var router = express.Router();
-var productController = require('../controllers/productController')
 var Product = require('../models/product');
-var fs = require('fs');
+//var fs = require('fs');
 var multer = require('multer');
+
+// setup for file upload
 var storage = multer.diskStorage(
     {
         destination: '../public/uploads/',
@@ -18,32 +24,36 @@ var upload = multer({storage})
 
 //get All Products
 router.get('/getAll', function (req,res,next) {
-    let pro = productController.product.getAll();
-    pro.exec(function(err, pro) {
-        if (err)
-            return error;
-        else
-            res.render('index',{"pro":pro})
-    });
+    Product
+        .find(function(err, pro) {
+            if (err)
+                return error;
+            else
+                res.render('index',{"pro":pro})
+        });
 });
 
 //get one product
 router.get('/get', function (req, res, next) {
-    let pro = productController.product.getProduct(req);
-
-    pro.exec(function(err, pro) {
+    let item_id = req.query.item_id;
+    let products = req.query.pro_id;
+    let ii = products[item_id];
+    let image;
+    Product.findOne({_id:ii}, function(err,pro) {
         if (err)
             return error;
         else {
-           let product= pro._doc;
-           //let kk = pro.bidStartDate;
-            let bitmap ='/uploads/'+product.image;
-            product.image = bitmap;
+            let product= pro._doc;
+            if(product.image=="")
+                image = '/images/product.png';
+            else
+                image ='/uploads/'+product.image;
+            product.image = image;
             res.render('editProduct',{"pro":product})
         }
-        });
-
+    });
 });
+
 
 router.get('/', function (req,res,next) {
     //assign data to object
@@ -52,10 +62,10 @@ router.get('/', function (req,res,next) {
 
 //insert single product
 router.post('/insert', upload.any(),function (req,res,next) {
-    let imageName = "../images/product.png";
+    let imageName = "";
 
     if(req.files.length!==0)
-    imageName =req.files[0].filename;
+        imageName =req.files[0].filename;
     product = new Product({
         name: req.body.name,
         description: req.body.description,
@@ -66,13 +76,13 @@ router.post('/insert', upload.any(),function (req,res,next) {
     });
     product.save(function (err) {
         if(err)
-           err;
+            err;
         else
             res.redirect("/");
     });
 });
 
-// edit product
+// update product
 router.post('/update', upload.any(),function (req, res, next) {
     let id = req.body.pro_id;
     Product.findById(id, function(err, doc) {
@@ -82,8 +92,8 @@ router.post('/update', upload.any(),function (req, res, next) {
         }
         doc.name = req.body.name;
         doc.description = req.body.description;
-        if(req.file.length !== 0)
-        doc.image = req.files[0].filename;
+        if(req.files.length !== 0)
+            doc.image = req.files[0].filename;
         doc.minPrice = req.body.min_price;
         //doc.userId = userId;
         //doc.bidderId = bidderId;
@@ -94,9 +104,9 @@ router.post('/update', upload.any(),function (req, res, next) {
         doc.bidStartDate = req.body.bidStartDate;
         doc.bidEndDate = req.body.bidEndDate;
         doc.modifiedDate = Date.now();
-        doc.save(function (err, updatedTank) {
+        doc.save(function (err, updateProduct) {
             if (err)
-                return handleError(err);
+                return (err);
         });
         res.redirect("/");
     });
@@ -104,12 +114,20 @@ router.post('/update', upload.any(),function (req, res, next) {
 
 // delete product
 router.post('/delete', function(req, res, next) {
-productController.product.deleteProduct(req);
+    let id = req.body._id;
+    Product.findByIdAndRemove(id)
+        .exec(function (err) {
+            if(err)
+                console;
+            else
+                return true;
+        });
+
 });
 
-//upload product
+//upload file
 router.post('/upload', upload.any(), function (req, res) {
-   res.send(req.files);
+    res.send(req.files);
 });
 
 module.exports = router;

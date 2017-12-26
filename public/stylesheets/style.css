@@ -1,7 +1,9 @@
 body {
+  background-color: lightgray;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
 
 h1 {
   margin-left: 20px;
@@ -9,7 +11,7 @@ h1 {
 }
 label {
   margin-top: 15px;
-  font-size: small;
+  font-size: 14px;
   width: 100px;
 
 }
