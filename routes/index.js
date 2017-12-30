@@ -38,18 +38,18 @@ router.post('/index', function(req, res, next) {
                 console.log('sessionId:',req.sessionID);
                 console.log('admin');
                 req.session.userId  = user._id;
+                req.session.userRole = user.userRole;
                 res.render('admin', {title: 'Welcome admin'});
             }
             else {
                 req.session.userId = user._id;
+                req.session.userRole = user.userRole;
                 console.log(req.session);
                 console.log('sessionId:',req.sessionID);
                 console.log('not admin');
                 res.render('dashboard');
             }
         }
-
-        //res.render('index', { title: 'Welcome '+ user.UserName });
 
     });
 });
