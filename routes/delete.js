@@ -1,3 +1,8 @@
+/**
+ * @file Delete user profile
+ * @author A. Kaul
+ */
+
 let express = require('express');
 let bodyParser = require('body-parser');
 let router = express.Router();

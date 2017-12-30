@@ -1,3 +1,7 @@
+/**
+ * @file View user profile logic
+ * @author A. Kaul
+ */
 
 let express = require('express');
 let bodyParser = require('body-parser');

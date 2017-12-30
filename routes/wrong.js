@@ -1,3 +1,8 @@
+/**
+ * @file In case unauthenticated page is encountered
+ * @author A. Kaul
+ */
+
 let express = require('express');
 let router = express.Router();
 let path = require('path');

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var productController = require('../controllers/productController')
 var Product = require('../models/product');
-var fs = require('fs');
+//var fs = require('fs');
 var multer = require('multer');
 var storage = multer.diskStorage(
     {

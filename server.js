@@ -1,3 +1,8 @@
+/**
+ * @file Server initialization logic
+ * @author A. Kaul, F. Rahmati, A. Sasidharan
+ */
+
 let express = require('express');
 let path = require('path');
 let favicon = require('serve-favicon');
@@ -12,12 +17,25 @@ let signup = require('./routes/signup');
 let modify = require('./routes/modify');
 let del = require('./routes/delete');
 let logout = require('./routes/logout');
+let bidding = require('./routes/bidding');
+var dashboard = require('./routes/dashboard');
+var index = require('./routes/index');
 let wrong = require('./routes/wrong');
 let dbConfig = require('./config/db');
 mongoose.connect(dbConfig.url);
 
 let app = express();
 
+// var sessionOptions = {
+//   secret: "secret",
+//   resave : true,
+//   saveUninitialized : false,
+//   store: new MongoStore({
+//       url:"mongodb://admin:admin@ds249005.mlab.com:49005/pm102realtimeauction",
+//   })
+// };
+
+let server = require('http').createServer(app)
 let port = process.env.PORT || 3000;
 // view engine setup
 app.set('views', path.join(__dirname, './views'));
@@ -31,12 +49,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', register);
+app.use('/', index);
+app.use('/register', register);
+app.use('/index', index);
 app.use('/users', users);
 app.use('/signup', signup);
 app.use('/modify', modify);
 app.use('/delete', del);
 app.use('/logout', logout);
+app.use('/dashboard', dashboard);
 app.use('/*', wrong);
 
 // catch 404 and forward to error handler
@@ -57,6 +78,7 @@ app.use(function(err, req, res, next) {
   res.render(path.join(__dirname, './views/error.pug'));
 });
 
-app.listen(port, () =>  console.log(`Server is running on port ${port}`));
+bidding(app,server);
+server.listen(port, () =>  console.log(`Server is running on port ${port}`));
 
 module.exports = app;
