@@ -9,7 +9,7 @@ let router = express.Router();
 let path = require('path');
 let user = require('./../server/models/user');
 
-/* POST users listing. */
+/* Delete user profile */
 router.post('/', function(req, res, next) {
     console.log(req.body.email);
     user.findOne({'email': req.body.email}, (err,docs) => {
@@ -17,6 +17,7 @@ router.post('/', function(req, res, next) {
             throw err;
         if(docs){
             docs.isDeleted = true;
+            /*Set 'IsDeleted' property to true*/
             docs.save((err, updatedDocs) => {
                 if(err)
                     throw err;

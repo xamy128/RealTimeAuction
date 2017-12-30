@@ -9,7 +9,7 @@ let router = express.Router();
 let path = require('path');
 let user = require('./../server/models/user');
 
-/* POST users listing. */
+/* Find user profile */
 router.post('/', function(req, res, next) {
     user.findOne({'email': req.body.email}, (err,docs) => {
         if(err){
@@ -17,6 +17,7 @@ router.post('/', function(req, res, next) {
         }if(docs){
             docs.firstName = req.body.first_name;
             docs.lastName = req.body.last_name;
+            /* Add edited details from profile into the DB */
             docs.save((err, updatedDocs) => {
                 if(err)
                     throw err;
