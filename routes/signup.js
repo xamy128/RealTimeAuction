@@ -1,3 +1,8 @@
+/**
+ * @file Signup logic for user
+ * @author A. Kaul
+ */
+
 let express = require('express');
 let bodyParser = require('body-parser');
 let router = express.Router();
@@ -5,7 +10,7 @@ let path = require('path');
 let user = require('./../server/models/user');
 
 
-/* POST users listing. */
+/* Save user profile into the DB */
 router.post('/', function(req, res, next) {
     let saveUser = function(newUser){
         newUser.save((err) => {
@@ -20,6 +25,8 @@ router.post('/', function(req, res, next) {
             });
         });
     }
+    
+    /* Validation to see if the user already exists */
     if((req.body.first_name && req.body.last_name && req.body.email && req.body.password && req.body.password_confirmation) &&(req.body.password === req.body.password_confirmation)){
         
         let newUser = new user();

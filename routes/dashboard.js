@@ -3,7 +3,7 @@
  * @author F. Rahmati
  */
 const express = require('express');
-const productsModel = require('../config/productsModel.js');
+const productsModel = require('../server/models/products');
 const router = express.Router();
 const productLimit = 30;
 

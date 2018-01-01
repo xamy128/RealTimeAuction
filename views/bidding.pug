@@ -1,0 +1,54 @@
+extends layout
+
+block content
+    .container
+        .row
+            .col-lg-12.col-sm-6
+                .container
+                    .row
+                        .col-md-8
+                            .col-md-12.card.bordered
+                                .col-md-12.text-center
+                                    //- h4=product.name
+                                    h4 product.name
+                                .col-md-4.float-left
+                                    //- img(src='https://s0.2mdn.net/5164901/1-SciFiOrange_300x250.jpg')
+                                .col-md-8
+                                    h2 product.description
+                                    .row.bottom
+                                        .input-group.col-xs-4
+                                            input#amount.form-control(type='text', placeholder='0.00€', name='amount')
+                                            span.input-group-btn
+                                                input.btn.btn-success.btn-block(type='submit', id='bid', value='BID')
+                                        h6
+                                    //- h6 The highest bid is #{bid}
+    script.
+        let socket = io.connect('http://localhost:3000');
+        let amount = $('#amount')[0];
+        let bidButton = $('#bid')[0];
+        let highestBid = $('h6')[0];
+
+        socket.on('message', function (data) {
+            if(data.message) {
+                console.log(data.message);                
+                highestBid.innerHTML = "The highest bid is " + data.message;
+                }
+                else {
+                console.log("There is a problem:", data);
+                alert("Something went wrong.\nThe inconvenience caused is deeply regretted :(1s");
+            }
+        });
+        socket.on('close', function(data){
+            if(!data.message){
+                console.log("There is a problem:", data);
+                alert("Something went wrong.\nThe inconvenience caused is deeply regretted :(2");                
+            }
+
+        });
+
+        bidButton.onclick = function() {
+            let data = {
+                message : amount.value
+            };
+            socket.emit('send', data);
+        };
