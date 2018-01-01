@@ -9,31 +9,12 @@ var vue = require('vue');
 var multer = require('multer');
 var mongoose = require('mongoose');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-var users = require('./routes/users');
-var dashboard = require('./routes/dashboard');
-var index = require('./routes/index');
-
-
 var app = express();
-
 var sessionOptions = {
-
     secret: "secret",
-
     resave : true,
-
     saveUninitialized : false,
-
-    store: new MongoStore({
-
-        url:"mongodb://admin:admin@ds249005.mlab.com:49005/pm102realtimeauction",
-
-
-    })
-
 };
-
 app.use(session(sessionOptions));
 
 app.use(bodyParser.json());
@@ -41,18 +22,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
-
-var index = require('./routes/index');
-app.use('/', index);
-//app.use('/users', users);
-app.use('/index', index);
+var users = require('./routes/users');
+var dashboard = require('./routes/dashboard');
+var index = require('./routes/LoginPage');
+var log = require('./routes/LoginPage');
+app.use('/', log);
+app.use('/LoginPage', log);
 app.use('/dashboard', dashboard);
 //app.use('/products', productRoute);
 app.use('/users', users);
