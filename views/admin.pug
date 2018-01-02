@@ -16,15 +16,17 @@ block content
                         #result
                     br
                     br
-                    form#searchUser(action='/admin/userProfile', method='post')
+                    form#userProfile(action='/admin/userProfile', method='post')
                         label(for='team_name') Bidder First name
                         input#team_name(type='text', name='userName', value=' ')
                         input(type='submit', value='search')
+                        #UserResult
                     br
                     br
-                    form(action='/admin/userProfile', method='post')
+                    form#SuserProfile(action='/admin/userProfile', method='post')
                         label(for='team_name') Supplier First name
                         input#team_name(type='text', name='userName', value=' ')
                         input(type='submit', value='search')
+                        #SUserResult
                 .col
                     |
