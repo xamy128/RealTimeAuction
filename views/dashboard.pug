@@ -1,45 +1,63 @@
 extends layout
 
 block content
-  nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
-      a.navbar-brand= "Realtime Auction"
-      a#login-icon
-        i.fa.fa-user-circle-o.fa-3x
   .container
+    if IsSupplier
+      .row.centered.new-prd-btn
+        .col-xs-10
+        .col-xs-2
+          a(href="http://yahoo.com").btn.btn-primary="Add New Product"
     .row.centered
       .col-xs-12
-        .jumbotron.product-box
+        .product-box
           h3= "Future Products"
           i.fa.fa-plus-square-o.expand-btn.fa-3x
-          ul.row
+          ul.row.list-unstyled
             each p in Future
-              li.col-md-4
-                img(src=p.ProductImage)
-                p=p.ProductName
+              li.col-md-3
+                a(href="/productPage?pid=" + p.id)
+                  img(src=p.ProductImage)
+                a(href="/productPage?pid=" + p.id)
+                  p=p.ProductName
+                //p Start date is:  #{p.BidStartDate}
+                //p End date is: #{p.BidEndDate}
+                p=p.ProductDescription
+
     .row.centered
       .col-xs-12
-        .jumbotron.product-box
+        .product-box
           h3= "Current Products"
           i.fa.fa-plus-square-o.expand-btn.fa-3x
-          ul.row
+          ul.row.list-unstyled
             each p in Current
-              li.col-md-4
-                img(src=p.ProductImage)
-                p=p.ProductName
+              li.col-md-3
+                a(href="/productPage?pid=" + p.id)
+                  img(src=p.ProductImage)
+                a(href="/productPage?pid=" + p.id)
+                  p=p.ProductName
+                //p Start date is:  #{p.BidStartDate}
+                //p End date is: #{p.BidEndDate}
+                p=p.ProductDescription
     .row.centered
       .col-xs-12
-        .jumbotron.product-box
+        .product-box
           h3= "Past Products"
           i.fa.fa-plus-square-o.expand-btn.fa-3x
-          ul.row
+          ul.row.list-unstyled
             each p in Past
-              li.col-md-4
-                img(src=p.ProductImage)
-                p=p.ProductName
+              li.col-md-3
+                a(href="/productPage?pid=" + p.id)
+                  img(src=p.ProductImage)
+                a(href="/productPage?pid=" + p.id)
+                  p=p.ProductName
+                //p Start date is:  #{p.BidStartDate}
+                //p End date is: #{p.BidEndDate}
+                p=p.ProductDescription
+
 
   script.
-    $('.expand-btn').on('click', function(){
-        $(this).toggleClass('fa-plus-square-o');
-        $(this).toggleClass('fa-minus-square-o');
-      $(this).next("ul").toggle();
-    });
+      $('.expand-btn').on('click', function(){
+          $(this).toggleClass('fa-plus-square-o');
+          $(this).toggleClass('fa-minus-square-o');
+          $(this).next("ul").toggle();
+      });

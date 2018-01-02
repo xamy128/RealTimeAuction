@@ -1,7 +1,9 @@
 body {
   background-color: #d3d3d35e;
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+#login{
+  padding: 50px;
 }
 
 a {
@@ -92,10 +94,15 @@ a {
   padding-top: 5px;
   margin-top: 30px;
   margin-bottom: 0px;
+  border-radius: 6px;
+  background-color: #eee;
+  padding-left: 60px;
 }
-.product-box img {
+.product-box li img {
   width: 150px;
   height: 150px;
+  border: gray solid 1px;
+  border-radius: 5px;
 }
 .product-box p{
   padding-top: 10px;
@@ -112,11 +119,10 @@ a {
 }
 
 .new-prd-btn {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 #menu {
-  height: 80px;
   width: 150px;
   background-color: white;
   position: absolute;
@@ -126,7 +132,13 @@ a {
   padding: 10px;
   list-style: none;
   display: none;
+  border: gray solid 1px;
 }
 #menu li {
   padding: 5px;
+}
+footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
 }
