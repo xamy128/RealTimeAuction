@@ -40,7 +40,7 @@ app.use(function(req, res, next){
     const userId=req.session.userId;
     const userRole=req.session.userRole;
 
-    let isLoggedin= !!userId;
+    let isLoggedin= !!userId; //true //=>for test
     let isSupplier= userRole !=='bidder';
 
     // redirect to login page if it's not logged in

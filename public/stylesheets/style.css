@@ -122,6 +122,11 @@ a {
   margin-top: 10px;
 }
 
+#logo{
+  width: 115px;
+  margin-top: -14px;
+}
+
 #menu {
   width: 150px;
   background-color: white;

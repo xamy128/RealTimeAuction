@@ -15,7 +15,8 @@ html
   body
     if IsLoggedin
       nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
-        a.navbar-brand= "Realtime Auction"
+        a(href="/dashboard").navbar-brand
+          img(src="/images/logo.png")#logo
         #login-icon
           i.fa.fa-user-circle-o.fa-3x
         ul#menu
