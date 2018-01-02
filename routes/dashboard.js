@@ -76,19 +76,11 @@ const callAll = function (cb) {
 
 /* GET Dashboard page. */
 router.get('/', function (req, res, next) {
-    let isLoggedin= true; //todo check user
-    let isSupplier= true; //todo check user
-    if (!isLoggedin){
-        res.redirect('/');
-        res.end();
-    }
 
     callAll((FutureProductList, CurrentProductList, PastProductList) => res.render('dashboard', {
         Future: FutureProductList,
         Current: CurrentProductList,
-        Past: PastProductList,
-        IsSupplier: isSupplier,
-        IsLoggedin: isLoggedin,
+        Past: PastProductList
     }));
 });
 

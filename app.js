@@ -9,6 +9,11 @@ var vue = require('vue');
 var multer = require('multer');
 var mongoose = require('mongoose');
 var session = require('express-session');
+var users = require('./routes/users');
+var dashboard = require('./routes/dashboard');
+var index = require('./routes/LoginPage');
+var log = require('./routes/LoginPage');
+
 var app = express();
 var sessionOptions = {
     secret: "secret",
@@ -21,22 +26,39 @@ mongoose.connect(dbConfig.url);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
-var users = require('./routes/users');
-var dashboard = require('./routes/dashboard');
-var index = require('./routes/LoginPage');
-var log = require('./routes/LoginPage');
 
 app.use('/', log);
 app.use('/LoginPage', log);
+
+//global setting of isLoggedin and isSupplier !!!order of lines of codes here is important!!
+app.use(function(req, res, next){
+    const userId=req.session.userId;
+    const userRole=req.session.userRole;
+
+    let isLoggedin= !!userId;
+    let isSupplier= userRole !=='bidder';
+
+    // redirect to login page if it's not logged in
+    if (!isLoggedin){
+        res.redirect('/');
+        return;
+    }
+    res.locals.IsSupplier= isSupplier;
+    res.locals.IsLoggedin = isLoggedin;
+    next();
+});
+
+
 app.use('/dashboard', dashboard);
 //app.use('/products', productRoute);
 app.use('/users', users);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
