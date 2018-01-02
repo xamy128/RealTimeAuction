@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var db = require('./config/db');
+let dbConfig = require('./config/db');
 var vue = require('vue');
 var multer = require('multer');
 var mongoose = require('mongoose');
@@ -16,6 +16,8 @@ var sessionOptions = {
     saveUninitialized : false,
 };
 app.use(session(sessionOptions));
+mongoose.connect(dbConfig.url);
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,6 +31,7 @@ var users = require('./routes/users');
 var dashboard = require('./routes/dashboard');
 var index = require('./routes/LoginPage');
 var log = require('./routes/LoginPage');
+
 app.use('/', log);
 app.use('/LoginPage', log);
 app.use('/dashboard', dashboard);

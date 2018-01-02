@@ -9,13 +9,13 @@ var ProductSchema = new Schema({
     ProductName : String,
     ProductDescription : String,
     ProductImage : String,
-    ProductMinPrice : String,
-    BidStartDate : String,
-    BidEndDate : String,
-    IsActive : String,
-    IsDeleted : String,
-    IsBidCompleted : String,
-    MaxBidAmount : String
+    ProductMinPrice : Number,
+    BidStartDate : Date,
+    BidEndDate : Date,
+    IsActive : Boolean,
+    IsDeleted : Boolean,
+    IsBidCompleted : Boolean,
+    MaxBidAmount : Number
     // name: String,
     // description:String,
     // image: String,
@@ -25,7 +25,7 @@ var ProductSchema = new Schema({
     // isActive: Boolean,
     // isDeleted: Boolean,
     // isBidComplete: Boolean,
-    // maxBidAmount: Number,
+    // maxBidAmount: Number
     // bidStartDate: String,
     // bidEndDate: String,
     // createdDate: Date,
@@ -33,4 +33,4 @@ var ProductSchema = new Schema({
     // __v : Number
 
 });
-var products = mongoose.model('ProductModel', ProductSchema);
+module.exports = mongoose.model('products', ProductSchema);
