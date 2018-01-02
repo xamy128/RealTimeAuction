@@ -7,6 +7,7 @@ const productsModel = require('../server/models/products');
 const router = express.Router();
 const productLimit = 30;
 
+
 class Products {
 
     static all(cb) {
@@ -73,7 +74,7 @@ const callAll = function (cb) {
     });
 };
 
-/* GET home page. */
+/* GET Dashboard page. */
 router.get('/', function (req, res, next) {
     callAll((FutureProductList, CurrentProductList, PastProductList) => res.render('dashboard', {
         Future: FutureProductList,
