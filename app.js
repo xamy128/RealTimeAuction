@@ -11,9 +11,6 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var users = require('./routes/users');
 var dashboard = require('./routes/dashboard');
-var index = require('./routes/LoginPage');
-var log = require('./routes/LoginPage');
-
 var app = express();
 var sessionOptions = {
     secret: "secret",
@@ -32,8 +29,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 
-app.use('/', log);
-app.use('/LoginPage', log);
 
 //global setting of isLoggedin and isSupplier !!!order of lines of codes here is important!!
 app.use(function(req, res, next){
