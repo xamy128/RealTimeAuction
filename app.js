@@ -29,6 +29,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 
+const Home = require('./routes/Home');
+app.use('/',Home);
+const Login = require('./routes/Login');
+app.use('/Login',Login);
 
 //global setting of isLoggedin and isSupplier !!!order of lines of codes here is important!!
 app.use(function(req, res, next){
