@@ -17,7 +17,7 @@ router.post('/', function(req, res, next) {
     user.findOne({email: email, password: password}).exec(function (err, user) {
         if (err) {
             throw err;
-        }else console.log(user);
+        }else
         if(user){//Verify if User is admin, if so Route to admin Page
             if(user.isDeleted === true){
                 res.render('LoginPage', {title: 'Invalid user please try again'});
