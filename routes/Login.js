@@ -5,7 +5,7 @@
 let express = require('express');
 let router = express.Router();
 let path = require('path');
-let user = require('./../server/models/user')
+let user = require('./../server/models/user');
 
 router.post('/', function(req, res, next) {
     // Get data
@@ -14,10 +14,11 @@ router.post('/', function(req, res, next) {
     console.log(email);
     console.log(password);
     // Check if the user exist
-    user.findOne({email: email, Password: password}).exec(function (err, user) {
+    user.findOne({email: email, password: password}).exec(function (err, user) {
         if (err) {
             throw err;
-        }else if(user){   //Verify if User is admin, if so Route to admin Page
+        }else console.log(user);
+        if(user){//Verify if User is admin, if so Route to admin Page
             if(user.isDeleted === true){
                 res.render('LoginPage', {title: 'Invalid user please try again'});
             }else{
@@ -33,10 +34,10 @@ router.post('/', function(req, res, next) {
                     res.render('dashboard');
                 }
             }
-        }else{ //If User does not Exist alert Invalid User
-            console.log('I am here');
-            res.render('LoginPage', {title: 'Invalid user please try again'});
-        }
+         }
+         else{ //If User does not Exist alert Invalid User
+             res.render('LoginPage', {title: 'Invalid user please try again'});
+         }
 
     });
 });
