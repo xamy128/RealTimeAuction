@@ -1,20 +1,21 @@
-let express = require('express');
-let session = require('express-session');
-let bodyParser = require('body-parser');
-let mongoose = require('mongoose');
-let favicon = require('serve-favicon');
-let logger = require('morgan');
-let path = require('path');
-let cookieParser = require('cookie-parser');
-let log = require('./routes/LoginPage');
-let register = require('./routes/register');
-let users = require('./routes/users');
-let signup = require('./routes/signup');
-let modify = require('./routes/modify');
-let del = require('./routes/delete');
-let logout = require('./routes/logout');
-let wrong = require('./routes/wrong');
-let dbConfig = require('./config/db');
+let express = require('express'),
+    session = require('express-session'),
+    bodyParser = require('body-parser'),
+    mongoose = require('mongoose'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    path = require('path'),
+    cookieParser = require('cookie-parser'),
+    home = require('./routes/Home'),
+    login = require('./routes/Login'),
+    register = require('./routes/register'),
+    users = require('./routes/users'),
+    signup = require('./routes/signup'),
+    modify = require('./routes/modify'),
+    del = require('./routes/delete'),
+    logout = require('./routes/logout'),
+    wrong = require('./routes/wrong'),
+    dbConfig = require('./config/db');
 let port = process.env.PORT || 3000;
 
 let app = express();
@@ -36,9 +37,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(logger('dev'));
 mongoose.connect(dbConfig.url);
-app.use('/', log);
-app.use('/LoginPage,log');
-app.use('/register,register');
+app.use('/',home);
+app.use('/Login',login);
+app.use('/register',register);
 app.use('/users', users);
 app.use('/signup', signup);
 app.use('/modify', modify);

@@ -1,3 +1,5 @@
+import { Session } from 'inspector';
+
 /**
  * @file View user profile logic
  * @author A. Kaul
@@ -15,12 +17,23 @@ router.post('/', function(req, res, next) {
         if(err){
             throw err;
         }if(docs){
-            res.render(path.join(__dirname,'./../views/editUser.pug'), { 
-                firstName: docs.firstName,
-                lastName: docs.lastName,
-                email: docs.email,
-                userRole: docs.userRole,
-            });
+            if(req.session.userRole === "admin"){
+                res.render(path.join(__dirname,'./../views/editUserAdmin.pug'), { 
+                    firstName: docs.firstName,
+                    lastName: docs.lastName,
+                    email: docs.email,
+                    userRole: docs.userRole,
+                });
+
+            }else{
+                res.render(path.join(__dirname,'./../views/editUser.pug'), { 
+                    firstName: docs.firstName,
+                    lastName: docs.lastName,
+                    email: docs.email,
+                    userRole: docs.userRole,
+                });
+            }
+            
         }else{
             res.redirect('/*');
         }

@@ -12,6 +12,7 @@ let user = require('./../server/models/user');
 
 /* Save user profile into the DB */
 router.post('/', function(req, res, next) {
+    console.log('Hello world');
     let saveUser = function(newUser){
         newUser.save((err) => {
             if(err)
