@@ -14,7 +14,16 @@ let express = require('express'),
     modify = require('./routes/modify'),
     del = require('./routes/delete'),
     logout = require('./routes/logout'),
+    //admin = require('./routes/admin'),
+    productdetails = require('./routes/adminProductDetails'),
+    userdetails = require('./routes/adminUserDetails'),
+    searchproduct = require('./routes/adminSerachProduct'),
+    deleteproduct = require('./routes/adminDeleteProduct'),
+    userprofile =require('./routes/adminUserProfile'),
+    deleteuser = require('./routes/adminDeleteUser'),
     wrong = require('./routes/wrong'),
+
+
     dbConfig = require('./config/db');
 let port = process.env.PORT || 3000;
 
@@ -45,7 +54,14 @@ app.use('/signup', signup);
 app.use('/modify', modify);
 app.use('/delete', del);
 app.use('/logout', logout);
+app.use('/GoToDetails',productdetails);
+app.use('/GoToUserDetails',userdetails);
+app.use('/searchProduct',searchproduct);
+app.use('/DeleteProduct',deleteproduct);
+app.use('/userProfile',userprofile);
+app.use('/DeleteUser',deleteuser);
 app.use('/*', wrong);
+//app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -65,7 +81,7 @@ app.use(function(err, req, res, next) {
     res.render(path.join(__dirname, './views/error.pug'));
 });
 
-app.listen(port, () =>  console.log(`Server is running on port ${port}`));
+app.listen(port);//, () =>  console.log(`Server is running on port ${port}`));
 
 module.exports = app;
 

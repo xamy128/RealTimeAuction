@@ -1,5 +1,3 @@
-import { Session } from 'inspector';
-
 /**
  * @file View user profile logic
  * @author A. Kaul
@@ -17,6 +15,7 @@ router.post('/', function(req, res, next) {
         if(err){
             throw err;
         }if(docs){
+            console.log('User is',req.session.userRole);
             if(req.session.userRole === "admin"){
                 res.render(path.join(__dirname,'./../views/editUserAdmin.pug'), { 
                     firstName: docs.firstName,

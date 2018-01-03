@@ -22,7 +22,14 @@ router.post('/', function(req, res, next) {
                 if(err)
                     throw err;
                 if(updatedDocs){
-                    res.redirect('/');
+                    console.log('User is',req.session.userRole);
+                    if(req.session.userRole === "admin"){
+                        console.log('User is deleted');
+                        res.render(path.join(__dirname,'./../views/admin.pug'));
+                    }
+                    else {
+                        res.redirect('/');
+                    }
                 }
 
             })
