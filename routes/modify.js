@@ -24,12 +24,24 @@ router.post('/', function(req, res, next) {
                 if(err)
                     throw err;
                 if(updatedDocs){
-                    res.render(path.join(__dirname,'./../views/userProfile.pug'), { 
-                        firstName: docs.firstName,
-                        lastName: docs.lastName,
-                        email: docs.email,
-                        userRole: docs.userRole,
-                    });
+                    console.log('User is',req.session.userRole);
+                    if(req.session.userRole === "admin") {
+                        res.render(path.join(__dirname, './../views/userProfileAdmin.pug'), {
+                            firstName: docs.firstName,
+                            lastName: docs.lastName,
+                            email: docs.email,
+                            userRole: docs.userRole,
+                        });
+                    }
+                    else
+                        {
+                            res.render(path.join(__dirname, './../views/userProfile.pug'), {
+                                firstName: docs.firstName,
+                                lastName: docs.lastName,
+                                email: docs.email,
+                                userRole: docs.userRole,
+                            });
+                        }
                 }else
                     res.redirect('/*');
             })            
