@@ -23,6 +23,7 @@ const express = require('express'),
     deleteuser = require('./routes/adminDeleteUser'),
     wrong = require('./routes/wrong'),
     dashboard = require('./routes/dashboard'),
+    product = require('./routes/productRoute'),
     dbConfig = require('./config/db');
 
 
@@ -68,6 +69,7 @@ app.use(function(req, res, next){
 
 //routes which need login
 app.use('/dashboard', dashboard);
+app.use('/ProductRoute', product);
 app.use('/register',register);
 app.use('/users', users);
 app.use('/signup', signup);
