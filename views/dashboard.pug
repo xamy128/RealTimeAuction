@@ -13,15 +13,15 @@ block content
           h3= "Future Products"
           i.fa.fa-plus-square-o.expand-btn.fa-3x
           ul.row.list-unstyled
-            each p in Future
+            each p in futureProducts
               li.col-md-3
                 a(href="/bidding?pid=" + p.id)
-                  img(src=p.ProductImage)
+                  img(src="/uploads/"+p.image)
                 a(href="/bidding?pid=" + p.id)
-                  p=p.ProductName
+                  p=p.name
                 //p Start date is:  #{p.BidStartDate}
                 //p End date is: #{p.BidEndDate}
-                p=p.ProductDescription
+                p!=p.description
 
     .row.centered
       .col-xs-12
@@ -29,31 +29,28 @@ block content
           h3= "Current Products"
           i.fa.fa-plus-square-o.expand-btn.fa-3x
           ul.row.list-unstyled
-            each p in Current
+            each p in currentProducts
               li.col-md-3
                 a(href="/bidding?pid=" + p.id)
-                  img(src=p.ProductImage)
+                  img(src="/uploads/"+p.image)
                 a(href="/bidding?pid=" + p.id)
-                  p=p.ProductName
+                  p=p.name
                 //p Start date is:  #{p.BidStartDate}
                 //p End date is: #{p.BidEndDate}
-                p=p.ProductDescription
+                p!=p.description
     .row.centered
       .col-xs-12
         .product-box
           h3= "Past Products"
           i.fa.fa-plus-square-o.expand-btn.fa-3x
           ul.row.list-unstyled
-            each p in Past
+            each p in pastProducts
               li.col-md-3
                 a(href="/bidding?pid=" + p.id)
-                  img(src=p.ProductImage)
+                  img(src="/uploads/"+p.image)
                 a(href="/bidding?pid=" + p.id)
-                  p=p.ProductName
-                //p Start date is:  #{p.BidStartDate}
-                //p End date is: #{p.BidEndDate}
-                p=p.ProductDescription
-
+                  p=p.name
+                p!=p.description
 
     script.
       $('.expand-btn').on('click', function(){

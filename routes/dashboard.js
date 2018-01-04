@@ -3,71 +3,54 @@
  * @author F. Rahmati
  */
 const express = require('express');
-const productsModel = require('../server/models/products');
+const productsModel = require('../server/models/productModel');
 const router = express.Router();
 const productLimit = 30;
 
-
-class Products {
-
-    static all(cb) {
-        productsModel.find({},
-            function (err, productList) {
-                if (err) return console.error(err);
-                //console.log(user.toString());
-                cb(productList);
-            });
-    }
-
-    static future(cb) {
-        productsModel.find({
-            BidStartDate: {$gt: new Date()},
-            IsDeleted: {$ne: true}
-        })
-            .sort({'BidStartDate': 1})
-            .limit(productLimit)
-            .exec((err, productList) => {
-                if (err) return console.error(err);
-                //console.log(user.toString());
-                cb(productList);
-            });
-    }
-
-    static past(cb) {
-        productsModel.find({
-            BidEndDate: {$lte: new Date()},
-            IsDeleted: {$ne: true}
-        })
-            .sort({'BidEndDate': -1})
-            .limit(productLimit)
-            .exec((err, productList) => {
-                if (err) return console.error(err);
-                //console.log(user.toString());
-                cb(productList);
-            });
-    }
-
-    static current(cb) {
-        productsModel.find({
-            BidEndDate: {$gt: new Date()},
-            BidStartDate: {$lte: new Date()},
-            IsDeleted: {$ne: true}
-        })
-            .sort({'BidEndDate': 1})
-            .limit(productLimit)
-            .exec((err, productList) => {
-                if (err) return console.error(err);
-                //console.log(user.toString());
-                cb(productList);
-            });
-    }
+function future(cb) {
+    productsModel.find({
+        bidStartDate: {$gt: new Date()},
+        isDeleted: {$ne: true}
+    })
+        .sort({'BidStartDate': 1})
+        .limit(productLimit)
+        .exec((err, productList) => {
+            if (err) return console.error(err);
+            cb(productList);
+        });
 }
 
+function past(cb) {
+    productsModel.find({
+        bidEndDate: {$lte: new Date()},
+        isDeleted: {$ne: true}
+    })
+        .sort({'BidEndDate': -1})
+        .limit(productLimit)
+        .exec((err, productList) => {
+            if (err) return console.error(err);
+            cb(productList);
+        });
+}
+
+function current(cb) {
+    productsModel.find({
+        bidEndDate: {$gt: new Date()},
+        bidStartDate: {$lte: new Date()},
+        isDeleted: {$ne: true}
+    })
+        .sort({'BidEndDate': 1})
+        .limit(productLimit)
+        .exec((err, productList) => {
+            if (err) return console.error(err);
+            cb(productList);
+        });
+}
 
 const callAll = function (cb) {
-    Products.future((FutureProductList) => {
-        Products.current((CurrentProductList) => {
-            Products.past((PastProductList) => {
+    future((FutureProductList) => {
+        current((CurrentProductList) => {
+            past((PastProductList) => {
                 cb(FutureProductList, CurrentProductList, PastProductList);
             });
         });
@@ -78,9 +61,9 @@ const callAll = function (cb) {
 router.get('/', function (req, res, next) {
 
     callAll((FutureProductList, CurrentProductList, PastProductList) => res.render('dashboard', {
-        Future: FutureProductList,
-        Current: CurrentProductList,
-        Past: PastProductList
+        futureProducts: FutureProductList,
+        currentProducts: CurrentProductList,
+        pastProducts: PastProductList
     }));
 });
 
