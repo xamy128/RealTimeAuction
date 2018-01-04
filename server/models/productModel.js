@@ -1,4 +1,3 @@
-require('../config/db');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -12,14 +11,14 @@ let Product = new Schema({
     description:{type : String, default : ''},
     image: {type : String, default : ''},
     minPrice: {type : Number, default : 0, required: true},
-    userId: {type : Number, default : 0, required: true},
-    bidderId: {type : Number, default : 0, required: true},
+    supplierId: {type : String, default : 0, required: true},
+    bidderId: {type : String, default : 0, required: true},
     isActive: {type : Boolean, default : true},
     isDeleted: {type : Boolean, default : false},
     isBidComplete: {type : Boolean, default : false},
     maxBidAmount: {type : Number, default : 0, required: true},
-    bidStartDate: {type : String, default : Date.now, required: true},
-    bidEndDate: {type : String, default : Date.now, required: true},
+    bidStartDate: {type : Date, default : Date.now, required: true},
+    bidEndDate: {type : Date, default : Date.now, required: true},
     createdDate: {type : Date, default : Date.now, required: true},
     modifiedDate: {type : Date, default : Date.now, required: true}
 });

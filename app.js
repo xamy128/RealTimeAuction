@@ -70,7 +70,7 @@ app.use(function(req, res, next){
 
 //routes which need login
 app.use('/dashboard', dashboard);
-app.use('/ProductRoute', product);
+app.use('/ProductView', product);
 app.use('/register',register);
 app.use('/users', users);
 app.use('/signup', signup);

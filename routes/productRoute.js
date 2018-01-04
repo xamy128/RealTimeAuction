@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var productController = require('../controllers/productController')
-var Product = require('../server/models/products');
+var Product = require('../server/models/productModel');
 //var fs = require('fs');
 var multer = require('multer');
 var storage = multer.diskStorage(
@@ -47,7 +46,7 @@ router.get('/get', function (req, res, next) {
 
 router.get('/', function (req,res,next) {
     //assign data to object
-    res.render('products')
+    res.render('productView')
 });
 
 //insert single product
@@ -62,13 +61,14 @@ router.post('/insert', upload.any(),function (req,res,next) {
         image: req.files[0].filename,
         bidStartDate: req.body.bidStartDate,
         bidEndDate: req.body.bidEndDate,
-        minPrice: req.body.amount
+        minPrice: req.body.amount,
+        supplierId: req.session.userId
     });
     product.save(function (err) {
         if(err)
             err;
         else
-            res.redirect("/");
+            res.redirect('/dashboard')
     });
 });
 

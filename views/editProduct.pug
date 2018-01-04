@@ -1,44 +1,45 @@
 extends layout
 
 block content
-    form(method='POST' action='/products/insert' enctype="multipart/form-data" )
+    form(style="padding:50px;")
         //this div for left side elements
-        h1 Create Product
+        h1 Edit Product
+        input(type="hidden", name="pro_id" , value=pro._id, id="proId" )
         div(id="div_pro" , class="div_main")
             div(id="div_left_pro" , class="div_left")
                 div(style="margin-top:10px")
-                    label(for="name") Product Name
-                    input(id='name', type='text', name='name', value=pro.name)
+                    label(class="label_product" for="name") Product Name
+                    input(class="input_product" id='name', type='text', name='name', value=pro.name required="true" pattern="^[a-zA-Z0-9]+$")
                 br
                 div(style="margin-top:10px")
-                    label(for="desc", style="margin-top:0px") Description
-                    textarea(id='desc' , name='description', style="width:60%;height:35px;", value=pro.description)
+                    label(class="label_product" style="margin-top:0px") Description
+                    textarea(id='desc' , name='description', style="width:60%;height:35px;") #{pro.description}
                 br
                 div(style="margin-top:10px;position:left")
-                    label(for="amount" ) Start Amount
-                    input(id='amount', type='text', name='amount', value=pro.minPrice)
-                    label(for="amount", style="margin-left:10px" ) €
+                    label(class="label_product" for="amount" ) Start Amount
+                    input(class="input_product" id='amount', type='number', name='min_price', value=pro.minPrice required="true" pattern="^^[1-9][0-9]*$")
+                    label(class="label_product" for="amount", style="margin-left:10px" ) €
                 br
                 div(style="margin-top:10px")
-                    label(style="float:left") Date From:
+                    label(class="label_product" style="float:left") Date From:
                     div(class='input-group date' , id='startDate' , style="width:30%;float:left")
                         input(type='text' class="form-control" , name='bidStartDate', value=pro.bidStartDate, id="bidStartDate")
                         span(class="input-group-addon")
                             span(class="glyphicon glyphicon-calendar")
 
-                    label(for="endDate" ,style="float:left; margin-left:35px;width:50px") to
-                    div(class='input-group date' , id='endDate' , style="width:30%;float:left")
-                        input(type='text' class="form-control" , name='bidEndDate', value=pro.bidEndDate, id="bidEndDate")
+                    label(class="label_product" style="float:left; margin-left:35px;width:50px") to
+                    div(class='input-group date' , id='endDate', style="width:30%;float:left")
+                        input(type='text' class="form-control", name='bidEndDate', value=pro.bidEndDate, id="bidEndDate")
                         span(class="input-group-addon")
                             span(class="glyphicon glyphicon-calendar")
                 br
                 div(id="div_buttons" class="div_buttons")
-                    button(id='btn_save' type='submit' class="btn btn-success") Save
-                    button(id='btn_cancel' class="btn btn-danger") Cancel
+                    button(id='btn_save' type='submit' class="btn btn-success" formmethod='POST' formaction='/products/update' formenctype="multipart/form-data") Save
+                    button(id='btn_cancel' class="btn btn-danger" type="button" onclick="window.location.href='/'") Cancel
 
             div(id="div_right_pro" class="div_right", style="float:left")
                 div(style="width:300px;height:190px")
-                    img( id="img_pro" , width="300px" , height="300px" src="/images/product.png", class="pro_image" )
+                    img( class="img_product" id="img_pro" , width="300px" , height="300px" src=pro.image, class="pro_image" )
                 br
                 div
                     input(type="file", id="img_file",  name="product" , accept="image/*")
@@ -46,36 +47,34 @@ block content
 
         script.
 
-                    function readURL(input) {
-                        if (input.files && input.files[0]) {
-                            var reader = new FileReader();
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                            reader.onload = function (e) {
-                                $('#img_pro').attr('src', e.target.result);
-                            }
-                            reader.readAsDataURL(input.files[0]);
-                        }
+                    reader.onload = function (e) {
+                        $('#img_pro').attr('src', e.target.result);
                     }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
 
-                    $("#img_file").change(function () {
-                        readURL(this);
-                    });
+            $("#img_file").change(function () {
+                readURL(this);
+            });
 
-                    $("#startDate").datetimepicker({
-                        format: 'DD/MM/YYYY HH:mm',
-                        stepping: 15, //will change increments to 15m, default is 1m
-                        minDate: new Date(),
-
-                    });
-                    $("#endDate").datetimepicker({
-                        format: 'DD/MM/YYYY HH:mm',
-                        stepping: 15, //will change increments to 15m, default is 1m
-                        minDate: new Date(),
-
-                    });
-                    tinymce.init({
-                        selector: '#desc',
-
-                    });
-                    $('desc').val()
-
+            $("#startDate").datetimepicker({
+                format: 'DD/MM/YYYY HH:mm',
+                stepping: 15, //will change increments to 15m, default is 1m
+                minDate: new Date(),
+                useCurrent: false, //this is important as the functions sets the default date value to the current value
+            });
+            $("#endDate").datetimepicker({
+                format: 'DD/MM/YYYY HH:mm',
+                stepping: 15, //will change increments to 15m, default is 1m
+                minDate: new Date(),
+                useCurrent: false, //this is important as the functions sets the default date value to the current value
+            });
+            tinymce.init({
+                selector: '#desc',
+                height: 250
+            });
