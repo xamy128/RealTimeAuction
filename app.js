@@ -26,7 +26,7 @@ const express = require('express'),
     dashboard = require('./routes/dashboard'),
     product = require('./routes/productRoute'),
     dbConfig = require('./config/db');
-//let port = process.env.PORT || 3000; //Todo:remove: because already exists in /bin/www.js
+let port = process.env.PORT || 3000; 
 
 
 const app = express();
@@ -105,11 +105,11 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  //res.render('error');
 });
 
 bidding(app, server);
 
-//server.listen(port);//Todo:remove: because already exist in /bin/www.js
+server.listen(port);//Todo:remove: because already exist in /bin/www.js
 
 module.exports = app;

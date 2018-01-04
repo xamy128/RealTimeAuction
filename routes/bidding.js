@@ -3,7 +3,7 @@
  * @author A. Kaul
  */
 let socketIo = require('socket.io');
-let productsModel = require('./../server/models/products');
+let productsModel = require('./../server/models/productModel');
 let highestBid = 0;
 module.exports = function(app, server){
     let io = socketIo.listen(server);
@@ -19,8 +19,8 @@ module.exports = function(app, server){
                     throw err;
                 }if(docs){
                     if(docs.IsBidCompleted === false){
-                        docs.MaxBidAmount = highestBid;
-                        docs.BidderId = data.bidderId;
+                        docs.maxBidAmount = highestBid;
+                        docs.bidderId = data.bidderId;
                     docs.save((err, updatedDocs) => {
                         if(err)
                             throw err;
@@ -29,7 +29,7 @@ module.exports = function(app, server){
             })
           }         
         let outData = {
-            message: highestBid.toString()
+            message: highestBid > 0 ? highestBid.toString() : data.minBidAmount.toString()
         };
           io.sockets.emit('message', outData);
       });

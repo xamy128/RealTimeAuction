@@ -7,8 +7,8 @@ let bodyParser = require('body-parser');
 let router = express.Router();
 let path = require('path');
 let socketIo = require('socket.io');
-let productsModel = require('./../server/models/products');
-let baseURL = 'http://localhost:3000';
+let productsModel = require('./../server/models/productModel');
+let baseURL = 'http://localhost:3000/uploads/';
 
 router.get('/', function(req, res, next) {
 //Get product id from query string
@@ -20,27 +20,27 @@ router.get('/', function(req, res, next) {
                 throw err;
             }if(docs){
 //If user role is not bidder edit and delete functionality is to be provided
-                if(req.session.userRole.toUpperCase() === "SUPPLIER"){
+                if((req.session.userRole.toUpperCase() === "SUPPLIER") && (docs.supplierId === req.session.userId)){
                     res.render(path.join(__dirname, './../views/productAdmin.pug'), {
-                        ProductName: docs.ProductName,
-                        ProductDescription: docs.ProductDescription,
-                        ProductImage: baseURL+docs.ProductImage,
-                        ProductBidStartDate: docs.BidStartDate,
-                        ProductBidEndDate : docs.BidEndDate,
+                        ProductName: docs.name,
+                        ProductDescription: docs.description,
+                        ProductImage: baseURL+docs.image,
+                        ProductBidStartDate: docs.bidStartDate,
+                        ProductBidEndDate : docs.bidEndDate,
                         ProductId: productId
                     });
                 }
                 res.render(path.join(__dirname, './../views/bidding.pug'), {
-                    ProductName: docs.ProductName,
-                    ProductDescription: docs.ProductDescription,
-                    ProductImage: baseURL+docs.ProductImage,
-                    ProductBidStartDate: docs.BidStartDate,
-                    ProductBidEndDate : docs.BidEndDate,
-                    MinBidAmount: docs.ProductMinPrice,
+                    ProductName: docs.name,
+                    ProductDescription: docs.description,
+                    ProductImage: baseURL+docs.image,
+                    ProductBidStartDate: docs.bidStartDate,
+                    ProductBidEndDate : docs.bidEndDate,
+                    MinBidAmount: docs.minPrice,
                     ProductId: productId,
                     BidderId: req.session.userId
                 });
             }
-        })
+        })            
     });
     module.exports = router;

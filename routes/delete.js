@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
                 if(err)
                     throw err;
                 if(updatedDocs){
-                    if(req.session.userRole === "admin"){
+                    if(req.session.userRole.toUpperCase() === "ADMIN"){
                         res.render(path.join(__dirname,'./../views/admin.pug'));
                     }
                     else {
