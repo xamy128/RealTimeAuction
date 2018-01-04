@@ -31,13 +31,12 @@ router.post('/', function(req, res, next) {
                 else {
                     req.session.userId = user._id;
                     req.session.userRole = user.userRole;
-                    //res.render('dashboard');
                     res.redirect('/dashboard')
                 }
             }
          }
          else{ //If User does not Exist alert Invalid User
-             res.render('LoginPage', {title: 'Invalid user please try again'});
+             res.render('LoginPage', {title: 'Invalid User please try again'});
          }
 
     });
