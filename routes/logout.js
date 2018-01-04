@@ -5,7 +5,7 @@
 let express = require('express');
 let router = express.Router();
 
-/* Delete session object and logout user*/
+//Delete session object and logout user
 router.post('/', function(req, res, next) {
     if (req.session) {
         req.session.destroy(function(err) {

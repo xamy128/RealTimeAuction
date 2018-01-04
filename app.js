@@ -14,7 +14,8 @@ const express = require('express'),
     modify = require('./routes/modify'),
     del = require('./routes/delete'),
     logout = require('./routes/logout'),
-    //admin = require('./routes/admin'),
+    viewProduct = require('./routes/viewProduct'),
+    bidding = require('./routes/bidding'),
     productdetails = require('./routes/adminProductDetails'),
     userdetails = require('./routes/adminUserDetails'),
     searchproduct = require('./routes/adminSerachProduct'),
@@ -29,6 +30,7 @@ let port = process.env.PORT || 3000;
 
 
 const app = express();
+let server = require('http').createServer(app);
 const sessionOptions = {
     secret: "secret",
     resave : true,
@@ -70,6 +72,7 @@ app.use(function(req, res, next){
 
 //routes which need login
 app.use('/dashboard', dashboard);
+app.use('/bidding', viewProduct);
 app.use('/ProductView', product);
 app.use('/register',register);
 app.use('/users', users);
@@ -84,7 +87,6 @@ app.use('/DeleteProduct',deleteproduct);
 app.use('/userProfile',userprofile);
 app.use('/DeleteUser',deleteuser);
 app.use('/*', wrong);
-//app.use('/admin', admin);
 
 
 
@@ -106,6 +108,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(port);//, () =>  console.log(`Server is running on port ${port}`));
+bidding(app, server);
+server.listen(port);
 
 module.exports = app;

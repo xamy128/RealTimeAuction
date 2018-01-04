@@ -15,9 +15,9 @@ block content
           ul.row.list-unstyled
             each p in Future
               li.col-md-3
-                a(href="/productPage?pid=" + p.id)
+                a(href="/bidding?pid=" + p.id)
                   img(src=p.ProductImage)
-                a(href="/productPage?pid=" + p.id)
+                a(href="/bidding?pid=" + p.id)
                   p=p.ProductName
                 //p Start date is:  #{p.BidStartDate}
                 //p End date is: #{p.BidEndDate}
@@ -31,9 +31,9 @@ block content
           ul.row.list-unstyled
             each p in Current
               li.col-md-3
-                a(href="/productPage?pid=" + p.id)
+                a(href="/bidding?pid=" + p.id)
                   img(src=p.ProductImage)
-                a(href="/productPage?pid=" + p.id)
+                a(href="/bidding?pid=" + p.id)
                   p=p.ProductName
                 //p Start date is:  #{p.BidStartDate}
                 //p End date is: #{p.BidEndDate}
@@ -46,9 +46,9 @@ block content
           ul.row.list-unstyled
             each p in Past
               li.col-md-3
-                a(href="/productPage?pid=" + p.id)
+                a(href="/bidding?pid=" + p.id)
                   img(src=p.ProductImage)
-                a(href="/productPage?pid=" + p.id)
+                a(href="/bidding?pid=" + p.id)
                   p=p.ProductName
                 //p Start date is:  #{p.BidStartDate}
                 //p End date is: #{p.BidEndDate}

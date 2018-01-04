@@ -1,5 +1,5 @@
 /**
- * @file Signup logic for user
+ * @file Register logic for user
  * @author A. Kaul
  */
 
@@ -10,7 +10,7 @@ let path = require('path');
 let user = require('./../server/models/user');
 
 
-/* Save user profile into the DB */
+//Save user profile into the DB function
 router.post('/', function(req, res, next) {
     console.log('Hello world');
     let saveUser = function(newUser){
@@ -27,7 +27,7 @@ router.post('/', function(req, res, next) {
         });
     }
     
-    /* Validation to see if the user already exists */
+//Validation to see if the user already exists
     if((req.body.first_name && req.body.last_name && req.body.email && req.body.password && req.body.password_confirmation) &&(req.body.password === req.body.password_confirmation)){
         
         let newUser = new user();
@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
         newUser.isDeleted = false;
 
         console.log(newUser);
-
+//Save user profile into the DB if user does not exist and 
         user.findOne({'email': req.body.email, 'isDeleted': false}, (err,docs) => {
             if(err){
                 throw err;

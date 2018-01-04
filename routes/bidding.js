@@ -2,38 +2,36 @@
  * @file Bidding logic on product page
  * @author A. Kaul
  */
+let socketIo = require('socket.io');
+let productsModel = require('./../server/models/products');
+let highestBid = 0;
 module.exports = function(app, server){
-    let socketIo = require('socket.io');
-    const productLimit = 3;
     let io = socketIo.listen(server);
-    let highestBid = 0;
+//Socket code for bidding
 
-    //Get product from product id
-    productsModel.findOne({
-        BidEndDate: {$gt: new Date()},
-        BidStartDate: {$lte: new Date()}
-    })
-        .sort({'BidEndDate': 1})
-        .limit(productLimit)
-        .exec((err, productList) => {
-            if (err) return console.error(err);
-            //console.log(user.toString());
-            cb(productList);
-        });
-
-        //Socket code
     io.sockets.on('connection', function (socket) {
-      socket.on('send', function (data) {
-          if(parseInt(data.message) > highestBid)
-            highestBid = parseInt(data.message);
+    socket.on('send', function (data) {
+//Get highest bid and compare with current if current is more replace in DB 
+          if((data.bidAmount > highestBid) && (data.bidAmount > data.minBidAmount)){
+            highestBid = data.bidAmount;
+            productsModel.findOne({'_id': data.productId}, (err, docs) => {
+                if(err){
+                    throw err;
+                }if(docs){
+                    if(docs.IsBidCompleted === false){
+                        docs.MaxBidAmount = highestBid;
+                        docs.BidderId = data.bidderId;
+                    docs.save((err, updatedDocs) => {
+                        if(err)
+                            throw err;
+                    })}
+                }
+            })
+          }         
         let outData = {
             message: highestBid.toString()
         };
-          //Get highest bid from DB and compare with current if current is more replace in DB
-        console.log(data);
-        console.log(outData);
           io.sockets.emit('message', outData);
       });
     });
 };
-

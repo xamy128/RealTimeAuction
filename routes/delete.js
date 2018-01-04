@@ -9,22 +9,19 @@ let router = express.Router();
 let path = require('path');
 let user = require('./../server/models/user');
 
-/* Delete user profile */
+//Delete user profile
 router.post('/', function(req, res, next) {
-    console.log(req.body.email);
     user.findOne({'email': req.body.email}, (err,docs) => {
         if(err)
             throw err;
         if(docs){
             docs.isDeleted = true;
-            /*Set 'IsDeleted' property to true*/
+ //Set 'IsDeleted' property to true
             docs.save((err, updatedDocs) => {
                 if(err)
                     throw err;
                 if(updatedDocs){
-                    console.log('User is',req.session.userRole);
                     if(req.session.userRole === "admin"){
-                        console.log('User is deleted');
                         res.render(path.join(__dirname,'./../views/admin.pug'));
                     }
                     else {

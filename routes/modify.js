@@ -9,7 +9,7 @@ let router = express.Router();
 let path = require('path');
 let user = require('./../server/models/user');
 
-/* Find user profile */
+//Find user profile 
 router.post('/', function(req, res, next) {
     user.findOne({'email': req.body.email}, (err,docs) => {
         if(err){
@@ -19,13 +19,13 @@ router.post('/', function(req, res, next) {
             docs.lastName = req.body.last_name;
             docs.email = req.body.email;
             docs.userRole = req.body.user_role;
-            /* Add edited details from profile into the DB */
+//Add edited details from profile into the DB 
             docs.save((err, updatedDocs) => {
                 if(err)
                     throw err;
                 if(updatedDocs){
-                    console.log('User is',req.session.userRole);
-                    if(req.session.userRole === "admin") {
+//If user role is admin he should be able to change email and role
+                    if(req.session.userRole.toUpperCase() === "ADMIN") {
                         res.render(path.join(__dirname, './../views/userProfileAdmin.pug'), {
                             firstName: docs.firstName,
                             lastName: docs.lastName,

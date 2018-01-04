@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    .container
+        .row
+            .col-lg-12.col-sm-6
+                .container
+                    .row
+                        .col-md-8
+                            .col-md-12.card.bordered
+                                .col-md-12.text-center
+                                    h2 #{ProductName}
+                                .col-md-4.float-left
+                                    img(src=ProductImage)
+                                    input#BidStartDate(name='bidStartDate', type='hidden', value=ProductBidStartDate)
+                                    input#BidEndDate(name='bidEndDate', type='hidden', value=ProductBidEndDate)
+                                .col-md-8.float-right
+                                    h4 #{ProductDescription}
+                            .row.bottom
+                            form(role='form', method='POST')
+                                .col-md-4.text-center
+                                .col-md-4.text-center
+                                    input#BidderId(name='productId', type='hidden', value=ProductId)
+                                    input.btn.btn-info.btn-block(type='submit', value='Edit', formaction='editProduct')
+                                    input.btn.btn-info.btn-block(type='submit', value='Delete', formaction='deleteProduct')
