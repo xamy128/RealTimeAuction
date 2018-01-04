@@ -25,6 +25,7 @@ const express = require('express'),
     dashboard = require('./routes/dashboard'),
     product = require('./routes/productRoute'),
     dbConfig = require('./config/db');
+let port = process.env.PORT || 3000;
 
 
 const app = express();
@@ -104,5 +105,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(port);//, () =>  console.log(`Server is running on port ${port}`));
 
 module.exports = app;
