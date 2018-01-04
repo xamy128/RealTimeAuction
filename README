@@ -1,1 +1,16 @@
-This is a sample README.
+### RealTime Auction
+
+## Build
+
+```
+npm install
+
+```
+
+
+
+## Runn
+
+```
+npm run start
+```

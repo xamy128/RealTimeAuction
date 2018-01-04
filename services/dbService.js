@@ -1,4 +1,4 @@
-let Product = require('../models/product');
+let Product = require('../server/models/products');
 
 // to insert product
 exports.products = {

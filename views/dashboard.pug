@@ -6,7 +6,7 @@ block content
       .row.centered.new-prd-btn
         .col-xs-10
         .col-xs-2
-          a(href="http://yahoo.com").btn.btn-primary="Add New Product"
+          a(href="/ProductRoute").btn.btn-primary="Add New Product"
     .row.centered
       .col-xs-12
         .product-box
@@ -53,6 +53,8 @@ block content
                 //p Start date is:  #{p.BidStartDate}
                 //p End date is: #{p.BidEndDate}
                 p=p.ProductDescription
+
+
     script.
       $('.expand-btn').on('click', function(){
           $(this).toggleClass('fa-plus-square-o');
