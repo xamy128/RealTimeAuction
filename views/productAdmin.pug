@@ -21,5 +21,5 @@ block content
                                 .col-md-4.text-center
                                 .col-md-4.text-center
                                     input#BidderId(name='productId', type='hidden', value=ProductId)
-                                    input.btn.btn-info.btn-block(type='submit', value='Edit', formaction='editProduct')
+                                    input.btn.btn-info.btn-block(type='submit', value='Edit', formmethod='GET' formaction='/productView/get')
                                     input.btn.btn-info.btn-block(type='submit', value='Delete', formaction='deleteProduct')

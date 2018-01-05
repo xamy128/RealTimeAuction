@@ -1,3 +1,8 @@
+/**
+ * @file product model: schema for product
+ * @author Ammarah Shakeel
+ */
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 

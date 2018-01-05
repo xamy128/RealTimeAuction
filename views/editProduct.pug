@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    form(style="padding:50px;")
+    form(style="padding-top:50px;padding-left:50px;padding-right:50px;overflow:auto")
         //this div for left side elements
         h1 Edit Product
         input(type="hidden", name="pro_id" , value=pro._id, id="proId" )
@@ -34,8 +34,8 @@ block content
                             span(class="glyphicon glyphicon-calendar")
                 br
                 div(id="div_buttons" class="div_buttons")
-                    button(id='btn_save' type='submit' class="btn btn-success" formmethod='POST' formaction='/products/update' formenctype="multipart/form-data") Save
-                    button(id='btn_cancel' class="btn btn-danger" type="button" onclick="window.location.href='/'") Cancel
+                    button(id='btn_save' type='submit' class="btn btn-success" formmethod='POST' formaction='/productView/update' formenctype="multipart/form-data") Save
+                    button(id='btn_cancel' class="btn btn-danger" type="button" onclick="window.location.href='/dashboard'") Cancel
 
             div(id="div_right_pro" class="div_right", style="float:left")
                 div(style="width:300px;height:190px")
