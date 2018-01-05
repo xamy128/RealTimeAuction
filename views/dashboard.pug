@@ -1,4 +1,5 @@
 extends layout
+include productListMixin.pug
 
 block content
     .container
@@ -9,48 +10,14 @@ block content
           a(href="/ProductView").btn.btn-primary="Add New Product"
     .row.centered
       .col-xs-12
-        .product-box
-          h3= "Future Products"
-          i.fa.fa-plus-square-o.expand-btn.fa-3x
-          ul.row.list-unstyled
-            each p in futureProducts
-              li.col-md-3
-                a(href="/bidding?pid=" + p.id)
-                  img(src="/uploads/"+p.image)
-                a(href="/bidding?pid=" + p.id)
-                  p=p.name
-                //p Start date is:  #{p.BidStartDate}
-                //p End date is: #{p.BidEndDate}
-                p!=p.description
+        +productList(futureProducts,"Future Products")
 
     .row.centered
       .col-xs-12
-        .product-box
-          h3= "Current Products"
-          i.fa.fa-plus-square-o.expand-btn.fa-3x
-          ul.row.list-unstyled
-            each p in currentProducts
-              li.col-md-3
-                a(href="/bidding?pid=" + p.id)
-                  img(src="/uploads/"+p.image)
-                a(href="/bidding?pid=" + p.id)
-                  p=p.name
-                //p Start date is:  #{p.BidStartDate}
-                //p End date is: #{p.BidEndDate}
-                p!=p.description
+        +productList(currentProducts,"Current Products")
     .row.centered
       .col-xs-12
-        .product-box
-          h3= "Past Products"
-          i.fa.fa-plus-square-o.expand-btn.fa-3x
-          ul.row.list-unstyled
-            each p in pastProducts
-              li.col-md-3
-                a(href="/bidding?pid=" + p.id)
-                  img(src="/uploads/"+p.image)
-                a(href="/bidding?pid=" + p.id)
-                  p=p.name
-                p!=p.description
+        +productList(pastProducts,"Past Products")
 
     script.
       $('.expand-btn').on('click', function(){

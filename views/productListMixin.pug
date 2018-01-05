@@ -1,0 +1,18 @@
+mixin productList(pList,title,open)
+    .product-box
+        h3= title
+        i.fa.fa-plus-square-o.expand-btn.fa-3x
+
+        ul.row.list-unstyled
+            if pList.length == 0
+                li
+                    p= "There are no " + title
+            each p in pList
+                li.col-md-3
+                    a(href="/bidding?pid=" + p.id)
+                        img(src="/uploads/" + p.image)
+                    a(href="/bidding?pid=" + p.id)
+                        p=p.name
+                    //p Start date is:  #{p.BidStartDate}
+                    //p End date is: #{p.BidEndDate}
+                    p!=p.description
