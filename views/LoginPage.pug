@@ -1,0 +1,35 @@
+extends layout
+block content
+    .container
+        .row(style='margin-top:20px')
+            .col-xs-12.col-sm-8.col-md-6.col-sm-offset-2.col-md-offset-3
+                form(role='form')
+                    fieldset
+                        h2  Sign In
+                        hr.colorgraph
+                form(method='POST' action='Login')
+                    div.form-group
+                        label(for='email') Email
+                        input.form-control(type='Email' id='userName' placeholder='Email' name='email' required=true)
+                    div.form-group
+                        label(for='password') Password
+                        input.form-control(type='password' id='password' placeholder='password' name='password' required=true)
+                        hr.colorgraph
+                        style.
+                            h1 {
+                                font-size: 16px;
+                                color: #FF3300;
+                            }
+                        h1= title
+                        button.btn.btn-info.btn-block(type='submit') Log In
+                form(method='POST' action='register')
+                    div.form-group
+                        button.btn.btn-info.btn-block(type='submit') Sign Up
+
+
+
+
+
+
+
+

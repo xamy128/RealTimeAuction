@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    .container
+        .row(style='margin-top:20px')
+            .col-xs-12.col-sm-8.col-md-6.col-sm-offset-2.col-md-offset-3
+                form(role='form')
+                    fieldset
+                        h2  Welcome Admin
+                        hr.colorgraph
+        center
+            .row
+                .col
+                    |
+                .col
+                    br
+                    br
+                    br
+                    br
+                    form#searchProduct(action='/searchProduct', method='post')
+                        label(for='team_name') Product name
+                        input#product_name(type='text', name='productName', value=' ')
+                        input(type='submit', value='search')
+                        #result
+                    br
+                    br
+                    form#userProfile(action='/userProfile', method='post')
+                        label(for='team_name') Bidder First name
+                        input#team_name(type='text', name='userName', value=' ')
+                        input(type='submit', value='search')
+                        #UserResult
+                    br
+                    br
+                    form#SuserProfile(action='/userProfile', method='post')
+                        label(for='team_name') Supplier First name
+                        input#team_name(type='text', name='userName', value=' ')
+                        input(type='submit', value='search')
+                        #SUserResult
+                .col
+                    |
+
+                    script.
+                        $('#userProfile').submit(function (event){
+                            $(this).append('<input type="hidden" name="bidder" value="Bidder">');
+                            return true;
+                        });

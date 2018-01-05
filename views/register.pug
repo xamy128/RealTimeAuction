@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  h1.text-center= title
+  h1.text-center
+    span.fa.fa-group
+  h3.text-center= msg
+
+  .container
+  .row.centered-form
+    .col-xs-12.col-sm-8.col-md-4.col-sm-offset-2.col-md-offset-4
+      .panel.panel-default
+        .panel-heading
+          h3.text-center.panel-title
+            | Please sign up 
+            p (It's free!)
+        .panel-body
+          form(role='form', action='signup', method='POST')
+            .row
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#first_name.form-control.input-sm(type='text', name='first_name', placeholder='First Name', required='true')
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#last_name.form-control.input-sm(type='text', name='last_name', placeholder='Last Name', required='true')
+            .row
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#email.form-control.input-sm(type='email', name='email', placeholder='Email Address', required='true')
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  #radioBtn.btn-group
+                    a.btn.btn-primary.btn-sm.active(type="radioBtn", data-toggle='user_role', data-title='Seller') Seller
+                    a.btn.btn-primary.btn-sm.notActive(type="radioBtn", data-toggle='user_role', data-title='Buyer') Buyer
+                  input#user_role(type='hidden', name='user_role', value='Seller')
+            .row
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#password.form-control.input-sm(type='password', name='password', placeholder='Password', required='true')
+              .col-xs-6.col-sm-6.col-md-6
+                .form-group
+                  input#password_confirmation.form-control.input-sm(type='password', name='password_confirmation', placeholder='Confirm Password')
+            input.btn.btn-info.btn-block(type='submit', value='Register', action='signup')
+
+  script.
+    $('#radioBtn a').on('click', function(){
+    var sel = $(this).data('title');
+    var tog = $(this).data('toggle');
+    $('#user_role').prop('value',sel);
+    $('#'+tog).prop('value', sel);
+    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+    })

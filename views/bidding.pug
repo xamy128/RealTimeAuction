@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    .container
+        .row
+            .col-lg-12.col-sm-6
+                .container
+                    .row
+                        .col-md-8
+                            .col-md-12.card.bordered
+                                .col-md-12.text-center
+                                    h2 #{ProductName}
+                                .col-md-4.float-left
+                                    img(src=ProductImage)
+                                    input#BidStartDate(name='bidStartDate', type='hidden', value=ProductBidStartDate)
+                                    input#BidEndDate(name='bidEndDate', type='hidden', value=ProductBidEndDate)
+                                    input#ProductId(name='productId', type='hidden', value=ProductId)
+                                    input#BidderId(name='bidderId', type='hidden', value=BidderId)
+                                .col-md-8.float-right
+                                    h4 #{ProductDescription}
+                            .row.bottom
+                                .col-md-4.float-left
+                                    h5                                    
+                                .input-group.col-xs-4
+                                    input#amount.form-control(type='text', placeholder=MinBidAmount+' €', name='amount')
+                                    span.input-group-btn
+                                        input.btn.btn-success.btn-block(type='submit', id='bid', value='BID')
+                                .col-md-8.float-center
+                                        br
+                                        h6
+
+    script
+        include ./../public/javascripts/bidding.js
