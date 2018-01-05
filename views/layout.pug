@@ -23,12 +23,12 @@ html
         ul#menu
           if IsSupplier
             li
-              a="My Products"
+              a(href='/myProducts')="My Products"
           else
             li
-              a="My Bidds"
+              a(href='/myProducts')="My Bidds"
           li
-            a(href='/modify')="Edit Profile"
+            a(href='/users')="Edit Profile"
           li
             a(href='/logout')="Logout"
     block content

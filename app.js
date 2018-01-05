@@ -25,8 +25,9 @@ const express = require('express'),
     wrong = require('./routes/wrong'),
     dashboard = require('./routes/dashboard'),
     product = require('./routes/productRoute'),
+    myProducts = require('./routes/myProducts'),
     dbConfig = require('./config/db');
-let port = process.env.PORT || 3000; 
+
 
 
 const app = express();
@@ -86,6 +87,7 @@ app.use('/searchProduct',searchproduct);
 app.use('/DeleteProduct',deleteproduct);
 app.use('/userProfile',userprofile);
 app.use('/DeleteUser',deleteuser);
+app.use('/myProducts',myProducts);
 app.use('/*', wrong);
 
 
@@ -110,6 +112,7 @@ app.use(function(err, req, res, next) {
 
 bidding(app, server);
 
+let port = process.env.PORT || 3000;
 server.listen(port);//Todo:remove: because already exist in /bin/www.js
 
 module.exports = app;

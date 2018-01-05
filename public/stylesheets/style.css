@@ -36,6 +36,12 @@ a {
 .product-box ul{
   display: none;
 }
+.product-box.show ul{
+  display: block;
+}
+.product-box.show .expand-btn{
+  display: none;
+}
 .product-box h3{
   margin-top: 10px;
 }

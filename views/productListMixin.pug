@@ -1,10 +1,10 @@
 mixin productList(pList,title,open)
-    .product-box
+    div(class=open).product-box
         h3= title
         i.fa.fa-plus-square-o.expand-btn.fa-3x
 
         ul.row.list-unstyled
-            if pList.length == 0
+            if pList.length === 0
                 li
                     p= "There are no " + title
             each p in pList
