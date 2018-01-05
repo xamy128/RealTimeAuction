@@ -34,3 +34,147 @@ let socket = io.connect('http://localhost:3000');
                 };
                 socket.emit('send', data);
             };
+
+ //////
+
+$(document).ready(function () {
+    setActions();
+});
+
+function setActions() {
+    $('.accordion').find('.accordion-toggle').on("click", function(e) {
+        e.stopImmediatePropagation();
+        $(this).next(".reply-section").slideToggle();
+        //$(this).nextAll(".reply").slideToggle();
+        //$(".accordion-content").not($(this).next()).slideUp('600');
+    });
+    $('.accordion-toggle').on('click', function() {
+        $(this).toggleClass('active').siblings().removeClass('active');
+    });
+}
+function makeid() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    console.log('text: ', text);
+    return text;
+}
+
+function validateMyForm(id, parentId) {
+    var reply = $("#"+id).val();
+    var messge = {
+        "BidderId": 1,
+        "Comment": reply,
+        "parentId": parentId,
+        "comentId": id
+    };
+
+    socket.emit('chat message', messge);
+
+    //Also append this new reply to the chain of replies
+    var replySection = $("#"+id).parent();
+    var replyHtml = "<div class='reply'>" +
+        messge.Comment +
+        "</div>";
+    replySection.append(replyHtml);
+    $("#"+id).val("");
+    //$("#"+id).attr("id", makeid());
+}
+$("#formoid").submit(function(e) {
+
+    /* stop form from submitting normally */
+    e.preventDefault();
+
+
+    return false;
+
+});
+window.onload = function() {
+
+    socket = io();
+    //var socket = io('http://localhost:3000');
+
+
+    var sendButton = document.getElementById("send");
+    ///var content = document.getElementById("content");
+
+    socket.on('FromServer', function(msg){
+        console.log('new message received ', msg);
+    });
+
+    socket.emit('chat comments', "abc");
+    socket.on("chat fetchcomments", function(data){
+        console.log(data);
+        for(var i=0; i<data.length; i++){
+            if(data[i].parentId){
+                continue;
+            }
+            var comment = data[i].message;
+            var commentId = data[i].commentId;
+            var newId = makeid();
+            console.log(newId);
+            var htmlStr =  '<h4 class="accordion-toggle">' +  comment+ '</h4>' +
+                '<div class="reply-section">' +
+                '' +
+                '  <input type="text" name="reply" id='+ newId +' placeholder="Type your replies here..." class="comment-box">' +
+                '  <input type="button" onclick="validateMyForm(\''+newId+'\', \''+commentId+'\')" value="send" class="send-btn">\n';
+            for(var j=0; j<data.length; j++){
+                if(commentId && (data[j].parentId == commentId)){
+                    htmlStr += "<div class='reply'>" +
+                        data[j].message +
+                        "</div>";
+                }
+            }
+            htmlStr += "</div>";
+            $('#accordion').append(htmlStr);
+        }
+        var newId = makeid();
+        var footerHtml = "";
+        footerHtml = "<div id='commentFooter'>" +
+            '<input type="text" id="'+newId+'" placeholder="Type your comments here..." class="comment-box">\n' +
+            '<input type="button" onclick="addComments(\''+newId+'\')" value="Send" class="send-btn"/>' +
+            "</div>";
+        $('#accordion').append(footerHtml);
+
+        setActions();
+    });
+
+    addComments = function(newId) {
+
+        var bidderId =1;// document.getElementById("bidderId").value;
+        var comment = document.getElementById(newId).value;
+        document.getElementById(newId).value = "";
+        var commentId = newId;
+        // alert(comment);
+        var messge = {
+            "BidderId": bidderId,
+            "Comment": comment,
+            "ProductId": "abc",
+            "commentId": newId
+        };
+        // console.log('onclick :' ,messge);
+        socket.emit('chat message', messge);
+        var newId = makeid();
+        console.log(newId);
+        $('#accordion').append('<h4 class="accordion-toggle">' +  comment+ '</h4>' +
+            '<div class="reply-section">' +
+            '' +
+            '  <input type="text" name="reply" id='+ newId +' placeholder="Type your replies here..." class="comment-box">' +
+            '  <input type="button" onclick="validateMyForm(\''+newId+'\', \''+commentId+'\')" value="send" class="send-btn">\n' +
+            '</div>' +
+            '');
+        $("#commentFooter").remove();
+        var newId = makeid();
+        var footerHtml = "";
+        footerHtml = "<div id='commentFooter'>" +
+            '<input type="text" id="'+newId+'" placeholder="Type your comments here..." class="comment-box">\n' +
+            '<input type="button" onclick="addComments(\''+newId+'\')" value="Send" class="send-btn"/>' +
+            "</div>";
+        $('#accordion').append(footerHtml);
+        setActions();
+    };
+
+
+}

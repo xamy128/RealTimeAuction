@@ -13,6 +13,8 @@ html
     script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js")    
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")    
     script(src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js")
+    link(rel='stylesheet', href='/stylesheets/bidder.css')
+
   body
     if IsLoggedin
       nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
@@ -23,12 +25,12 @@ html
         ul#menu
           if IsSupplier
             li
-              a(href='/myProducts')="My Products"
+              a="My Products"
           else
             li
-              a(href='/myProducts')="My Bidds"
+              a="My Bidds"
           li
-            a(href='/users')="Edit Profile"
+            a(href='/modify')="Edit Profile"
           li
             a(href='/logout')="Logout"
     block content
