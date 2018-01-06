@@ -2,6 +2,7 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href='/stylesheets/bidder.css')
     link(rel="stylesheet", href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet")
@@ -13,7 +14,6 @@ html
     script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js")    
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")    
     script(src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js")
-    link(rel='stylesheet', href='/stylesheets/bidder.css')
 
   body
     if IsLoggedin
@@ -28,7 +28,7 @@ html
               a(href='/myProducts')="My Products"
           else
             li
-              a(href='/myProducts')="My Bidds"
+              a(href='/myProducts')="My Bids"
           li
             a(href='/users')="Edit Profile"
           li
