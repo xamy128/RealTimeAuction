@@ -9,7 +9,7 @@ block content
             div(id="div_left_pro" , class="div_left")
                 div(style="margin-top:10px")
                     label(class="label_product" for="name") Product Name
-                    input(class="input_product" id='name', type='text', name='name' required="true" pattern="^[a-zA-Z0-9]+$")
+                    input(class="input_product" id='name', type='text', name='name' required="true" pattern="^[a-zA-Z0-9 ]+$")
                 br
                 div(style="margin-top:10px")
                     label(class="label_product" style="margin-top:0px") Description
@@ -45,7 +45,6 @@ block content
                     input(type="file", id="img_file",  name="product" , accept="image/*")
                 br
 
-  include footer
                 script.
 
                     function readURL(input) {

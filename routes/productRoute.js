@@ -6,7 +6,6 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../server/models/productModel');
-//var fs = require('fs');
 var multer = require('multer');
 
 // setup for file upload
@@ -43,10 +42,10 @@ router.get('/get', function (req, res, next) {
         else {
             let product= pro._doc;
             if(product.image=="")
-                image = '/images/product.png';
+                product.image = '/images/product.png';
             else
-                image ='/uploads/'+product.image;
-            product.image = image;
+                product.image ='/uploads/'+product.image;
+
             res.render('editProduct',{"pro":product})
         }
     });
@@ -55,7 +54,7 @@ router.get('/get', function (req, res, next) {
 
 router.get('/', function (req,res,next) {
     //assign data to object
-    res.render('products')
+    res.render('ProductView')
 });
 
 //insert single product
@@ -68,6 +67,7 @@ router.post('/insert', upload.any(),function (req,res,next) {
         name: req.body.name,
         description: req.body.description,
         image: imageName,
+        supplierId: req.session.userId,
         bidStartDate: req.body.bidStartDate,
         bidEndDate: req.body.bidEndDate,
         minPrice: req.body.amount
@@ -76,7 +76,7 @@ router.post('/insert', upload.any(),function (req,res,next) {
         if(err)
             err;
         else
-            res.redirect("/");
+            res.redirect("/dashboard");
     });
 });
 
@@ -94,11 +94,6 @@ router.post('/update', upload.any(),function (req, res, next) {
             doc.image = req.files[0].filename;
         doc.minPrice = req.body.min_price;
         doc.modifiedDate = Date.now();
-        //doc.bidderId = bidderId;
-        //doc.isActive = isActive;
-        //doc.isDeleted = isDeleted;
-        //doc.isBidComplete = isBidComplete;
-        //doc.maxBidAmount = maxBidAmount;
         doc.bidStartDate = req.body.bidStartDate;
         doc.bidEndDate = req.body.bidEndDate;
         doc.modifiedDate = Date.now();
@@ -106,7 +101,7 @@ router.post('/update', upload.any(),function (req, res, next) {
             if (err)
                 return (err);
         });
-        res.redirect("/");
+        res.redirect("/dashboard");
     });
 });
 
@@ -116,9 +111,9 @@ router.post('/delete', function(req, res, next) {
     Product.findByIdAndRemove(id)
         .exec(function (err) {
             if(err)
-                console;
+                console.log(err);
             else
-                return true;
+                res.redirect("/dashboard");
         });
 
 });

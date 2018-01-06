@@ -22,8 +22,8 @@ let Product = new Schema({
     isDeleted: {type : Boolean, default : false},
     isBidComplete: {type : Boolean, default : false},
     maxBidAmount: {type : Number, default : 0, required: true},
-    bidStartDate: {type : Date, default : Date.now, required: true},
-    bidEndDate: {type : Date, default : Date.now, required: true},
+    bidStartDate: {type : String, default : Date.now, required: true},
+    bidEndDate: {type : String, default : Date.now, required: true},
     createdDate: {type : Date, default : Date.now, required: true},
     modifiedDate: {type : Date, default : Date.now, required: true}
 });
