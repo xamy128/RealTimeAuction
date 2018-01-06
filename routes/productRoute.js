@@ -102,19 +102,32 @@ router.post('/update', upload.any(),function (req, res, next) {
             if (err)
                 return (err);
         });
-        res.redirect("/dashboard");
+
+        if(req.session.userRole == 'admin')
+            res.redirect("/admin");
+        else
+            res.redirect("/dashboard");
     });
 });
 
 // delete product
 router.post('/delete', function(req, res, next) {
-    let id = req.body._id;
-    Product.findByIdAndRemove(id)
-        .exec(function (err) {
-            if(err)
-                console.log(err);
-            else
-                res.redirect("/dashboard");
+    let id = req.body.productId;
+    Product.findById(id, function(err, doc) {
+        if (err) {
+            console.error('error, no entry found');
+            return false;
+        }
+        doc.isDeleted = false;
+        doc.save(function (err, updateProduct) {
+            if (err)
+                return (err);
+        });
+
+        if(req.session.userRole == 'admin')
+            res.redirect("/admin");
+        else
+            res.redirect("/dashboard");
         });
 
 });
