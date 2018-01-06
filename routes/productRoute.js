@@ -132,6 +132,15 @@ router.post('/delete', function(req, res, next) {
 
 });
 
+//redirect on cancel
+router.post('/redirect', function (req,res) {
+
+    if(req.session.userRole == 'admin')
+        res.redirect("/admin");
+    else
+        res.redirect("/dashboard");
+});
+
 //upload file
 router.post('/upload', upload.any(), function (req, res) {
     res.send(req.files);

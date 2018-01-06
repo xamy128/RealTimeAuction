@@ -35,7 +35,7 @@ block content
                 br
                 div(id="div_buttons" class="div_buttons" )
                     button(id='btn_save' type='submit' class="btn btn-success" formmethod='POST' formaction='/productView/insert' formenctype="multipart/form-data") Save
-                    button(id='btn_cancel' class="btn btn-danger" type="button" onclick="window.location.href='/'") Cancel
+                    button(id='btn_cancel' type='submit' class="btn btn-danger"  formmethod='POST' formaction='/productView/redirect' formnovalidate) Cancel
 
             div(id="div_right_pro" class="div_right", style="float:left")
                 div(style="width:300px;height:190px")
