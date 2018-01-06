@@ -6,6 +6,7 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../server/models/productModel');
+//var fs = require('fs');
 var multer = require('multer');
 
 // setup for file upload
