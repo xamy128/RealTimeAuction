@@ -1,6 +1,6 @@
 /**
  * @file Bidding logic on product page
- * @author A. Kaul
+ * @author A. Kaul, A. Ahmed
  */
 let socketIo = require('socket.io');
 let productsModel = require('./../server/models/productModel');

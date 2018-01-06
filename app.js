@@ -62,7 +62,7 @@ app.use(function(req, res, next){
         const userRole=req.session.userRole;
         
         const isLoggedin= !!userId; //true //=>for test
-        const isSupplier= userRole.toUpperCase() !=='BIDDER';
+        const isSupplier= (userRole)? userRole.toUpperCase() !=='BIDDER': false;
 
 // redirect to login page if it's not logged in
     if (!isLoggedin){

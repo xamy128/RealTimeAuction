@@ -42,8 +42,7 @@ router.post('/', function(req, res, next) {
         newUser.password = req.body.password;
         newUser.userRole = req.body.user_role;
         newUser.isDeleted = false;
-
-        //console.log(newUser);
+        
 // Save user profile into the DB if user does not exist and 
         user.findOne({'email': req.body.email, 'isDeleted': false}, (err,docs) => {
             if(err){
