@@ -5,14 +5,12 @@
 
 let express = require('express');
 let router = express.Router();
+let bodyParser = require('body-parser');
 let path = require('path');
 
 // GET signup page 
-router.post('/', function(req, res, next) {
-  res.render(path.join(__dirname,'./../views/register.pug'), { 
-    title: 'Real Time Auction',
-    msg: req.query.msg ||'Welcome'
-   });
+router.get('/', function(req, res, next) {
+  res.render(path.join(__dirname,'./../views/register.pug'));
 });
 
- module.exports = router;
+module.exports = router;

@@ -10,8 +10,8 @@ let path = require('path');
 let user = require('./../server/models/user');
 
 //Delete user profile
-router.post('/', function(req, res, next) {
-    user.findOne({'email': req.body.email}, (err,docs) => {
+router.get('/', function(req, res, next) {
+    user.findOne({'email': req.query.email}, (err,docs) => {
         if(err)
             throw err;
         if(docs){

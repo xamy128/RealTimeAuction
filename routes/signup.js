@@ -10,24 +10,28 @@ let path = require('path');
 let user = require('./../server/models/user');
 
 
-//Save user profile into the DB function
+
 router.post('/', function(req, res, next) {
-    console.log('Hello world');
+    
+// Save user profile into the DB function
     let saveUser = function(newUser){
-        newUser.save((err) => {
+        newUser.save((err, updatedDocs) => {
             if(err)
                 throw err;
-            else
+             else
+             req.session.userId  = updatedDocs._id;
+             req.session.userRole = updatedDocs.userRole;
+
             res.render(path.join(__dirname,'./../views/userProfile.pug'), { 
-                firstName: req.body.first_name,
-                lastName: req.body.last_name,
-                email: req.body.email ,
-                userRole: req.body.user_role,
+                firstName: updatedDocs.firstName,
+                lastName: updatedDocs.lastName,
+                email: updatedDocs.email ,
+                userRole: updatedDocs.userRole,
             });
         });
     }
     
-//Validation to see if the user already exists
+// Validation to see if the user already exists
     if((req.body.first_name && req.body.last_name && req.body.email && req.body.password && req.body.password_confirmation) &&(req.body.password === req.body.password_confirmation)){
         
         let newUser = new user();
@@ -39,17 +43,13 @@ router.post('/', function(req, res, next) {
         newUser.userRole = req.body.user_role;
         newUser.isDeleted = false;
 
-        console.log(newUser);
-//Save user profile into the DB if user does not exist and 
+        //console.log(newUser);
+// Save user profile into the DB if user does not exist and 
         user.findOne({'email': req.body.email, 'isDeleted': false}, (err,docs) => {
             if(err){
                 throw err;
             }if(docs){
-                if(docs.email === req.body.email){
-                     res.redirect('/?msg=Profile already exists');
-                }else{
-                    saveUser(newUser);
-                }
+                res.redirect('/?msg=Profile already exists');
             }else{
                 saveUser(newUser);
             }

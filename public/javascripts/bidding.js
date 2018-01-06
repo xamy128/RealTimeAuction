@@ -5,8 +5,12 @@ let socket = io.connect('http://localhost:3000');
             let highestBid = $('h6')[0];
             let bidStartDate = $('#BidStartDate')[0];
             let bidEndDate = $('#BidEndDate')[0];
+            let userRole = $('#UserRole')[0];
             let ProductId = $('#ProductId')[0];
             let MinBidAmount = $('#amount')[0];
+            let Today = new Date();
+            let StartTime = $('#Start')[0].value
+            let EndTime = $('#Start')[0].value
 
 //Receive data from server and display
             socket.on('message', function (data) {
@@ -34,8 +38,36 @@ let socket = io.connect('http://localhost:3000');
                 };
                 socket.emit('send', data);
             };
+// Disable bid button when not required
+            (function(){
+                let dd = Today.getDate();
+                let mm = Today.getMonth()+1; //January is 0!
+                let yyyy = Today.getFullYear();
+                let hh = Today.getHours()+1; //Starts at 0!
+                let mn = Today.getMinutes()+1; //Starts at 0!
+                if(dd<10) {
+                    dd = '0'+dd;
+                } 
+    
+                if(mm<10) {
+                    mm = '0'+mm;
+                }
+    
+                if(hh<10){
+                    hh= '0'+hh;
+                }
+                if(mn<10){
+                    mn= '0'+mn;
+                } 
+    
+                Today = new Date(dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + mn).toUTCString();
+                console.log((new Date(EndTime).toUTCString() < Today));
+                if(userRole.value.toUpperCase() === "SUPPLIER" || !(new Date(StartTime).toUTCString() < Today && new Date(EndTime).toUTCString() > Today)){   
+                    $('#bid').attr('disabled', 'true');
+                    $('h6').append('<p><strong><font color="red">The auction is not active!</font></strong></p>')
+                };  
+            })();
 
- //////
 
 $(document).ready(function () {
     setActions();

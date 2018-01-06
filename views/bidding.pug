@@ -16,8 +16,14 @@ block content
                                     input#BidEndDate(name='bidEndDate', type='hidden', value=ProductBidEndDate)
                                     input#ProductId(name='productId', type='hidden', value=ProductId)
                                     input#BidderId(name='bidderId', type='hidden', value=BidderId)
+                                    input#UserRole(name='userRole', type='hidden', value=UserRole)
+                                    input#Start(name='start', type='hidden', value=ProductBidStartDate)
+                                    input#End(name='end', type='hidden', value=ProductBidEndDate)
                                 .col-md-8.float-right
                                     h4 #{ProductDescription}
+                                    h7 Bid starts: #{ProductBidStartDate}
+                                    br
+                                    h7 Bid ends: #{ProductBidEndDate}
                             .row.bottom
                                 .col-md-4.float-left
                                     h5                                    
@@ -25,9 +31,10 @@ block content
                                     input#amount.form-control(type='text', placeholder=MinBidAmount+' €', name='amount')
                                     span.input-group-btn
                                         input.btn.btn-success.btn-block(type='submit', id='bid', value='BID')
-                                .col-md-8.float-center
-                                        br
-                                        h6
+                                .col-md-8
+                                    br
+                                    h6
+                                    br
     .container
         .col-md-8
             // Fluid width widget
@@ -51,6 +58,60 @@ block content
                     //                br
                     //                input(type='submit', value='Send')
 
+    //- script.
+    //-     var end = new Date();
 
+    //-     var _second = 1000;
+    //-     var _minute = _second * 60;
+    //-     var _hour = _minute * 60;
+    //-     var _day = _hour * 24;
+    //-     var timer;
+
+    //-     function showRemaining() {
+    //-         var now = new Date();
+    //-         var distance = end - now;
+    //-         if (distance < 0) {
+
+    //-         clearInterval(timer);
+    //-         document.getElementById('countdown').innerHTML = 'EXPIRED!';
+
+    //-         return;
+    //-         }
+    //-         var days = Math.floor(distance / _day);
+    //-         var hours = Math.floor((distance % _day) / _hour);
+    //-         var minutes = Math.floor((distance % _hour) / _minute);
+    //-         var seconds = Math.floor((distance % _minute) / _second);
+
+    //-         document.getElementById('countdown').innerHTML = minutes + 'mins ' + seconds + 'secs';
+    //-     }
+
+    //-     timer = setInterval(showRemaining, 1000);
+    //-     (function(){
+    //-         var today = new Date();
+    //-         var dd = today.getDate();
+    //-         var mm = today.getMonth()+1; //January is 0!
+    //-         var yyyy = today.getFullYear();
+    //-         var hh = today.getHours()+1; //Starts at 0!
+    //-         var mn = today.getMinutes()+1; //Starts at 0!
+    //-         if(dd<10) {
+    //-             dd = '0'+dd;
+    //-         } 
+
+    //-         if(mm<10) {
+    //-             mm = '0'+mm;
+    //-         }
+
+    //-         if(hh<10){
+    //-             hh= '0'+hh;
+    //-         }
+    //-         if(mn<10){
+    //-             mn= '0'+mn;
+    //-         } 
+
+    //-         today = new Date(dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + mn).toUTCString();
+    //-         if(userRole.value.toUpperCase() === "SUPPLIER" || new Date($('#Start')[0].value).toUTCString() > today || new Date($('#End')[0].value).toUTCString() < today){   
+    //-             $('#bid').attr('disabled', 'true');
+    //-         };  
+    //-     })();
     script
         include ./../public/javascripts/bidding.js

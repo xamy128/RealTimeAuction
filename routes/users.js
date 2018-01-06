@@ -10,8 +10,8 @@ let path = require('path');
 let user = require('./../server/models/user');
 
 //Find user profile to edit
-router.post('/', function(req, res, next) {
-    user.findOne({'email': req.body.email}, (err,docs) => {
+router.get('/', function(req, res, next) {
+    user.findOne({'_id': req.session.userId}, (err,docs) => {
         if(err){
             throw err;
         }if(docs){

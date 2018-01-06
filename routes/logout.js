@@ -4,9 +4,10 @@
  */
 let express = require('express');
 let router = express.Router();
+let bodyParser = require('body-parser');
 
 //Delete session object and logout user
-router.post('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
     if (req.session) {
         req.session.destroy(function(err) {
             if(err) {

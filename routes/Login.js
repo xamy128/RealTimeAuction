@@ -11,8 +11,8 @@ router.post('/', function(req, res, next) {
     // Get data
     let email = req.body.email;
     let password = req.body.password;
-    console.log(email);
-    console.log(password);
+    // console.log(email);
+    // console.log(password);
     // Check if the user exist
     user.findOne({email: email, password: password}).exec(function (err, user) {
         if (err) {
@@ -22,15 +22,17 @@ router.post('/', function(req, res, next) {
             if(user.isDeleted === true){
                 res.render('LoginPage', {title: 'Invalid user please try again'});
             }else{
+                req.session.userId  = user._id;
+                req.session.userRole = user.userRole;
                 if (user.userRole === 'admin') {
-                    req.session.userId  = user._id;
-                    req.session.userRole = user.userRole;
+                    // req.session.userId  = user._id;
+                    // req.session.userRole = user.userRole;
                     res.render('admin', {title: 'Welcome admin'});
                 }
                 //if User is not Admin Route to Dashboard
                 else {
-                    req.session.userId = user._id;
-                    req.session.userRole = user.userRole;
+                    // req.session.userId = user._id;
+                    // req.session.userRole = user.userRole;
                     res.redirect('/dashboard')
                 }
             }

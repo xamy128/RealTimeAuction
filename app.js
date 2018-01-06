@@ -32,6 +32,7 @@ const express = require('express'),
 
 const app = express();
 let server = require('http').createServer(app);
+let port = process.env.PORT || 3000;
 const sessionOptions = {
     secret: "secret",
     resave : true,
@@ -52,32 +53,32 @@ app.use(logger('dev'));
 //routes which don't need login !!!order of lines of codes here is important!!
 app.use('/',home);
 app.use('/Login',login);
+app.use('/register',register);
+app.use('/signup', signup);
 
 //global setting of isLoggedin and isSupplier !!!order of lines of codes here is important!!
 app.use(function(req, res, next){
-    const userId=req.session.userId;
-    const userRole=req.session.userRole;
+        const userId=req.session.userId;
+        const userRole=req.session.userRole;
+        
+        const isLoggedin= !!userId; //true //=>for test
+        const isSupplier= userRole.toUpperCase() !=='BIDDER';
 
-    const isLoggedin= !!userId; //true //=>for test
-    const isSupplier= userRole !=='bidder';
-
-    // redirect to login page if it's not logged in
+// redirect to login page if it's not logged in
     if (!isLoggedin){
         res.redirect('/');
         return;
     }
     res.locals.IsSupplier= isSupplier;
     res.locals.IsLoggedin = isLoggedin;
-    next();
+    next();    
 });
 
-//routes which need login
+// routes which need login
 app.use('/dashboard', dashboard);
 app.use('/bidding', viewProduct);
 app.use('/ProductView', product);
-app.use('/register',register);
 app.use('/users', users);
-app.use('/signup', signup);
 app.use('/modify', modify);
 app.use('/delete', del);
 app.use('/logout', logout);
@@ -101,18 +102,17 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+// set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+// render the error page
   res.status(err.status || 500);
-  //res.render('error');
+  res.render('error');
 });
 
 bidding(app, server);
 
-let port = process.env.PORT || 3000;
-server.listen(port);//Todo:remove: because already exist in /bin/www.js
+server.listen(port);
 
 module.exports = app;

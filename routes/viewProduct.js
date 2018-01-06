@@ -25,8 +25,9 @@ router.get('/', function(req, res, next) {
                         ProductName: docs.name,
                         ProductDescription: docs.description,
                         ProductImage: baseURL+docs.image,
-                        ProductBidStartDate: docs.bidStartDate,
-                        ProductBidEndDate : docs.bidEndDate,
+                        ProductBidStartDate: docs.bidStartDate.toString(),
+                        ProductBidEndDate : docs.bidEndDate.toString(),
+                        UserRole : req.session.userRole,
                         ProductId: productId
                     });
                 }
@@ -38,6 +39,7 @@ router.get('/', function(req, res, next) {
                     ProductBidEndDate : docs.bidEndDate,
                     MinBidAmount: docs.minPrice,
                     ProductId: productId,
+                    UserRole : req.session.userRole,
                     BidderId: req.session.userId
                 });
             }

@@ -16,6 +16,9 @@ block content
                                     input#BidEndDate(name='bidEndDate', type='hidden', value=ProductBidEndDate)
                                 .col-md-8.float-right
                                     h4 #{ProductDescription}
+                                    h7 Bid starts: #{ProductBidStartDate}
+                                    br
+                                    h7 Bid ends: #{ProductBidEndDate}
                             .row.bottom
                             form(role='form', method='POST')
                                 .col-md-4.text-center
