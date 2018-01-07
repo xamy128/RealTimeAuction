@@ -11,9 +11,7 @@ let multer = require('multer');
 // setup for file upload
 let storage = multer.diskStorage(
     {
-        destination: function ( req, file, cb ) {
-            cb( null, '../public/uploads/');
-        },
+        destination: 'public/uploads/',
 
         filename: function ( req, file, cb ) {
             cb( null, 'product'+ '-' + Date.now()+".jpg");
