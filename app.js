@@ -19,7 +19,6 @@ const express = require('express'),
     productdetails = require('./routes/adminProductDetails'),
     userdetails = require('./routes/adminUserDetails'),
     searchproduct = require('./routes/adminSerachProduct'),
-    deleteproduct = require('./routes/adminDeleteProduct'),
     userprofile =require('./routes/adminUserProfile'),
     wrong = require('./routes/wrong'),
     dashboard = require('./routes/dashboard'),
@@ -84,7 +83,6 @@ app.use('/logout', logout);
 app.use('/GoToDetails',productdetails);
 app.use('/GoToUserDetails',userdetails);
 app.use('/searchProduct',searchproduct);
-app.use('/DeleteProduct',deleteproduct);
 app.use('/userProfile',userprofile);
 app.use('/myProducts',myProducts);
 app.use('/*', wrong);

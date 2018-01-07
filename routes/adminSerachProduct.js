@@ -23,7 +23,6 @@ router.post('/', function(req, res, next) {
             //3: Check if the product exists
             if (!product){
                 console.log('Product is not there');
-                //res.render('popup', {title: 'Product does not exist'});
                 res.send({result: "f", message : "Product does not exist"});
 
             }
@@ -31,12 +30,10 @@ router.post('/', function(req, res, next) {
                 //4: Check if product is already removed
                 if ( product.IsDeleted === true  ){
                     console.log('Product is already deleted');
-                    //res.render('popup', {title: 'Product is already deleted'});
                     res.send({result: "f", message : "Product is already deleted"});
                 }
                 else{
                     console.log('Product is exists');
-                    //4: Pass product to view (searchProduct.pug)
                     //res.render('searchProduct', { title: product.ProductName + ' page', data: product });
                     res.send({result: "t", message : "Product is exist", ProductName: product.name, Id: product._id });
                 }

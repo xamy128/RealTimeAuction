@@ -17,9 +17,6 @@ router.post('/', function(req, res, next) {
     }else {
         userRole = "Supplier";
     }
-    console.log(userRole);
-    console.log("User name: ", userName);
-    console.log('User db:', user);
     //2: Get product details from db by using id
     user.findOne({firstName: userName} ).exec(function(err, user) {
         if (err) {

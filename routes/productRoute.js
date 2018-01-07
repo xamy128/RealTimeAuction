@@ -6,6 +6,7 @@
 let express = require('express');
 let router = express.Router();
 let Product = require('../server/models/productModel');
+let path = require('path');
 let multer = require('multer');
 
 // setup for file upload
@@ -102,7 +103,7 @@ router.post('/update', upload.any(),function (req, res, next) {
         });
 
         if(req.session.userRole == 'admin')
-            res.redirect("/admin");
+            res.render(path.join(__dirname,'./../views/admin.pug'));
         else
             res.redirect("/dashboard");
     });
@@ -123,7 +124,7 @@ router.post('/delete', function(req, res, next) {
         });
 
         if(req.session.userRole == 'admin')
-            res.redirect("/admin");
+            res.render(path.join(__dirname,'./../views/admin.pug'));
         else
             res.redirect("/dashboard");
     });
@@ -134,7 +135,7 @@ router.post('/delete', function(req, res, next) {
 router.post('/redirect', function (req,res) {
 
     if(req.session.userRole == 'admin')
-        res.redirect("/admin");
+        res.render(path.join(__dirname,'./../views/admin.pug'));
     else
         res.redirect("/dashboard");
 });
