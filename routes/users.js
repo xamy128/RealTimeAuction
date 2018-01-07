@@ -16,7 +16,6 @@ router.get('/', function(req, res, next) {
         if(err){
             throw err;
         }
-        console.log('Im here', req.query.email);
         if(docs){
                 res.render(path.join(__dirname,'./../views/editUser.pug'), { 
                     firstName: docs.firstName,

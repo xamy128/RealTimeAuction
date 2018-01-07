@@ -26,12 +26,7 @@ router.post('/', function(req, res, next) {
                 if(updatedDocs){
 //If user role is admin he should be able to change email and role
                     if(req.session.userRole.toUpperCase() === "ADMIN") {
-                        res.render(path.join(__dirname, './../views/admin.pug'), {
-                            firstName: docs.firstName,
-                            lastName: docs.lastName,
-                            email: docs.email,
-                            userRole: docs.userRole,
-                        });
+                        res.render(path.join(__dirname, './../views/admin.pug'));
                     }
                     else
                         {
