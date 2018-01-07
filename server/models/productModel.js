@@ -3,15 +3,12 @@
  * @author Ammarah Shakeel
  */
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
 // product Schema
 
 let Product = new Schema({
-//id: { type: int, required: true, unique: true },
-//id: int,
-    //_id: {type : Schema.ObjectId, required: true},
     name: {type : String, default : 'default', required : true},
     description:{type : String, default : ''},
     image: {type : String, default : ''},
@@ -29,4 +26,4 @@ let Product = new Schema({
 });
 
 
-var exports = module.exports = mongoose.model('product', Product);
+let exports = module.exports = mongoose.model('product', Product);

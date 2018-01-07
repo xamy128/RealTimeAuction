@@ -3,14 +3,13 @@
  * @author Ammarah Shakeel
  */
 
-var express = require('express');
-var router = express.Router();
-var Product = require('../server/models/productModel');
-//var fs = require('fs');
-var multer = require('multer');
+let express = require('express');
+let router = express.Router();
+let Product = require('../server/models/productModel');
+let multer = require('multer');
 
 // setup for file upload
-var storage = multer.diskStorage(
+let storage = multer.diskStorage(
     {
         destination: '../public/uploads/',
         filename: function ( req, file, cb ) {
@@ -20,7 +19,7 @@ var storage = multer.diskStorage(
         }
     }
 );
-var upload = multer({storage})
+let upload = multer({storage})
 
 //get All Products
 router.get('/getAll', function (req,res,next) {
@@ -64,7 +63,7 @@ router.post('/insert', upload.any(),function (req,res,next) {
 
     if(req.files.length!==0)
         imageName =req.files[0].filename;
-    product = new Product({
+        product = new Product({
         name: req.body.name,
         description: req.body.description,
         image: imageName,
@@ -128,7 +127,7 @@ router.post('/delete', function(req, res, next) {
             res.redirect("/admin");
         else
             res.redirect("/dashboard");
-        });
+    });
 
 });
 
