@@ -8,11 +8,16 @@ let bodyParser = require('body-parser');
 let router = express.Router();
 let path = require('path');
 let user = require('./../server/models/user');
+let searchData = {};
 
 //Find user profile to edit
 router.get('/', function(req, res, next) {
-    //user.findOne({'_id': req.session.userId}, (err,docs) => {
-    user.findOne({'email': req.query.email}, (err,docs) => {
+        if(req.query.email){
+            searchData = {'email': req.query.email}
+        } else{
+            searchData = {'_id': req.session.userId}  
+        }
+    user.findOne(searchData, (err,docs) => {
         if(err){
             throw err;
         }

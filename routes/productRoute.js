@@ -117,7 +117,7 @@ router.post('/delete', function(req, res, next) {
             console.error('error, no entry found');
             return false;
         }
-        doc.isDeleted = false;
+        doc.isDeleted = true;
         doc.save(function (err, updateProduct) {
             if (err)
                 return (err);
