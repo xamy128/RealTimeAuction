@@ -5,7 +5,7 @@
 
 let express = require('express');
 let router = express.Router();
-let products = require('./../server/models/products');
+let products = require('./../server/models/productModel');
 
 
 router.post('/', function(req, res, next) {
@@ -15,7 +15,7 @@ router.post('/', function(req, res, next) {
     console.log("Product name: ", name);
 
     //2: Get product details from db by using id
-    products.findOne({ProductName: name} ).exec(function(err, product) {
+    products.findOne({name: name} ).exec(function(err, product) {
         if (err) {
             console.log('Error while getting a product from DB');
         } else {
@@ -38,7 +38,7 @@ router.post('/', function(req, res, next) {
                     console.log('Product is exists');
                     //4: Pass product to view (searchProduct.pug)
                     //res.render('searchProduct', { title: product.ProductName + ' page', data: product });
-                    res.send({result: "t", message : "Product is exist", ProductName: product.ProductName, Id: product._id });
+                    res.send({result: "t", message : "Product is exist", ProductName: product.name, Id: product._id });
                 }
 
             }

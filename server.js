@@ -20,7 +20,6 @@ let express = require('express'),
     searchproduct = require('./routes/adminSerachProduct'),
     deleteproduct = require('./routes/adminDeleteProduct'),
     userprofile =require('./routes/adminUserProfile'),
-    deleteuser = require('./routes/adminDeleteUser'),
     wrong = require('./routes/wrong'),
 
 
@@ -59,7 +58,6 @@ app.use('/GoToUserDetails',userdetails);
 app.use('/searchProduct',searchproduct);
 app.use('/DeleteProduct',deleteproduct);
 app.use('/userProfile',userprofile);
-app.use('/DeleteUser',deleteuser);
 app.use('/*', wrong);
 //app.use('/admin', admin);
 

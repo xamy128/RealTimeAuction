@@ -10,9 +10,9 @@ block content
                     h3.text-center.panel-title
                         | Welcome #{firstName}
                         //div(style='text-align:center')
-                            a.text-center.btn.btn-danger.btn-sm(href='/logout') Logout
+                            a(href="/admin").btn.btn-primary="Back"
                 .panel-body
-                    form(role='form', method='POST')
+                    form(role='form', method='GET')
                         .row
                             .col-xs-6.col-sm-6.col-md-6
                                 .form-group

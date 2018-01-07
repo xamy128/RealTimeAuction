@@ -13,9 +13,9 @@ router.post('/', function(req, res, next) {
     let userRole = "";
     let userName = req.body.userName;
     if(req.body.bidder){
-        userRole = "bidder";
+        userRole = "Bidder";
     }else {
-        userRole = "supplier";
+        userRole = "Supplier";
     }
     console.log(userRole);
     console.log("User name: ", userName);
@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
                 res.send({result: "f", message : "User does not exist"});
             }
             else {
-                //4: Check if product is already removed
+                //4: Check if user is already bidder or supplier
                 if (user.userRole !== userRole){
                     console.log('User is not a ', userRole);
                     res.send({result: "f", message : 'User is not a '+userRole});
