@@ -34,25 +34,31 @@ module.exports = function(app, server){
         };
           io.sockets.emit('message', outData);
       });
-    ////
+
         //Fetch comments from the DB for a product
-        socket.on('chat comments', function(productId){
+        socket.on('chat comments', function(prodId){
             // var commentsModel = mongoose.model("Comment");
-            console.log("Fetching comments for product "+productId);
-            commentModel.find({}, function(err, data){
-                console.log("Comments data : \n");
-                console.log(data);
+            //console.log("Fetching comments for product "+prodId);
+            commentModel.find(
+            {
+                productId : prodId
+            }
+            , function(err, data){
+                //console.log("Comments data : \n");
+                //console.log(data);
                 socket.emit("chat fetchcomments", data);
             });
         });
+
+        //Receives a comment message from the bidder and saves in the DB
         socket.on('chat message', function(msg){
-            console.log('message from client: ', msg);
+            //console.log('message from client: ', msg);
             //comment
             var comment = msg.Comment;
             var productId= msg.productId;
             //From which bidder
             var bidderId = msg.BidderId;
-            console.log("bidderId ",bidderId);
+            //console.log("bidderId ",bidderId);
             var parentId = msg.parentId;
             //To which supplier
 
@@ -69,11 +75,11 @@ module.exports = function(app, server){
             //Save message in DB
             newComment.save(function (err) {
                 if (err) {
-                    console.log("Error while inserting comment: ", err);
+                    //console.log("Error while inserting comment: ", err);
                 }
                 else
                 {
-                    console.log("a new comment saved")
+                    //console.log("a new comment saved")
                 }
             });
             //Send to other side
