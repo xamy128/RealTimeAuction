@@ -74,6 +74,12 @@ block content
                 minDate: new Date(),
                 useCurrent: false, //this is important as the functions sets the default date value to the current value
             });
+            $("#startDate").on("dp.change", function (e) {
+                $('#endDate').data("DateTimePicker").minDate(e.date);
+            });
+            $("#endDate").on("dp.change", function (e) {
+                $('#startDate').data("DateTimePicker").maxDate(e.date);
+            });
             tinymce.init({
                 selector: '#desc',
                 height: 250

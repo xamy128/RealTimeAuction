@@ -74,6 +74,12 @@ block content
                         stepping: 15, //will change increments to 15m, default is 1m
                         minDate: new Date(),
                     });
+                    $("#startDate").on("dp.change", function (e) {
+                        $('#endDate').data("DateTimePicker").minDate(e.date);
+                    });
+                    $("#endDate").on("dp.change", function (e) {
+                        $('#startDate').data("DateTimePicker").maxDate(e.date);
+                    });
                     tinymce.init({
                         selector: '#desc',
                         height: 250
