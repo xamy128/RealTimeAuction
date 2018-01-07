@@ -48,14 +48,19 @@ router.post('/', function(req, res, next) {
             if(err){
                 throw err;
             }if(docs){
-                res.redirect('/?msg=Profile already exists');
+                res.render(path.join(__dirname,'./../views/register.pug'),{
+                    message: 'Profile already exists'
+                });
+                // res.redirect('/?msg=Profile already exists');
             }else{
                 saveUser(newUser);
             }
                 
         })        
     } else{
-        res.redirect('/?msg=Password confirmation does not match');
+        res.render(path.join(__dirname,'./../views/register.pug'), {
+            message: 'Password confirmation does not match'
+        });
     }
     
 });
