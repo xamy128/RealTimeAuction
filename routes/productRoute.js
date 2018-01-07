@@ -11,10 +11,11 @@ let multer = require('multer');
 // setup for file upload
 let storage = multer.diskStorage(
     {
-        destination: '../public/uploads/',
+        destination: function ( req, file, cb ) {
+            cb( null, '../public/uploads/');
+        },
+
         filename: function ( req, file, cb ) {
-            //req.body is empty...
-            //How could I get the new_file_name property sent from client here?
             cb( null, 'product'+ '-' + Date.now()+".jpg");
         }
     }
