@@ -20,10 +20,11 @@ block content
                                     input#Start(name='start', type='hidden', value=ProductBidStartDate)
                                     input#End(name='end', type='hidden', value=ProductBidEndDate)
                                 .col-md-8.float-right
-                                    h4 #{ProductDescription}
-                                    h7 Bid starts: #{ProductBidStartDate}
+                                    //- h4!=ProductDescription
+                                    h4 !{ProductDescription}
+                                    h7 Bid starts: #{ProductBidStartDate.toUTCString()}
                                     br
-                                    h7 Bid ends: #{ProductBidEndDate}
+                                    h7 Bid ends: #{ProductBidEndDate.toUTCString()}
                             .row.bottom
                                 .col-md-4.float-left
                                     h5                                    
