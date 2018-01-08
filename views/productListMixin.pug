@@ -5,7 +5,7 @@ mixin productList(pList,title,open)
 
         ul.row.list-unstyled
             if pList.length === 0
-                li
+                li#noProd
                     p= "There are no " + title
             each p in pList
                 li.col-md-3

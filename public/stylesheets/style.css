@@ -91,6 +91,13 @@ a {
 .product-box ul{
   display: none;
 }
+#noProd p{
+    padding-left: 15px;
+}
+.product-box li{
+    float: left;
+}
+
 .product-box h3{
   margin-top: 10px;
 }
