@@ -28,7 +28,8 @@ router.post('/', function(req, res, next) {
             }
             else{
                 //4: Check if product is already removed
-                if ( product.IsDeleted === true  ){
+                console.log('Deleted', product.isDeleted);
+                if ( product.isDeleted === true  ){
                     console.log('Product is already deleted');
                     res.send({result: "f", message : "Product is already deleted"});
                 }
