@@ -38,16 +38,15 @@ let socket = io.connect('http://localhost:3000');
             bidButton.onclick = function() {
                 let data = {
                     bidAmount : parseInt(amount.value),
-                    productId:ProductId.value,
+                    productId: ProductId.value,
                     minBidAmount: parseInt(MinBidAmount.placeholder),
                     bidderId: BidderId.value
                 };
                 socket.emit('send', data);
             };
 // Disable bid button when not required
-            (function(){    
-                Today = Today.toUTCString();
-                if(userRole.value.toUpperCase() === "SUPPLIER" || !(new Date(StartTime).toUTCString() < Today && new Date(EndTime).toUTCString() > Today)){   
+            (function(){
+                if(userRole.value.toUpperCase() === "SUPPLIER" || !(new Date(StartTime) < Today && new Date(EndTime)  > Today)){   
                     $('#bid').attr('disabled', 'true');
                     $('h6').append('<p><strong><font color="red">The auction is not active!</font></strong></p>')
                 };  

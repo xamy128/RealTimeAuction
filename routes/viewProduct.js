@@ -25,23 +25,24 @@ router.get('/', function(req, res, next) {
                         ProductName: docs.name,
                         ProductDescription: docs.description,
                         ProductImage: baseURL+docs.image,
-                        ProductBidStartDate: docs.bidStartDate.toString(),
-                        ProductBidEndDate : docs.bidEndDate.toString(),
+                        ProductBidStartDate: docs.bidStartDate,
+                        ProductBidEndDate : docs.bidEndDate,
                         UserRole : req.session.userRole,
                         ProductId: productId
                     });
+                }else{
+                    res.render(path.join(__dirname, './../views/bidding.pug'), {
+                        ProductName: docs.name,
+                        ProductDescription: docs.description,
+                        ProductImage: baseURL+docs.image,
+                        ProductBidStartDate: docs.bidStartDate,
+                        ProductBidEndDate : docs.bidEndDate,
+                        MinBidAmount: docs.minPrice,
+                        ProductId: productId,
+                        UserRole : req.session.userRole,
+                        BidderId: req.session.userId
+                    });
                 }
-                res.render(path.join(__dirname, './../views/bidding.pug'), {
-                    ProductName: docs.name,
-                    ProductDescription: docs.description,
-                    ProductImage: baseURL+docs.image,
-                    ProductBidStartDate: docs.bidStartDate,
-                    ProductBidEndDate : docs.bidEndDate,
-                    MinBidAmount: docs.minPrice,
-                    ProductId: productId,
-                    UserRole : req.session.userRole,
-                    BidderId: req.session.userId
-                });
             }
         })            
     });

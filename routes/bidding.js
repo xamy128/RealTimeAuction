@@ -6,6 +6,7 @@ let socketIo = require('socket.io');
 let productsModel = require('./../server/models/productModel');
 let commentModel = require('./../server/models/commentModel');
 let highestBid = 0;
+let bidderId = "";
 module.exports = function(app, server){
     let io = socketIo.listen(server);
 //Socket code for bidding
@@ -15,17 +16,13 @@ module.exports = function(app, server){
 //Get highest bid and compare with current if current is more replace in DB 
           if((data.bidAmount > highestBid) && (data.bidAmount > data.minBidAmount)){
             highestBid = data.bidAmount;
-            productsModel.findOne({'_id': data.productId}, (err, docs) => {
+            bidderId = data.bidderId;
+            productsModel.findByIdAndUpdate(data.productId,{$set:{'maxBidAmount':highestBid,'bidderId':bidderId}}, (err, docs) => {
                 if(err){
                     throw err;
-                }if(docs){
-                    if(docs.IsBidCompleted === false){
-                        docs.maxBidAmount = highestBid;
-                        docs.bidderId = data.bidderId;
-                    docs.save((err, updatedDocs) => {
-                        if(err)
-                            throw err;
-                    })}
+                }
+                if(docs){
+                    //Do Nothing
                 }
             })
           }         
