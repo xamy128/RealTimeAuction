@@ -21,6 +21,7 @@ router.post('/', function(req, res, next) {
              else
              req.session.userId  = updatedDocs._id;
              req.session.userRole = updatedDocs.userRole;
+             res.locals.IsLoggedin = !!req.session.userId;
 
             res.render(path.join(__dirname,'./../views/userProfile.pug'), { 
                 firstName: updatedDocs.firstName,
