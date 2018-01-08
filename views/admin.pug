@@ -19,21 +19,21 @@ block content
                     br
                     form#searchProduct(action='/searchProduct', method='post')
                         label(for='team_name') Product name
-                        input#product_name(type='text', name='productName', value=' ')
+                        input#product_name(type='text', name='productName', value='')
                         input(type='submit', value='search')
                         #result
                     br
                     br
                     form#userProfile(action='/userProfile', method='post')
                         label(for='team_name') Bidder First name
-                        input#team_name(type='text', name='userName', value=' ')
+                        input#team_name(type='text', name='userName', value='')
                         input(type='submit', value='search')
                         #UserResult
                     br
                     br
                     form#SuserProfile(action='/userProfile', method='post')
                         label(for='team_name') Supplier First name
-                        input#team_name(type='text', name='userName', value=' ')
+                        input#team_name(type='text', name='userName', value='')
                         input(type='submit', value='search')
                         #SUserResult
                 .col
