@@ -61,12 +61,14 @@ app.use(function(req, res, next){
         
         const isLoggedin= !!userId; //true //=>for test
         const isSupplier= (userRole)? userRole.toUpperCase() !=='BIDDER': false;
+        const isnotAdmin= (userRole)? userRole.toUpperCase() !=='ADMIN': false;
 
 // redirect to login page if it's not logged in
     if (!isLoggedin){
         res.redirect('/');
         return;
     }
+    res.locals.IsNotAdmin= isnotAdmin;
     res.locals.IsSupplier= isSupplier;
     res.locals.IsLoggedin = isLoggedin;
     next();    

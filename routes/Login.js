@@ -23,6 +23,8 @@ router.post('/', function(req, res, next) {
                 req.session.userId  = user._id;
                 req.session.userRole = user.userRole;
                 if (user.userRole === 'admin') {
+                    const isLoggedin= !!req.session.userId;
+                    res.locals.IsLoggedin = isLoggedin;
                     res.render('admin', {title: 'Welcome admin'});
                 }
                 //if User is not Admin Route to Dashboard

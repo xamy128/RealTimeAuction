@@ -23,14 +23,15 @@ html
         #login-icon
           i.fa.fa-user-circle-o.fa-3x
         ul#menu
-          if IsSupplier
+          if IsNotAdmin
+            if IsSupplier
+              li
+                a(href='/myProducts')="My Products"
+            else
+              li
+                a(href='/myProducts')="My Bids"
             li
-              a(href='/myProducts')="My Products"
-          else
-            li
-              a(href='/myProducts')="My Bids"
-          li
-            a(href='/users')="Edit Profile"
+              a(href='/users')="Edit Profile"
           li
             a(href='/logout')="Logout"
     block content
