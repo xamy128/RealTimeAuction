@@ -22,6 +22,7 @@ router.post('/', function(req, res, next) {
             }else{
                 req.session.userId  = user._id;
                 req.session.userRole = user.userRole;
+                req.session.firstName = user.firstName;
                 if (user.userRole === 'admin') {
                     const isLoggedin= !!req.session.userId;
                     res.locals.IsLoggedin = isLoggedin;

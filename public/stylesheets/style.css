@@ -115,7 +115,18 @@ a {
   margin-bottom: 0px;
   font-size: 12px;
 }
-
+#user {
+  position: absolute;
+  right: 60px;
+  top: 5px;
+  border-radius: 6px;
+  padding: 10px;
+  list-style: none;
+}
+#user p {
+  color: white;
+  font-size: 20px;
+}
 #login-icon i{
   color: white;
   position: absolute;

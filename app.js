@@ -58,7 +58,7 @@ app.use('/signup', signup);
 app.use(function(req, res, next){
         const userId=req.session.userId;
         const userRole=req.session.userRole;
-        
+        const userName = req.session.firstName;
         const isLoggedin= !!userId; //true //=>for test
         const isSupplier= (userRole)? userRole.toUpperCase() !=='BIDDER': false;
         const isnotAdmin= (userRole)? userRole.toUpperCase() !=='ADMIN': false;
@@ -71,6 +71,7 @@ app.use(function(req, res, next){
     res.locals.IsNotAdmin= isnotAdmin;
     res.locals.IsSupplier= isSupplier;
     res.locals.IsLoggedin = isLoggedin;
+    res.locals.UserName = userName;
     next();    
 });
 
