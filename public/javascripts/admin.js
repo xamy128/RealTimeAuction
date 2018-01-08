@@ -19,7 +19,7 @@ $(document).ready(function  () {
             else
             if(data.result === "t"){
                 //window.location.assign("/admin/searchProduct/")
-                $("#result").html('Prodcut is exist : ' + data.ProductName + '<a href=/GoToDetails?id='+data.Id+'> click here for details </a>');
+                $("#result").html('Prodcut exists : ' + data.ProductName + '<a href=/GoToDetails?id='+data.Id+'> click here for details </a>');
             }
             console.log(data);
         });
@@ -36,8 +36,8 @@ $(document).ready(function  () {
             else
             if(data.result === "t"){
                 //window.location.assign("/admin/searchProduct/")
-                $("#UserResult").html('User is exist : ' + data.UserName + '<a href=/GoToUserDetails?id='+data.Id+'> click here for details </a>');
-                //$("#UserResult").html('User is exist : ' + data.UserName + '<form action="GoToUserDetails" method="POST"><input type="Submit" value="'+ data.Id +'"/>click here</form>');
+                $("#UserResult").html('User exists : ' + data.UserName + '<a href=/GoToUserDetails?id='+data.Id+'> click here for details </a>');
+
             }
             console.log(data);
         });
@@ -54,7 +54,7 @@ $(document).ready(function  () {
             else
             if(data.result === "t"){
                 //window.location.assign("/admin/searchProduct/")
-                $("#SUserResult").html('User is exist : ' + data.UserName + '<a href=/GoToUserDetails?id='+data.Id+'> click here for details </a>');
+                $("#SUserResult").html('User exists : ' + data.UserName + '<a href=/GoToUserDetails?id='+data.Id+'> click here for details </a>');
             }
             console.log(data);
         });
