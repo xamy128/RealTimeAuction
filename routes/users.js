@@ -22,13 +22,23 @@ router.get('/', function(req, res, next) {
             throw err;
         }
         if(docs){
+            //If user role is admin he should be able to change email and role
+            if(req.session.userRole.toUpperCase() === "ADMIN"){
+                res.render(path.join(__dirname,'./../views/editUserAdmin.pug'), {
+                    firstName: docs.firstName,
+                    lastName: docs.lastName,
+                    email: docs.email,
+                    userRole: docs.userRole,
+                });
+
+            }
                 res.render(path.join(__dirname,'./../views/editUser.pug'), { 
                     firstName: docs.firstName,
                     lastName: docs.lastName,
                     email: docs.email,
                     userRole: docs.userRole,
                 });
-            
+
         }else{
             res.redirect('/*');
         }
