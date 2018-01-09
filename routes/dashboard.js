@@ -46,7 +46,8 @@ function current(cb) {
             cb(productList);
         });
 }
-
+/*In this function we have tree nested call back functions because
+at the rendering time of the dashboard all future, past and current product should be available*/
 const callAll = function (cb) {
     future((FutureProductList) => {
         current((CurrentProductList) => {

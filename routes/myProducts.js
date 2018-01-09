@@ -1,3 +1,7 @@
+/**
+ * @file based on the user role, show its products/bids
+ * @author F. Rahmati
+ */
 const express = require('express');
 const productsModel = require('../server/models/productModel');
 const router = express.Router();
