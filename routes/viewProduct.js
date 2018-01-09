@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
                         ProductImage: baseURL+docs.image,
                         ProductBidStartDate: docs.bidStartDate,
                         ProductBidEndDate : docs.bidEndDate,
-                        MinBidAmount: docs.minPrice,
+                        MinBidAmount: (docs.maxBidAmount >docs.minPrice) ? docs.maxBidAmount : docs.minPrice,
                         ProductId: productId,
                         UserRole : req.session.userRole,
                         BidderId: req.session.userId
