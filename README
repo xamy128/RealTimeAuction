@@ -1,6 +1,100 @@
-### RealTime Auction
+RealTime Auction
 
-## Build
+This is an online bidding website:
+
+Prerequisites:
+1. Download the build from GitHub: https://github.com/xamy128/RealTimeAuction
+2. Insatll node.js and NPM
+3. Have an IDE installed: webstorm/visual studio
+4. DataBase: We are using mlab and note that in the FH network mlab wont work. So use some other WiFi network.
+
+Run:
+1. Open the IDE and load the project from the path you have dowloaded the build.
+2. Run 'npm install all'
+2. Open the terminal of the IDE and run "nodemon app.js"
+
+Usage:
+1. Goto any browser and type "localhost:3000" in the url
+2. SignUp as new user:
+    2.1. Click on the "signup".
+       Expected output: You will see the blank fields for First Name, Last Name, Email, Password and confirm password.
+    2.2. Fill up all fields correctly and click on "Register".
+       Expected output: If any of the fields are incorrect it will throw error, else will be redirected the user page
+    2.3. Click on "Edit".
+       Expected output: Can edit the user details(the email and user role can not be edited, need to login as admin for this)
+    2.4. Click on "Save".
+       Expected output: Will be redirected to user page as in step 2.
+    2.5. Click on "Delete".
+       Expected output: The user will be deleted and page will redirect to the login page.
+
+
+3. Login as admin:
+    3.1. Login using admin credentials- username:'admin.realtimeauction@gmail.com', password: 'admin'.
+       Expected output:Login should be successful to the admin home page
+    3.2. You will see three search bars for products, bidder and supplier
+    3.3. Enter a product name and click on search.
+       Expected output: If it is a valid product(the product should be there in the Db) you will get a "view details" option
+              : If it is a deleted product, there will be pop-up saying "the product is deleted"
+              : If it is an invalid product, there will be pop-up saying "the product does not exist"
+    3.4. If you click on "view details".
+       Expected output:you will be able to see the product with the name, image, bid time, an edit and a deleted button.
+        a. If you click on "edit".
+           Expected output: you will be to see the product details fields which can be edited.
+        b. Click "cancel" or "save".
+           Expected output: will be redirected to the admin home page. And the changes will be saved.
+        c. If you click "delete".
+           Expected output: The product will be deleted and redirected to the admin home page.
+    3.5. Enter a bidder or supplier first names.
+       Expected output: Same as in step 3. If a bidder is searched for supplier field pop-up will say "User is not a bidder".
+    3.6. If you click on "view details"
+       Expected output: The edit and delete options of the user will be available, here the userRole and email can also be edited.
+    3.7. Click on the user icon at right top.
+       Expected output:You will get the logout option to redirect to the login page.
+
+4. Login as a bidder.
+    4.1. Type the email and password of a user created as bidder.
+       Expected output:Will be logged into the Dashboard.
+    4.2. Click on the + button to view the products in different stages of bidding.
+       Expected output: Will be able to see the products if any are there.
+    4.4. Click on any product.
+       Expected output: Will be able to add comments and replies.
+    4.5. Click product under "Current Products".
+       Expected output: Will be able to add a new price(Bid) for the product.
+       a. Open another tab and login as another bidder. Repeat the previous step with a higher price.
+       Expected output: You can see that on both the tabs the highest price will be displayed.
+    4.3. Click on the user icon at right top.
+       Expected output: Will be able to see "My Bids", "Edit Profile" and "Logout".
+       a. Click "My Bids".
+       Expected output: Will be able to see the products the bidder has bidded for.
+       b. Click "Edit Profile".
+       Expected output: Will be redirected to user page same as 2.2.
+       c. Click "Logout".
+       Expected output: Will be redirected to the login page.
+
+
+5. Login as a supplier.
+    5.1. Type the email and password of a user created as supplier.
+       Expected output: Will be logged in to dashboard with an additional option "Add New Product"
+    5.2. Click on "Add New Product".
+       Expected output: You can fill in the details of the product including image.
+       a. Click on "Save".
+       Expected output: Wont be able to save if any field is left empty.
+       b. Click on "Cancel".
+       Expected output: Will be redirected to dashboard.
+    5.3. Unlike bidder, if supplier clicks in current product he will not be able to bid for it.
+    5.4. Click on the user icon at right top.
+       Expected output: Will be able to see "My Products", "Edit Profile" and "Logout".
+       a. Click on "My Products".
+       Expected output: Will be able to see all the products created by the bidder.
+       b. Click on any product.
+       Expected output: Will be able to edit or delete the product same as 3.4.
+
+
+
+
+
+
+
 
 ```
 npm install
